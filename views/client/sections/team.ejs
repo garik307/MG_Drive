@@ -1,0 +1,66 @@
+<% if(teamMembers.length) { %>
+<section id="team" class="team py-5 team-section-bg">
+  <div class="container">
+
+    <!-- Header -->
+    <div class="team-header text-center mx-auto mb-5">
+      <span class="badge bg-secondary mb-3">
+        <i class="fas fa-users me-1"></i>
+        Ծանոթացեք մեր փորձառու դասախոսների հետ
+      </span>
+      <h2 class="display-4 fw-bold mb-3">
+        Ծանոթացեք <span class="text-gradient">մեր թիմին</span>
+      </h2>
+      <p class="text-muted">Մեր հավաստագրված մարզիչները տարիների փորձ և անվտանգ վարորդական կրթության հանդեպ կիրք են բերում։ Յուրաքանչյուր մարզիչ հատուկ պատրաստված է երիտասարդ վարորդների հետ աշխատելու համար։</p>
+    </div>
+
+    <!-- Instructors Grid -->
+    <div class="row g-4 mb-5 justify-content-center">
+      <!-- Instructor Item -->
+      <% teamMembers.forEach(user => { %>
+         <%
+            let image = null;
+            let firstLetter = user.name ? user.name.charAt(0).toUpperCase() : '?';
+            
+            // Calculate color index based on name
+            let charCode = user.name ? user.name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) : 0;
+            let colorIndex = charCode % 9; 
+
+            if(user && user.files) {
+                let foundImage = user.files.find(file => file.name_used === "user_img");
+                if (foundImage) {
+                    image = `./images/users/large/${foundImage.name}.${foundImage.ext}`;
+                }
+            }
+        %>
+        <div class="col-sm-6 col-lg-4 scroll_animate mb-2">
+          <div class="card border-0 h-100 shadow-sm rounded-4 overflow-hidden team-card position-relative bg-team-<%- colorIndex %>">
+            <% if (image) { %>
+            <img
+              src="<%- image %>"
+              class="card-img-top" alt="<%- user.name %>">
+            <% } else { %>
+            <div class="card-img-top d-flex justify-content-center align-items-center fallback-img">
+                <span class="text-white fw-bold user-select-none fallback-letter"><%- firstLetter %></span>
+            </div>
+            <% } %>
+            
+            <div class="card-overlay position-absolute bottom-0 start-0 w-100 p-4 text-start">
+              <h5 class="text-white fw-bold mb-1"><%- user.name %></h5>
+              <p class="text-primary mb-0 small"><%- user.specialization || 'Հրահանգիչ' %></p>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="text-center mt-5">
+            <p class="text-muted mb-4">Պատրա՞ստ եք սովորել մեր փորձառու մարզիչներից։</p>
+            <div class="d-flex flex-column flex-sm-row justify-content-center gap-3 mb-3">
+                <a href="#contact" class="flash-btn outline text-decoration-none">Պլանավորեք հանդիպում</a>
+            </div>
+        </div>
+    </div>
+</section>
+<% } %>

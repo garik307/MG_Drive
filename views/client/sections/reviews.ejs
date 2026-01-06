@@ -1,0 +1,209 @@
+<% 
+  var totalReviews = Array.isArray(reviews) ? reviews.length : 0;
+  var totalRating = 0;
+  if (totalReviews) {
+    for (var i = 0; i < reviews.length; i++) {
+      totalRating += Number(reviews[i].rating) || 0;
+    }
+  }
+  var averageRating = totalReviews ? (totalRating / totalReviews).toFixed(1) : 0;
+
+  var starCounts = [0,0,0,0,0];
+  if (totalReviews) {
+    for (var j = 0; j < reviews.length; j++) {
+      var r = reviews[j];
+      var s = Math.round(Number(r.rating) || 0);
+      if (s < 1) s = 1; if (s > 5) s = 5;
+      starCounts[s - 1]++;
+    }
+  }
+  function percentFor(star) {
+    var idx = star - 1;
+    return totalReviews ? Math.round((starCounts[idx] / totalReviews) * 100) : 0;
+  }
+%>
+
+<% if (Array.isArray(reviews) && reviews.length > 0) { %>
+<section class="user_reviews" id="reviews">
+    <div class="container">
+        <!-- header -->
+        <div class="row">
+            <div class="col-lg-12 text-white mb-5 d-sm-flex justify-content-between align-items-center d-block">
+                <h2 class="display-5 fw-bold mb-3 text-dark">Կարծիքներ</h2>
+                <hr>
+            </div>
+        </div>
+        <!-- summary + distribution -->
+        <div class="row mb-5">
+            <div class="col-lg-4 mb-4 mb-lg-0">
+                <div
+                    class="card border-0 bg-primary bg-opacity-10 h-100 d-flex flex-column justify-content-center align-items-center rounded-4 p-5">
+                    <h3 class="display-2 fw-bolder text-dark mb-0"><%= averageRating %></h3>
+                    <div class="d-flex gap-2 text-warning fs-4 my-3">
+                        <% for(var i=0; i<5; i++) { %>
+                            <% if (i < Math.round(averageRating)) { %>
+                                <i class="fa-solid fa-star"></i>
+                            <% } else { %>
+                                <i class="fa-regular fa-star text-muted opacity-25"></i>
+                            <% } %>
+                        <% } %>
+                    </div>
+                    <p class="text-dark mb-0 fw-medium fs-5"><%= totalReviews %> կարծիք</p>
+                </div>
+            </div>
+            <div class="col-lg-8 ps-lg-5">
+                <div class="d-flex flex-column justify-content-center h-100">
+                    <% for(var star=5; star>=1; star--) {  %>
+                    <%
+                        var count = starCounts[star-1];
+                        var percent = percentFor(star);
+                    %>
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="d-flex align-items-center gap-2 text-muted fw-bold me-3 rating-label">
+                            <span><%= star %></span>
+                            <i class="fa-solid fa-star text-warning small"></i>
+                        </div>
+                        <div class="progress flex-grow-1 rounded-pill rating-bar">
+                            <div class="progress-bar rounded-pill bg-primary review-progress-bar" role="progressbar"
+                                data-width="<%= percent %>" aria-valuenow="<%= percent %>" aria-valuemin="0"
+                                aria-valuemax="100">
+                            </div>
+                        </div>
+                        <span class="text-muted fw-bold ms-3 text-end rating-count"><%= count %></span>
+                    </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-5 scroll_animate">
+            <div class="col-md-4 mb-3">
+                <div class="item card border-0 shadow-sm rounded-4 p-4 h-100 transition-hover">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div class="icon-box bg-primary bg-opacity-10 text-primary rounded-3 p-3">
+                            <i class="fa-solid fa-chart-pie fs-4"></i>
+                        </div>
+                        <div class="text-end">
+                            <div class="fw-bolder fs-3 text-dark"><%= averageRating %></div>
+                            <div class="text-warning small">
+                                <% for(var i=0; i<Math.round(averageRating); i++) { %>
+                                    <i class="fa-solid fa-star"></i>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold text-dark mb-1">Ընդհանուր</h5>
+                        <p class="small text-muted mb-0">Ուսանողների միջին վարկանիշը</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="item card border-0 shadow-sm rounded-4 p-4 h-100 transition-hover">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div class="icon-box bg-success bg-opacity-10 text-success rounded-3 p-3">
+                            <i class="fa-solid fa-chalkboard-user fs-4"></i>
+                        </div>
+                        <div class="text-end">
+                            <div class="fw-bolder fs-3 text-dark">4.8</div>
+                            <div class="text-warning small">
+                                <% for(var i=0; i<4; i++) { %>
+                                    <i class="fa-solid fa-star"></i>
+                                <% } %>
+                                <i class="fa-solid fa-star-half-stroke"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold text-dark mb-1">Դասավանդում</h5>
+                        <p class="small text-muted mb-0">Որակ, մեթոդաբանություն, պարզություն</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="item card border-0 shadow-sm rounded-4 p-4 h-100 transition-hover">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div class="icon-box bg-info bg-opacity-10 text-info rounded-3 p-3">
+                            <i class="fa-solid fa-car fs-4"></i>
+                        </div>
+                        <div class="text-end">
+                            <div class="fw-bolder fs-3 text-dark">4.8</div>
+                            <div class="text-warning small">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold text-dark mb-1">Մեքենաներ</h5>
+                        <p class="small text-muted mb-0">Տեխնիկական վիճակ, մաքրություն</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="reviews-slider-container position-relative">
+            <div class="swiper reviews-swiper px-2 py-4">
+                <div class="swiper-wrapper mb-4">
+                    <% 
+                        let displayLimit = 15;
+                        let displayCount = Math.min(reviews.length, displayLimit);  
+                    %> 
+                    <% for(let ri = 0; ri < displayCount; ri++) { %>
+                        <% 
+                            var review = reviews[ri]; 
+                            var userImg = null;
+                            var reviewName = review.name || 'User';
+                            if (review.user && review.user.files && review.user.files.length > 0) {
+                                var imgFile = review.user.files.find(f => f.name_used === 'user_img') || review.user.files[0];
+                                if (imgFile) userImg = './images/users/large/' + imgFile.name + '.' + imgFile.ext;
+                            }
+                            
+                        %> 
+                    <div class="swiper-slide h-auto">
+                        <div class="user_review shadow-sm border p-4 card-radius h-100 bg-white">
+                            <div class="head mb-3 d-flex justify-content-between align-items-start">
+                                <div class="d-flex align-items-center gap-3">
+                                    <% if (userImg) { %>
+                                    <img src="<%= userImg %>" alt="<%= reviewName %>"
+                                        class="rounded-circle border border-2 border-white shadow-sm object-fit-cover user-avatar"
+                                        width="50" height="50">
+                                    <% } else { %>
+                                    <div
+                                        class="rounded-circle border border-2 border-white shadow-sm d-flex align-items-center justify-content-center user-avatar-placeholder">
+                                        <%= reviewName.charAt(0).toUpperCase() %>
+                                    </div>
+                                    <% } %>
+                                    <div>
+                                        <h3 class="name fw-bold mb-1 fs-6 text-dark"><%- reviewName %></h3>
+                                        <span class="date small text-muted d-block">
+                                            <%= new Date(review.createdAt || review.date).toLocaleDateString('hy-AM', { year: 'numeric', month: 'long', day: 'numeric' }) %>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="rating text-end">
+                                    <div class="d-flex align-items-center gap-1 text-warning small">
+                                        <span
+                                            class="fw-bold text-dark me-1"><%- Number(review.rating).toFixed(1) %></span>
+                                        <% for(var si=0; si<Math.round(Number(review.rating)); si++) { %>
+                                        <i class="fa-solid fa-star"></i>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="descr mb-0 text-muted small lh-lg">
+                                <%- review.comment.substring(0, 150) %>
+                                <% if(review.comment.length > 150){ %>...<% } %>
+                            </p>
+                        </div>
+                    </div>
+                    <% } %>
+                </div>
+            </div>
+            <div class="swiper-button-next custom-nav"></div>
+            <div class="swiper-button-prev custom-nav"></div>
+        </div>
+    </div>
+</section>
+<% } %>

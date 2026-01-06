@@ -1,0 +1,31 @@
+:root {
+  --color-primary: #444cf7;
+  --color-secondary: #F9F7F3;
+  --color-accent: #444cf7;
+  --color-dark: #2E2E2E;
+  --color-ligth: #fff;
+  --color-white: #FFFFFF;
+  --bacground-gradient: linear-gradient(to right, #444cf7, #1822e9);
+  --secondary-text: #a3aed0;
+}
+
+.text-primary {
+  color: var(--color-primary) !important;
+}
+
+.bg-primary {
+  background-color: rgba(68, 76, 247, var(--bs-bg-opacity, 1)) !important;
+}
+
+.text-gradient {
+  color: var(--color-primary) !important;
+}
+
+.bg-gradient {
+  background: var(--bacground-gradient) !important;
+}
+
+.custom-tooltip {
+  --bs-tooltip-bg: var(--color-primary);
+  --bs-tooltip-color: #fff;
+}

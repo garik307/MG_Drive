@@ -1,0 +1,159 @@
+<section id="contact" class="py-5 bg-light">
+     <div class="container">
+         <!-- Header -->
+        <div class="row">
+            <div class="col-lg-12 mb-3">
+                <h2 class="display-5 fw-bold mb-3">Կապ <span class="text-gradient">Մեզ Հետ</span></h2>
+    
+                <p class="lead text-title">Պատրաստ եք սկսել ձեր վարորդության ուղին? Կապվեք մեր վկայակոչված ուսուցիչների հետ և սկսեք անվտանգ, վստահ վարելու ճանապարհը։</p>
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Contact Form -->
+            <div class="col-lg-6">
+                <div class="card shadow-sm border-0 card-radius">
+                        <div class="card-body p-4">
+                            <h3 class="h4 fw-bold text-dark mb-3 d-flex align-items-center">Ուղարկեք մեզ
+                                հաղորդագրություն
+                            </h3>
+                            <p class="text-muted mb-5">Լրացրեք ստորև բերված ձևը, և ​​մենք կկապնվենք ձեզ հետ 24 ժամվա
+                                ընթացքում։</p>
+
+                            <form class="mb-5" action="/api/v1/contact/message" method="POST">
+                                <div class="row g-3">
+                                    <!-- name -->
+                                    <div class="col-md-6">
+                                            <label for="firstName" class="form-label">Անուն *</label>
+                                            <input type="text" name="name" class="form-control" id="firstName"
+                                                placeholder="Անուն" required>
+                                    </div>
+                                    <!-- lastName -->
+                                    <div class="col-md-6">
+                                            <label for="lastName" class="form-label">Ազգանուն *</label>
+                                            <input type="text" name="lastname" class="form-control" id="lastName"
+                                                placeholder="Ազգանուն" required>
+                                    </div>
+                                </div>
+                                <!-- email -->
+                                <div class="mt-3">
+                                    <label for="email" class="form-label">Էլ․ հասցե *</label>
+                                    <input type="email" class="form-control" name="email" id="email"
+                                            placeholder="manukyan@example.com" required>
+                                </div>
+                                <!-- phone -->
+                                <div class="mt-3">
+                                    <label for="phone" class="form-label">Հեռախոսահամար</label>
+                                    <input type="tel" name="phone" class="form-control" id="phone"
+                                            placeholder="(555) 123-4567">
+                                </div>
+                                <!-- subject -->
+                                <div class="mt-3">
+                                    <label for="subject" class="form-label">Subject *</label>
+                                    <input type="text" name="subject" class="form-control" id="subject"
+                                            placeholder="Դասընթացի հարցում, ժամանակացույցի կազմում և այլն:" required>
+                                </div>
+                                <!-- message -->
+                                <div class="mt-3">
+                                    <label for="message" class="form-label">Message *</label>
+                                    <textarea id="message" name="message" rows="5" class="form-control"
+                                            placeholder="Ասեք մեզ, թե ինչպես կարող ենք օգնել ձեզ..."
+                                            required></textarea>
+                                </div>
+
+                                <div class="mt-4 mb-4">
+                                    <button type="submit" class="flash-btn outline">
+                                            Ուղարկել նամակ
+                                    </button>
+                                </div>
+
+                                <p class="text-muted small mt-3 w-100">* Պարտադիր լրացման դաշտեր։ Մենք հարգում ենք
+                                    ձեր
+                                    գաղտնիությունը և երբեք չենք կիսվի ձեր տեղեկատվությամբ։</p>
+                            </form>
+                            <div class="card text-white bg-gradient bg-opacity-75 card-radius py-3">
+                                <div class="card-body text-center">
+                                    <h5 class="fw-semibold mb-2">Արտակարգ իրավիճակների կապ</h5>
+                                    <p class="mb-4 text-white-50">Աշխատանքային ժամերից դուրս անհետաձգելի հարցերի
+                                            համար</p>
+                                    <a href="tel:<%= contact?.phone %>" class="flash-btn">Զանգահարեք</a>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="col-lg-6 d-flex flex-column gap-4">
+                <!-- Example Info Card -->
+                <div class="mb-3">
+                        <div class="card border-start border-4 border-primary mb-3 scroll_animate">
+                            <div class="card-body d-flex align-items-center">
+                                <div
+                                    class="icon flex-shrink-0 bg-danger bg-opacity-10 text-primary rounded-3 d-flex align-items-center justify-content-center me-3">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div>
+                                    <h5 class="fw-semibold mb-1">Հեռախոս</h5>
+                                    <p class="mb-0 text-muted"><%= contact?.phone || '' %></p>
+                                    <p class="small text-muted mb-0">Երկուշաբթի-Ուրբաթ 9:00-18:00</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card border-start border-4 border-success mb-3 scroll_animate">
+                            <div class="card-body d-flex align-items-center">
+                                <div
+                                    class="icon flex-shrink-0 bg-success bg-opacity-10 text-success card-radius d-flex align-items-center justify-content-center me-3">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h5 class="fw-semibold mb-1">Էլ․ փոստ</h5>
+                                    <p class="mb-0 text-muted"><%= contact?.email || '' %></p>
+                                    <p class="small text-muted mb-0">Մենք պատասխանում ենք 24 ժամվա ընթացքում</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card border-start border-4 border-warning mb-3 scroll_animate">
+                            <div class="card-body d-flex align-items-center">
+                                <div
+                                    class="icon flex-shrink-0 bg-warning bg-opacity-10 text-warning rounded-3 d-flex align-items-center justify-content-center me-3">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div>
+                                    <h5 class="fw-semibold mb-1">Այցելեք մեզ</h5>
+                                    <p class="mb-0 text-muted"><%= contact?.address || '' %></p>
+                                    <p class="small text-muted mb-0">Անվճար կայանատեղի հասանելի է</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border-start border-3 border-info scroll_animate">
+                            <div class="card-body d-flex align-items-center">
+                                <div
+                                    class="icon flex-shrink-0 bg-info bg-opacity-10 text-warning rounded-3 d-flex align-items-center justify-content-center me-3">
+                                    <i class="fas fa-clock text-info"></i>
+                                </div>
+                                <div>
+                                    <h5 class="fw-semibold mb-1">Աշխատանքային Ժամեր</h5>
+                                    <p class="small text-muted mb-0">Երկ – Ուրբ: 08:00 – 20:00 Շաբաթ – Կիր: 09:00 –
+                                            18:00</p>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="fw-semibold text-dark mb-3"><i
+                                    class="bi bi-geo-alt-fill text-primary me-2"></i>Գտեք մեզ քարտեզի
+                                վրա</h5>
+                            <div class="ratio ratio-16x9 rounded-3">
+                                <!-- Replace with real Google Maps embed -->
+                                <%- contact?.mapsAddress || '' %>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+     </div>
+</section>

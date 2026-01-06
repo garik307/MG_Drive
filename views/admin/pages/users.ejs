@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+    <head><%- include('../parts/head.ejs') %></head>
+    <body>
+        <%- include('../parts/navbar.ejs') %>
+        <%- include('../parts/sidebar.ejs') %>
+        <%- include('../parts/alert') %>
+        <%- include('../parts/confirm') %>
+        <!-- Main Content -->
+        <main class="main-content">
+            <section id="users">
+                <div class="page-header">
+                    <div>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Վահանակ</a></li>
+                                <li class="breadcrumb-item active">Օգտվողներ</li>
+                            </ol>
+                        </nav>
+                        <h1 class="page-title">Օգտվողների & ուսանողների կառավարում</h1>
+                    </div>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                        <i class="bi bi-plus-circle me-2"></i>Ավելացնել նոր ուսանող
+                    </button>
+                </div>
+
+                <!-- Summary Cards -->
+                <div class="row g-4 mb-4">
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <div class="icon primary">
+                                <i class="bi bi-people"></i>
+                            </div>
+                            <div class="label">Ընդհանուր օգտվողներ</div>
+                            <div class="number"><%- (typeof pagination !== 'undefined' && pagination.totalItems) ? pagination.totalItems : (users.length || 0) %></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <div class="icon success">
+                                <i class="bi bi-person-check"></i>
+                            </div>
+                            <div class="label">Ուսանողներ</div>
+                            <div class="number"><%= studentCount.toLocaleString() %></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <div class="icon warning">
+                                <i class="bi bi-shield-check"></i>
+                            </div>
+                            <div class="label">Թիմի անդամներ</div>
+                            <div class="number"><%= teamCount.toLocaleString() %></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Search and Filter Bar -->
+                <div class="filter-row mb-4">
+                    <div class="row g-3">
+                        <div class="col-md-8">
+                            <label class="form-label">Փնտրել</label>
+                            <input type="text" class="form-control" id="searchInput" placeholder="Փնտրել ուսանող…">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Կարգավիճակ</label>
+                            <select class="form-select" id="filterStatus">
+                                <option value="">Բոլորը</option>
+                                <option value="user">Օգտվող</option>
+                                <option value="student">Ուսանող</option>
+                                <option value="team-member">Թիմի անդամ</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Users Table -->
+                <div class="card">
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Նկարը</th>
+                                        <th>Անուն Ազգանուն</th>
+                                        <th>Ռոլ</th>
+                                        <th>Հեռախոս</th>
+                                        <th>Էլ. փոստ</th>
+                                        <th>Վճարված</th>
+                                        <th>Գրանցման ամսաթիվ</th>
+                                        <th>Կարգավիճակ</th>
+                                        <th>Գործողություններ</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="usersTableBody">
+                                    <%- include('../partials/users_table_body.ejs') %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="paginationContainer">
+                        <%- include('../partials/pagination.ejs') %>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Add User Modal -->
+        <div class="modal fade" id="addUserModal" tabindex="-1">
+            <div class="modal-dialog">
+                <form method="post" action="/api/v1/user/signUpByAdmin" enctype="multipart/form-data" id="addUserForm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Ավելացնել նոր ուսանող</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Անուն</label>
+                                        <input type="text" name="name" class="form-control validate" placeholder="Անունը">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Ազգանուն</label>
+                                        <input type="text" name="last_name" class="form-control validate" placeholder="ազգանունը">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Հեռախոս</label>
+                                    <input type="tel" name="phone" class="form-control validate" placeholder="091234567">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Էլ. փոստ</label>
+                                    <input type="email" name="email" class="form-control validate" placeholder="example@email.com">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Գաղտնաբառ</label>
+                                    <input type="password" name="password" class="form-control validate" placeholder="Գաղտնաբառ">
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-12">
+                                        <label class="form-label">Կարգավիճակ</label>
+                                        <select name="role" class="form-select validate">
+                                            <option value="user">Օգտվող</option>
+                                            <option value="student">Ուսանող</option>
+                                            <option value="team-member">Թիմի անդամ</option>
+                                        </select>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Չեղարկել</button>
+                            <button type="submit" class="btn btn-primary" form="addUserForm">Գրանցել ուսանողին</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Edit User Role Modal -->
+        <div class="modal fade" id="editUserRoleModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Խմբագրել օգտվողի կարգավիճակ</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editUserRoleForm">
+                            <input type="hidden" id="editUserId">
+                            <div class="mb-3">
+                                <label class="form-label">Անուն Ազգանուն</label>
+                                <input type="text" class="form-control" id="editUserName">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Էլ. փոստ</label>
+                                <input type="email" class="form-control" id="editUserEmail">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Ռոլ (Կարգավիճակ)</label>
+                                <select class="form-select" id="editUserRole" required>
+                                    <option value="user">Օգտվող</option>
+                                    <option value="student">Ուսանող</option>
+                                    <option value="teacher">Ուսուցիչ</option>
+                                    <option value="admin">Ադմին</option>
+                                </select>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="editUserIsPaid">
+                                <label class="form-check-label" for="editUserIsPaid">Վճարված է (PRO)</label>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Չեղարկել</button>
+                        <button type="button" class="btn btn-primary" id="saveUserRoleBtn">Պահպանել</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <%- include('../parts/scripts.ejs') %>
+    </body>
+</html>

@@ -1,0 +1,116 @@
+<div class="card rounded rounded-4 mb-4">
+    <div class="card-body">
+        <form action="/api/v1/user/updateme" method="patch" enctype="multipart/form-data" class="form-user-update manual-submit">
+            <div class="row mb-3">
+                <div class="col-sm-3">
+                    <h6 class="mb-0">Անուն</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    <input type="text" name="name" class="form-control" value="<%= user.name || '' %>">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-3">
+                    <h6 class="mb-0">Էլ․ փոստ</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    <input type="email" name="email" class="form-control" value="<%= user.email || '' %>">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-3">
+                    <h6 class="mb-0">Հեռախոս</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    <input type="text" name="phone" class="form-control" value="<%= user.phone || '' %>">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-3">
+                    <h6 class="mb-0">Հասցե</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    <input type="text" name="address" class="form-control" value="<%= user.address || '' %>">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-9 text-secondary">
+                    <button type="submit" class="btn btn-primary px-4 text-white">Պահպանել</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card rounded rounded-4 p-3">
+    <div class="comment-box">
+        <% if(user.role === 'student') { %>
+          <% if(!hasReview) { %>
+            <form id="reviewForm" data-has-review="0">
+                <input type="hidden" name="user_id" value="<%- user.id %>">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4 class="fw-bold text-start">Թողնել մեկնաբանություն</h4>
+                    <div class="rating text-start">
+                        <input type="radio" name="rating" value="5" id="5">
+                        <label for="5">☆</label>
+                        <input type="radio" name="rating" value="4" id="4">
+                        <label for="4">☆</label>
+                        <input type="radio" name="rating" value="3" id="3">
+                        <label for="3">☆</label>
+                        <input type="radio" name="rating" value="2" id="2">
+                        <label for="2">☆</label>
+                        <input type="radio" name="rating" value="1" id="1">
+                        <label for="1">☆</label>
+                    </div>
+                </div>
+                <textarea class="form-control border-0 mb-3" name="comment" placeholder="Գրեք Ձեր մեկնաբանությունը այստեղ․․․"
+                    rows="4"></textarea>
+                <button type="button" id="reviewSubmitBtn" class="btn text-white d-flex align-items-center gap-2">Թողնել կարծիք</button>
+            </form>
+          <% } else { %>
+            <%
+              let image = { img: "../client/images/no-image-profile.jpg" };
+              if (user && user.files) {
+                const f = user.files.find(file => file.name_used === "user_img");
+                if (f) image.img = `../images/users/large/${f.name}.${f.ext}`;
+              }
+              const addedDate = myReview?.date ? new Date(myReview.date) : null;
+              const addedStr = addedDate ? addedDate.toLocaleString('hy-AM', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }) : '';
+            %>
+            <div class="mb-2 text-start">
+              <h5 class="fw-semibold mb-1">Դուք արդեն մեկնաբանություն թողել եք</h5>
+              <% if (addedStr) { %>
+                <p class="text-muted small mb-0">Ավելացվել է՝ <%= addedStr %></p>
+              <% } %>
+            </div>
+            <div class="user_review shadow p-4 rounded-4 text-start">
+                <div class="identity">
+                    <img src="<%- image.img %>" alt="User Image" class="avatar" width="52" height="52">
+                    <div class="meta">
+                        <h5 class="name fw-bold mb-1"><%- myReview.name %></h5>
+                        <div class="rating">
+                            <div class="stars">
+                                <% for(let i=0; i<5; i++) { %>
+                                    <% if (i < Math.round(myReview.rating)) { %>
+                                        <span>★</span>
+                                    <% } else { %>
+                                        <span class="inactive">★</span>
+                                    <% } %>
+                                <% } %>
+                            </div>
+                            <span class="value"><%- myReview.rating %></span>
+                        </div>
+                    </div>
+                </div>
+                <p class="descr mb-0"><%- (myReview.comment || '') %></p>
+            </div>
+          <% } %>
+        <% } else { %>
+            <div class="text-start">
+                <h5 class="fw-semibold mb-2">Մեկնաբանություն</h5>
+                <p class="text-secondary mb-0">Մեկնաբանություն թողնելու հնարավորությունը հասանելի է ուսանողներին։</p>
+            </div>
+        <% } %>
+    </div>
+</div>

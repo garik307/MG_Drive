@@ -1,0 +1,33 @@
+<div class="img-cropper-container mb-3" data-crop-wrapper="<%= cropId %>">
+    <input type="file" class="d-none" id="<%= cropId %>_file" name="<%= filename %>" accept="image/*">
+    <button type="button" class="btn btn-primary d-none" data-crop-select="<%= cropId %>">Ընտրեք նկարը</button>
+</div>
+
+<div class="modal" id="<%= cropId %>_modal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Պատկերի կտրում</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="img-container" style="max-height:70vh; overflow:hidden">
+                    <img id="<%= cropId %>_img" src="">
+                </div>
+            </div>
+            <div class="modal-footer border-0 justify-content-center gap-2 pb-4">
+                <button type="button" class="text-dark rounded-pill px-4" data-crop-reselect="<%= cropId %>">
+                    <i class="fa-solid fa-image me-2"></i>Նոր նկար
+                </button>
+
+                <button type="button" class="text-dark rounded-pill px-4" data-crop-delete="<%= cropId %>">
+                    <i class="fa-solid fa-trash me-2"></i>Ջնջել նկարը
+                </button>
+
+                <button type="button" class="text-dark rounded-pill px-4" data-crop-save="<%= cropId %>">
+                    <i class="fa-solid fa-crop-simple me-2"></i>Կտրել Պահպանել
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

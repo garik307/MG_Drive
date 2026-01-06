@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+    <head><%- include('../parts/head.ejs') %></head>
+    <body>
+        <%- include('../parts/navbar.ejs') %>
+        <%- include('../parts/sidebar.ejs') %>
+        <%- include('../parts/alert') %>
+        <%- include('../parts/confirm') %>
+        <!-- Main Content -->
+        <main class="main-content">
+            <section id="faq">
+            <div class="page-header">
+                <div>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/admin">Վահանակ</a></li>
+                            <li class="breadcrumb-item active">Հաճախ տրվող հարցեր</li>
+                        </ol>
+                    </nav>
+                    <h1 class="page-title">Հաճախ տրվող հարցեր</h1>
+                </div>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addFaqModal">
+                    <i class="bi bi-plus-circle me-2"></i>Ավելացնել նոր հարց
+                </button>
+            </div>
+
+            <!-- FAQ List -->
+            <div id="faqList" class="faq-list">
+                <% if (Array.isArray(faqs)) { %>
+                    <% faqs.forEach(function(f){ %>
+                        <div class="faq-item" data-id="<%= f.id %>">
+                            <div class="faq-question">
+                                <p><%= f.question %></p>
+                                <div class="faq-actions">
+                                    <button class="btn btn-sm btn-outline-primary" data-act="edit" data-id="<%= f.id %>" data-question="<%= f.question %>" data-answer="<%= f.answer %>">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <form action="/api/v1/faq/<%- f.id %>" method="delete">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger" data-act="del" data-id="<%= f.id %>">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="faq-answer"><%= f.answer %></div>
+                        </div>
+                    <% }) %>
+                <% } %>
+            </div>
+            </section>
+        </main>
+
+        <!-- Add FAQ Modal -->
+        <div class="modal fade" id="addFaqModal" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <form action="/api/v1/faq" method="POST" id="faqForm">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Ավելացնել նոր հարց</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label">Հարց</label>
+                                <input type="text" name="title" class="form-control" id="faqQuestion" placeholder="Մուտքագրեք հարցը" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Պատասխան</label>
+                                <textarea class="form-control" name="text" id="faqAnswer" rows="5" placeholder="Մուտքագրեք պատասխանը" required></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Չեղարկել</button>
+                            <button type="submit" class="btn btn-primary" id="saveFaqBtn">Ավելացնել</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit FAQ Modal -->
+        <div class="modal fade" id="editFaqModal" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Խմբագրել հարց</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editFaqForm">
+                            <input type="hidden" id="editFaqId">
+                            <div class="mb-3">
+                                <label class="form-label">Հարց</label>
+                                <input type="text" class="form-control" id="editFaqQuestion" placeholder="Մուտքագրեք հարցը" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Պատասխան</label>
+                                <textarea class="form-control" id="editFaqAnswer" rows="5" placeholder="Մուտքագրեք պատասխանը" required></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Չեղարկել</button>
+                        <button type="button" class="btn btn-primary" id="updateFaqBtn">Թարմացնել</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%- include('../parts/scripts.ejs') %>
+    </body>
+</html>

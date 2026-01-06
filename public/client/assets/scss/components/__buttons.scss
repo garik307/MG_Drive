@@ -1,0 +1,384 @@
+@mixin buttonStyle($paddingY: 12px, $paddingX: 35px) {
+  background-image: linear-gradient(to right, #444cf7 0%, #646cff 51%, #444cf7 100%);
+  @include shadow ();
+  padding: $paddingY $paddingX;
+  background-size: 200% auto;
+  color: var(--light-background);
+  border-radius: 10px;
+  display: inline-block;
+  transition: all .3s ease-in-out;
+  width: max-content;
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:hover {
+    background-position: right center;
+    color: var(--light-background);
+    text-decoration: none;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+/* From Uiverse.io by mrhyddenn */
+@keyframes sh02 {
+  from {
+    opacity: 0;
+    left: 0%;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    left: 100%;
+  }
+}
+
+.login-btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 45px;
+  height: 45px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition-duration: 0.3s;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+  background: var(--color-primary);
+
+  .sign {
+    width: 100%;
+    transition-duration: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      width: 17px;
+
+      path {
+        fill: white;
+      }
+    }
+  }
+
+  /* text */
+  .text {
+    position: absolute;
+    right: 0%;
+    width: 0%;
+    opacity: 0;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    transition-duration: 0.3s;
+  }
+
+  /* hover effect */
+  &:hover {
+    width: 125px;
+    border-radius: 40px;
+    transition-duration: 0.3s;
+
+    .sign {
+      width: 30%;
+      transition-duration: 0.3s;
+      padding-left: 20px;
+    }
+
+    .text {
+      opacity: 1;
+      width: 70%;
+      transition-duration: 0.3s;
+      padding-right: 10px;
+    }
+  }
+
+  /* active effect */
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
+
+.social-icon {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: transparent;
+  position: relative;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  .svgContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    backdrop-filter: blur(4px);
+    letter-spacing: 0.8px;
+    border-radius: 5px;
+    transition: all 0.3s;
+  }
+
+  .BG {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: var(--color-primary);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f09433', endColorstr='#bc1888', GradientType=1);
+    z-index: -1;
+    border-radius: 5px;
+    pointer-events: none;
+    transition: all 0.3s;
+  }
+
+  &:hover {
+    .BG {
+      transform: rotate(35deg);
+      transform-origin: bottom;
+    }
+
+    .svgContainer {
+      background-color: rgba(156, 156, 156, 0.466);
+    }
+  }
+}
+
+
+.flash-btn {
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 7px;
+  border: 1px solid #999;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 2px;
+  background: transparent;
+  color: #fff;
+  overflow: hidden;
+  box-shadow: 0 0 0 0 transparent;
+  -webkit-transition: all 0.2s ease-in;
+  -moz-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+  width: max-content;
+}
+
+.flash-btn:hover {
+  color: #fff;
+}
+.flash-btn.outline {
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+
+.flash-btn.outline:hover {
+  color: #fff;
+}
+
+.flash-btn:hover {
+  background: var(--color-primary);
+  box-shadow: 0 0 30px 5px #444df77f;
+  -webkit-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+}
+
+.flash-btn.loading {
+  pointer-events: none;
+  opacity: 0.9;
+  background: linear-gradient(45deg, var(--color-primary), #646cff, var(--color-primary));
+  background-size: 200% 200%;
+  animation: gradientMove 1.5s ease infinite;
+  box-shadow: 0 0 15px rgba(68, 76, 247, 0.5);
+  border-color: transparent;
+
+  &::before {
+    display: none; // Hide flash effect during loading
+  }
+
+  i {
+    margin-right: 10px;
+    font-size: 1.1em;
+  }
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.flash-btn:hover::before {
+  -webkit-animation: sh02 0.5s 0s linear;
+  -moz-animation: sh02 0.5s 0s linear;
+  animation: sh02 0.5s 0s linear;
+}
+
+.flash-btn::before {
+  content: '';
+  display: block;
+  width: 0px;
+  height: 86%;
+  position: absolute;
+  top: 7%;
+  left: 0%;
+  opacity: 0;
+  background: #fff;
+  box-shadow: 0 0 50px 30px #fff;
+  -webkit-transform: skewX(-20deg);
+  -moz-transform: skewX(-20deg);
+  -ms-transform: skewX(-20deg);
+  -o-transform: skewX(-20deg);
+  transform: skewX(-20deg);
+}
+
+.load-more-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 35px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-primary);
+  background: transparent;
+  border: 2px solid var(--color-primary);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: max-content;
+  position: relative;
+  overflow: hidden;
+
+  i {
+    transition: transform 0.3s ease;
+    margin-right: 8px;
+  }
+
+  &:hover {
+    background: var(--color-primary);
+    color: #fff;
+    box-shadow: 0 5px 15px rgba(68, 76, 247, 0.3);
+    transform: translateY(-2px);
+    
+    i {
+      transform: translateY(3px);
+    }
+  }
+
+  &.loading {
+    border-color: transparent;
+    cursor: wait;
+    pointer-events: none;
+    background: linear-gradient(45deg, var(--color-primary), #646cff, var(--color-primary));
+    background-size: 200% 200%;
+    animation: gradientMove 1.5s ease infinite;
+    color: #fff;
+    box-shadow: 0 0 15px rgba(68, 76, 247, 0.5);
+
+    i {
+      transform: none;
+    }
+  }
+
+  &:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 5px rgba(68, 76, 247, 0.2);
+  }
+}
+
+@keyframes sh02 {
+  from {
+    opacity: 0;
+    left: 0%;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    left: 100%;
+  }
+}
+
+button:active {
+  box-shadow: 0 0 0 0 transparent;
+  -webkit-transition: box-shadow 0.2s ease-in;
+  -moz-transition: box-shadow 0.2s ease-in;
+  transition: box-shadow 0.2s ease-in;
+}
+
+
+
+#checkboxInput {
+  display: none;
+}
+
+.toggleSwitch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 50px;
+  height: 25px;
+  background-color: #fff;
+  outline: 1px solid var(--color-primary);
+  border-radius: 20px;
+  cursor: pointer;
+  transition-duration: .2s;
+}
+
+.toggleSwitch::after {
+  content: "";
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  left: 5px;
+  background: transparent;
+  border-radius: 50%;
+  transition-duration: .2s;
+  box-shadow: 5px 2px 7px rgba(8, 8, 8, 0.26);
+  border: 5px solid var(--color-primary);
+}
+
+#checkboxInput:checked+.toggleSwitch::after {
+  left: 70%;
+  border: 5px solid #fff !important;
+}
+
+/* Switch background change */
+#checkboxInput:checked+.toggleSwitch {
+  background: var(--color-primary);
+  transition-duration: .2s;
+}

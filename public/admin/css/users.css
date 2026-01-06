@@ -1,0 +1,77 @@
+/* Users Specific Styles */
+
+#users .stat-card {
+    background: white;
+    border-radius: var(--card-radius);
+    box-shadow: var(--shadow-soft);
+    padding: 1.5rem;
+    height: 100%;
+}
+
+#users .stat-card .icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+#users .stat-card .icon.primary {
+    background: rgba(13, 110, 253, 0.1);
+    color: var(--primary-color);
+}
+
+#users .stat-card .icon.success {
+    background: rgba(25, 135, 84, 0.1);
+    color: #198754;
+}
+
+#users .stat-card .icon.warning {
+    background: rgba(255, 193, 7, 0.1);
+    color: #ffc107;
+}
+
+#users .stat-card .number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin: 0.5rem 0;
+}
+
+#users .stat-card .label {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+
+#users .user-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #dee2e6;
+    background: var(--bg-soft);
+}
+
+#users .user-avatar-placeholder {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 1.125rem;
+    border: 2px solid rgba(13, 110, 253, 0.2);
+}
+
+#users .user-name-cell {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}

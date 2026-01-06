@@ -1,0 +1,79 @@
+<% const companyName = (typeof contact !== 'undefined' && contact?.companyName) ? contact.companyName : 'MG Drive'; %>
+<% const companyNameFirst = companyName.split(' ')[0] || 'MG'; %>
+<% const companyNameSecond = companyName.split(' ').slice(1).join(' ') || 'Drive'; %>
+
+<div class="container py-5">
+    <div class="row">
+        <!-- Brand Section -->
+        <div class="col-lg-4 col-md-6 footer-brand scroll_animate">
+            <h3 class="fw-bold text-white">
+                <span class="text-primary"><%= companyNameFirst %></span> <%= companyNameSecond %>
+            </h3>
+            <p>Պրոֆեսիոնալ վարորդական դպրոց։ Սովորեք վարել անվտանգ և վստահորեն մեր վկայակոչված ուսուցիչների հետ։</p>
+            
+            <div class="footer-social mb-4">
+                <a href="<%= (typeof contact !== 'undefined' && contact?.facebook) ? contact.facebook : '#' %>" class="social-btn" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="<%= (typeof contact !== 'undefined' && contact?.instagram) ? contact.instagram : '#' %>" class="social-btn" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                <a href="<%= (typeof contact !== 'undefined' && contact?.whatsapp) ? contact.whatsapp : '#' %>" class="social-btn" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+        </div>
+
+        <!-- Links -->
+        <div class="col-lg-2 col-md-6 mb-3 scroll_animate">
+            <h5 class="footer-heading">Հղումներ</h5>
+            <ul class="footer-links">
+                <li><a href="/" class="d-flex gap-2 mb-3"><i class="fa-solid fa-angle-right"></i> Գլխավոր</a></li>
+                <li><a href="/#about" class="d-flex gap-2 mb-3"><i class="fa-solid fa-angle-right"></i> Մեր Մասին</a></li>
+                <li><a href="/groups" class="d-flex gap-2 mb-3"><i class="fa-solid fa-angle-right"></i> Դասընթացներ</a></li>
+                <li><a href="/#contact" class="d-flex gap-2 mb-3"><i class="fa-solid fa-angle-right"></i> Կապ</a></li>
+                <li><a href="/#faq" class="d-flex gap-2 mb-3"><i class="fa-solid fa-angle-right"></i> ՀՏՀ</a></li>
+            </ul>
+        </div>
+
+        <!-- Contact -->
+        <div class="col-lg-3 col-md-6 scroll_animate">
+            <h5 class="footer-heading">Կապ</h5>
+            <ul class="footer-contact">
+                <li class="d-flex align-items-center gap-2 mb-4">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span><%= (typeof contact !== 'undefined' && contact?.address) ? contact.address : 'Երևան, Հայաստան' %></span>
+                </li>
+                <li class="d-flex align-items-center gap-2 mb-4">
+                    <i class="fa-solid fa-phone"></i>
+                    <span><%= (typeof contact !== 'undefined' && contact?.phone) ? contact.phone : '+374 10 123456' %></span>
+                </li>
+                <li class="d-flex align-items-center gap-2 mb-4">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span><%= (typeof contact !== 'undefined' && contact?.email) ? contact.email : 'info@mgdrive.am' %></span>
+                </li>
+                <li class="d-flex align-items-center gap-2 mb-4">
+                    <i class="fa-solid fa-clock"></i>
+                    <span>Երկ - Ուրբ: 09:00 - 18:00</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="col-lg-3 col-md-6 scroll_animate">
+            <h5 class="footer-heading">Նորություններ</h5>
+            <p class="text-white-50 small">Բաժանորդագրվեք մեր նորություններին՝ ստանալու վերջին թարմացումները։</p>
+            <form class="newsletter-form manual-submit" action="/api/v1/contact/subscribe" method="POST">
+                <input type="email" name="email" class="input-radius" placeholder="Ձեր էլ․ հասցեն" required>
+                <button type="submit"><i class="fa-solid fa-paper-plane"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Copyright -->
+     <div class="row">
+        <div class="col-12">
+            <div class="footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center">
+                <p class="copyright-text mb-2 mb-md-0 small">&copy; <%= new Date().getFullYear() %> <%= companyName %>. Բոլոր իրավունքները պաշտպանված են։</p>
+                <div class="footer-bottom-links small">
+                    <a href="#">Գաղտնիություն</a>
+                    <a href="#">Պայմաններ</a>
+                </div>
+            </div>
+        </div>
+     </div>
+</div>

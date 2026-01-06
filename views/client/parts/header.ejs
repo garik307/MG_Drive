@@ -1,0 +1,92 @@
+<div class="container">
+    <div class="col">
+        <div class="header_content">
+            <p class="bg-primary mx-sm-0 mx-auto p-2 input-radius text-start px-3 my-address">Մեր հասցեն է՝
+                <%= contact?.address || '' %></p>
+            <h1><span>Արթիկ</span> ավտոդպրոց</h1>
+            <p class="text scroll_animate">Սովորիր վարել վստահ ու ապահով՝ փորձառու հրահանգիչների հետ: Մեր դասերը
+                հարմարեցված են թե՛ սկսնակների, թե՛ փորձառու վարորդների համար։ Միացի՛ր մեզ ու ստացիր վարորդական իրավունք
+                առանց ավելորդ սթրեսի!</p>
+            <div class="row mb-3">
+                <div class="col-md-6 mb-3 text-dark text-md-danger">
+                    <div class="d-flex align-items-center gap-3 bg-dark bg-opacity-50 text-white p-2 card-radius">
+                        <div class="align-items-center card-radius bg-danger bg-opacity-10 px-3 py-2 benefit-icon">
+                            <i class="fa-solid fa-trophy text-primary fs-5"></i>
+                        </div>
+                        <span class="fw-medium text-start">Բարձր հաջողության տոկոս</span>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3 text-dark">
+                    <div class="d-flex align-items-center gap-3 bg-dark bg-opacity-50 text-white p-2 card-radius">
+                        <div class="rounded bg-warning bg-opacity-10 px-3 py-2 benefit-icon">
+                            <i class="fa-solid fa-chalkboard-teacher text-warning fs-5"></i>
+                        </div>
+                        <span class="fw-medium text-start">Պրոֆեսիոնալ ուսուցիչներ</span>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-2 text-dark">
+                    <div class="d-flex align-items-center gap-3 bg-dark bg-opacity-50 text-white p-2 card-radius">
+                        <div
+                            class="align-items-center justify-content-center rounded bg-info bg-opacity-10 px-3 py-2 benefit-icon">
+                            <i class="fa-solid fa-clock text-info fs-5"></i>
+                        </div>
+                        <span class="fw-medium text-start">Ճկուն ժամանակացույց</span>
+                    </div>
+                </div>
+            </div>
+            <a href="#about" class="flash-btn bg-primary">Ավելի մեր մասին</a>
+        </div>
+    </div>
+    <div class="col">
+        <div class="register_form">
+            <div class="title">Գրանցվել դասընթացին</div>
+            <p class="subtitle">Գրանցվեք հիմա՝ ստանալու ճկուն ժամանակացույց, պրոֆեսիոնալ առաջնորդում և անհատական
+                մոտեցում։</p>
+
+            <div class="badge-row d-flex gap-2 mb-4">
+                <span class="badge bg-primary">Անվճար խորհրդատվություն</span>
+                <span class="badge bg-success">Արագ հաստատում</span>
+                <span class="badge bg-warning text-dark">Սկսնակների համար հարմար</span>
+            </div>
+
+            <form class="needs-validation" action="/api/v1/registration" method="post" novalidate>
+                <div class="input_field mb-4">
+                    <i class="fa-solid fa-user form-icon"></i>
+                    <span>Անուն *</span>
+                    <input type="text" name="name" required>
+                </div>
+                <div class="input_field mb-4">
+                    <i class="fa-solid fa-user form-icon"></i>
+                    <span>Ազգանուն *</span>
+                    <input type="text" name="lastname" required>
+                </div>
+                <div class="input_field mb-4">
+                    <i class="fa-solid fa-envelope form-icon"></i>
+                    <span>Էլ. հասցե *</span>
+                    <input type="email" name="email" required>
+                </div>
+                <div class="input_field mb-4">
+                    <i class="fa-solid fa-phone form-icon"></i>
+                    <span>Հեռախոսահամար *</span>
+                    <input type="tel" class="phone" name="phone" required>
+                </div>
+
+                <div class="consent form-check my-2">
+                    <input class="form-check-input" type="checkbox" id="consentCheck" checked>
+                    <label class="form-check-label" for="consentCheck">Համաձայն եմ, որ կապվեք ինձ հետ դասընթացի
+                        վերաբերյալ</label>
+                </div>
+
+                <div class="helper text-white-50 mb-3">Լրացրեք դաշտերը ճիշտ տվյալներով՝ մենք կկապվենք 24 ժամըվա
+                    ընթացքում։</div>
+                <button type="submit" class="btn btn-primary w-100">Գրանցվել</button>
+            </form>
+        </div>
+    </div>
+</div>
+<svg class="end_line" viewBox="0 0 1440 320">
+    <path fill="#F8F9FA" fill-opacity="1"
+        d="M0,64L48,96C96,128,192,192,288,229.3C384,267,480,277,576,266.7C672,256,768,224,864,197.3C960,171,1056,149,1152,160C1248,171,1344,213,1392,234.7L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+    </path>
+</svg>

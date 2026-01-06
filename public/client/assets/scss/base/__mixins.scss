@@ -1,0 +1,134 @@
+@mixin filterShadow() {
+    &:hover {
+        transform: translateY(-8px);
+        filter: drop-shadow(10px 0 10px rgb(55, 57, 74)) invert(100%);
+    }
+}
+
+@mixin filterImage() {
+    &:hover {
+        transform: scale(1.08);
+        -webkit-filter: brightness(73%) saturate(272%);
+        -moz-filter: brightness(73%) saturate(272%);
+    }
+}
+
+@mixin inputField () {
+    position: relative;
+    width: 100%;
+    margin-bottom: 30px;
+    border: none;
+    border-radius: 5px;
+    border-bottom: 1px solid #999;
+
+    span {
+        color: var(--text-color);
+        position: absolute;
+        bottom: 12px;
+        left: 15px;
+        font-size: 16px;
+        font-family: system-ui;
+        z-index: -1;
+        padding: 0 5px;
+
+        &.active {
+            bottom: 86%;
+            font-size: 14px;
+            z-index: 1;
+        }
+    }
+
+    input {
+        width: 100%;
+        height: 100%;
+        outline: none;
+        border: none;
+        border-radius: 3px;
+        font-size: 20px;
+        background: transparent;
+        color: var(--text-color);
+        position: relative;
+        z-index: 1;
+    }
+}
+
+@mixin shadow() {
+    box-shadow: 0px 3px 15px 2px #444df72b;
+}
+
+.input_field {
+    @include inputField ();
+}
+
+@mixin scrollMask() {
+    animation: moveElement;
+    animation-timeline: view(0% 100%);
+
+    @keyframes moveElement {
+        0% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 0;
+        }
+    }
+}
+
+@mixin dropShadow() {
+    filter: drop-shadow(0 10px 60px var(--primary-color));
+    transform: scale(1.2);
+}
+
+@mixin filterTextAnimate($active: true) {
+    @if $active {
+        @supports (background-clip: text) or (-webkit-background-clip: text) {
+            color: transparent;
+            background-clip: text;
+            -webkit-background-clip: text;
+            background-image: linear-gradient(135deg, #00bfff, #0077ff, #1e90ff);
+            background-size: 200% 200%;
+            animation: textAnimate 4s ease infinite;
+        }
+
+        span {
+            @supports (background-clip: text) or (-webkit-background-clip: text) {
+                color: transparent;
+                background-clip: text;
+                -webkit-background-clip: text;
+                background-image: linear-gradient(135deg, #00bfff, #0077ff, #1e90ff);
+                background-size: 200% 200%;
+                animation: textAnimate 4s ease infinite;
+            }
+        }
+    }
+
+    @else {
+        @supports (background-clip: text) or (-webkit-background-clip: text) {
+            color: transparent;
+            background-clip: text;
+            -webkit-background-clip: text;
+            background-image: linear-gradient(135deg, #00bfff, #0077ff, #1e90ff);
+            background-size: 200% 200%;
+            animation: textAnimate .4s ease infinite;
+        }
+    }
+}
+
+@keyframes textAnimate {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}

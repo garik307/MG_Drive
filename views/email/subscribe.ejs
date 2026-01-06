@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="hy">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Բաժանորդագրություն</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #eef1f5;
+            font-family: Arial, sans-serif;
+        }
+
+        .email-wrapper {
+            padding: 40px 0;
+            width: 100%;
+        }
+
+        .email-outer {
+            width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 14px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        .email-header {
+            background: #444cf7;
+            padding: 35px 20px;
+            text-align: center;
+        }
+
+        .email-header h1 {
+            color: #ffffff;
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .email-body {
+            padding: 40px 40px 30px 40px;
+        }
+
+        .email-body p {
+            margin: 0 0 18px 0;
+            line-height: 1.6;
+            color: #444444;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #444cf7;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        .list-item {
+            margin-bottom: 8px;
+            padding-left: 15px;
+            border-left: 3px solid #ffa811;
+        }
+
+        .confirm-btn {
+            margin: 30px auto;
+            background: #444cf7;
+            color: #ffffff !important;
+            text-decoration: none;
+            padding: 12px 28px;
+            font-size: 16px;
+            border-radius: 50px;
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        .email-footer {
+            background: #f3f4f6;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #888888;
+        }
+        
+        .highlight {
+            color: #ffa811;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<table class="email-wrapper" width="100%" cellspacing="0" cellpadding="0">
+    <tr>
+        <td align="center">
+
+            <table class="email-outer" cellspacing="0" cellpadding="0">
+
+                <!-- HEADER -->
+                <tr>
+                    <td class="email-header">
+                        <h1>Բարի գալուստ MG Drive ընտանիք</h1>
+                    </td>
+                </tr>
+
+                <!-- BODY -->
+                <tr>
+                    <td class="email-body">
+
+                        <p>Բարև Ձեզ,</p>
+
+                        <p>
+                            Շնորհակալություն <strong>MG Drive</strong>-ի նորություններին բաժանորդագրվելու համար։
+                            Մենք ուրախ ենք տեսնել Ձեզ մեր համայնքում։
+                        </p>
+
+                        <div class="section-title">🌟 Մեր ծառայությունները և հնարավորությունները</div>
+                        <p>
+                            Մենք առաջարկում ենք որակյալ վարորդական դասընթացներ, որոնք ներառում են թե՛ տեսական, թե՛ գործնական պարապմունքներ։
+                            Մեր հարթակում դուք կարող եք՝
+                        </p>
+                        <div class="list-item">Անցնել առցանց թեստեր և ստուգել Ձեր գիտելիքները</div>
+                        <div class="list-item">Հետևել Ձեր առաջընթացին անձնական էջում</div>
+                        <div class="list-item">Ծանոթանալ ճանապարհային երթևեկության կանոններին</div>
+
+                        <div class="section-title">🚀 Ինչու՞ ընտրել մեզ</div>
+                        <p>
+                            Մեր դասընթացները տարբերվում են իրենց ինտերակտիվությամբ և մատչելիությամբ։
+                            Մենք օգտագործում ենք ուսուցման նորագույն մեթոդներ, որպեսզի դուք սովորեք ոչ միայն քննությունը հանձնելու, այլև իրականում վստահ վարելու համար։
+                        </p>
+
+                        <div class="section-title">🎁 Հատուկ առաջարկներ</div>
+                        <p>
+                            Որպես բաժանորդ, դուք առաջինը կտեղեկանաք մեր զեղչերի, նոր խմբերի մեկնարկի և օգտակար նյութերի մասին։
+                        </p>
+
+                        <div style="text-align:center;">
+                            <a class="confirm-btn" href="<%= url %>" target="_blank">
+                                Անցնել կայք
+                            </a>
+                        </div>
+
+                        <p>
+                            Հարգանքով,<br>
+                            <strong>MG Drive</strong> թիմ
+                        </p>
+                    </td>
+                </tr>
+
+                <!-- FOOTER -->
+                <tr>
+                    <td class="email-footer">
+                        <p>© <%= new Date().getFullYear() %> MG Drive. Բոլոր իրավունքները պաշտպանված են։</p>
+                        <p>Եթե ցանկանում եք ապաբաժանորդագրվել, խնդրում ենք պատասխանել այս նամակին։</p>
+                    </td>
+                </tr>
+
+            </table>
+
+        </td>
+    </tr>
+</table>
+</body>
+</html>

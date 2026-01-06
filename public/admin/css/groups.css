@@ -1,0 +1,67 @@
+/* Groups Specific Styles */
+
+#groups .stat-card {
+    background: white;
+    border-radius: var(--card-radius);
+    box-shadow: var(--shadow-soft);
+    padding: 1.5rem;
+    height: 100%;
+}
+
+#groups .stat-card .icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+#groups .stat-card .icon.primary {
+    background: rgba(13, 110, 253, 0.1);
+    color: var(--primary-color);
+}
+
+#groups .stat-card .icon.success {
+    background: rgba(25, 135, 84, 0.1);
+    color: #198754;
+}
+
+#groups .stat-card .icon.info {
+    background: rgba(13, 202, 240, 0.1);
+    color: var(--accent-color);
+}
+
+#groups .stat-card .number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin: 0.5rem 0;
+}
+
+#groups .stat-card .label {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+
+#groups .status-legend {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1rem;
+    font-size: 0.875rem;
+}
+
+#groups .status-legend .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+#groups .status-legend .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}

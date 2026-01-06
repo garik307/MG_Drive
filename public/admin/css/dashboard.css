@@ -1,0 +1,71 @@
+/* Dashboard Specific Styles */
+
+.stat-card {
+    background: white;
+    border-radius: var(--card-radius);
+    box-shadow: var(--shadow-soft);
+    padding: 1.5rem;
+    height: 100%;
+}
+
+.stat-card .icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.stat-card .icon.primary {
+    background: rgba(13, 110, 253, 0.1);
+    color: var(--primary-color);
+}
+
+.stat-card .icon.success {
+    background: rgba(25, 135, 84, 0.1);
+    color: #198754;
+}
+
+.stat-card .icon.warning {
+    background: rgba(255, 193, 7, 0.1);
+    color: #ffc107;
+}
+
+.stat-card .icon.info {
+    background: rgba(13, 202, 240, 0.1);
+    color: var(--accent-color);
+}
+
+.stat-card .number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin: 0.5rem 0;
+}
+
+.stat-card .label {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+
+.stat-card .trend {
+    font-size: 0.75rem;
+    color: #198754;
+}
+
+.chart-placeholder {
+    width: 100%;
+    height: 300px;
+    background: var(--bg-soft);
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+}
+

@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="hy">
+<head>
+    <%- include('../parts/head.ejs') %>
+</head>
+<body>
+
+<%- include('../parts/navbar.ejs') %>
+<%- include('../parts/sidebar.ejs') %>
+<%- include('../parts/alert') %>
+<%- include('../parts/confirm') %>
+
+<main class="main-content">
+    <section id="questions">
+        <!-- Page header -->
+        <div class="page-header d-flex justify-content-between align-items-center">
+            <div>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/admin">Վահանակ</a></li>
+                        <li class="breadcrumb-item active">Հարցեր</li>
+                    </ol>
+                </nav>
+                <h1 class="page-title">Հարցերի կառավարում</h1>
+            </div>
+            <button class="btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#questionModal"
+                    data-mode="add">
+                <i class="bi bi-plus-circle me-2"></i>Ավելացնել նոր հարց
+            </button>
+        </div>
+
+        <!-- Page filter -->
+        <div class="filter-row my-4">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label">Ընտրել թեստ</label>
+                    <select class="form-select validate" id="filterTest">
+                        <option value="">Բոլոր թեստերը</option>
+                        <% tests.forEach(t => { %>
+                            <option value="<%= t.id %>"><%= t.title %>-<%= t.number %></option>
+                        <% }) %>
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Ընտրել խումբ</label>
+                    <select class="form-select validate" id="filterGroup">
+                        <option value="">Բոլոր խմբերը</option>
+                        <% groups.forEach(g => { %>
+                            <option value="<%= g.id %>"><%= g.title %>-<%= g.number %></option>
+                        <% }) %>
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Փնտրել</label>
+                    <input type="text" class="form-control" id="searchInput" placeholder="Փնտրել հարց…">
+                </div>
+            </div>
+        </div>
+
+        <!-- Question card listd -->
+        <div class="row pagination-container" id="questionsList">
+            <!-- Content will be rendered by JS -->
+            <div class="col-12 text-center p-5">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Բեռնվում է...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div id="questionsPag" class="pagination-container d-flex justify-content-center">
+        </div>
+    </section>
+</main>
+
+<!-- ADD MODAL -->
+<div class="modal fade" data-bs-backdrop="static" id="questionModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="questionModalTitle">Ավելացնել հարց</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form id="questionForm"
+                  enctype="multipart/form-data"
+                  method="post"
+                  action="/api/v1/question"
+                  class="needs-validation"
+                  novalidate>
+
+                <input type="hidden" name="table_name" id="table_name" class="table_name" value="tests">
+
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Թեստ</label>
+                            <select class="form-select validate" id="modalFilterTest" name="row_id">
+                                <option value="">Ընտրել թեստ</option>
+                                <% tests.forEach(t => { %>
+                                    <option value="<%= t.id %>"><%= t.title %>-<%= t.number %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Խումբ</label>
+                            <select class="form-select validate" id="modalFilterGroup">
+                                <option value="">Ընտրել խումբ</option>
+                                <% groups.forEach(g => { %>
+                                    <option value="<%= g.id %>"><%= g.title %>-<%= g.number %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- choose image -->
+                    <div class="form-group mb-4">
+                        <label class="form-label fw-bold">Ավելացնել նկար հարցի համար</label>
+                         <input type="file" class="form-control" name="question_img">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Թարմացնել տեքստը</label>
+                        <textarea name="question" class="form-control" id="editQuestionTextarea" rows="6"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <label class="form-label mb-0">Պատասխաններ</label>
+                            <button type="button" class="btn btn-sm btn-outline-primary" id="addAnswerBtn">
+                                <i class="bi bi-plus-circle me-1"></i>Ավելացնել պատասխան
+                            </button>
+                        </div>
+                        <div id="answersContainer"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Չեղարկել</button>
+                    <button type="submit" class="btn btn-primary" id="questionModalSubmitBtn">ՈՒղարկել</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- EDIT MODAL -->
+<div class="modal fade" data-bs-backdrop="true" data-bs-keyboard="false" id="questionEditModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Խմբագրել հարցը</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form id="questionEditForm" action="/api/v1/question/" method="patch" enctype="multipart/form-data" class="needs-validation" novalidate>
+                <input type="hidden" name="table_name" id="editTableName">
+                <input type="hidden" name="correctAnswerIndex" id="editCorrectAnswerIndex">
+                <div class="modal-body">
+                    <!-- TEST / GROUP -->
+                    <div class="row mb-3">
+                        <!-- Select Test -->
+                        <div class="col-md-6">
+                            <label class="form-label">Թեստ</label>
+                            <select class="form-select" id="editTestSelect">
+                                <option value="">Ընտրել թեստ</option>
+                                <% tests.forEach(t => { %>
+                                    <option value="<%= t.id %>"><%= t.title %>-<%= t.number %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                        
+                        <!-- Select group -->
+                        <div class="col-md-6">
+                            <label class="form-label">Խումբ</label>
+                            <select class="form-select" id="editGroupSelect">
+                                <option value="">Ընտրել խումբ</option>
+                                <% groups.forEach(g => { %>
+                                    <option value="<%= g.id %>"><%= g.title %>-<%= g.number %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- IMAGE -->
+                    <div class="form-group mb-4">
+                        <label class="form-label fw-bold">Նկար</label>
+                        <div id="editImagePreview"></div>
+                    </div>
+
+                    <!-- CROP IMAGE (INSERTED HERE) -->
+                    <div class="form-group mb-4">
+                        <input type="file" class="form-control" name="question_img">
+                    </div>
+
+                    <!-- TEXT -->
+                    <div class="mb-3">
+                        <label class="form-label">Թարմացնել տեքստը</label>
+                        <textarea name="question" class="form-control" id="editQuestionText" rows="6"></textarea>
+                    </div>
+                    <!-- ANSWERS -->
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <label class="form-label mb-0">Պատասխաններ</label>
+                            <button type="button" class="btn btn-sm btn-outline-primary" id="editAddAnswerBtn">
+                                Ավելացնել պատասխան
+                            </button>
+                        </div>
+                        <div id="editAnswersContainer"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Փակել</button>
+                    <button type="submit" class="btn btn-primary">Պահպանել</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>window.allQuestions = [];</script>
+<!-- Scripts -->
+<%- include('../parts/scripts.ejs') %>
+</body>
+</html>

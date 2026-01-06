@@ -1,0 +1,54 @@
+/* Contacts Specific Styles */
+
+#contacts .contact-preview {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+#contacts  .schedule-input input[type="time"] {
+    min-width: 110px;
+}
+
+#contacts  .schedule-input {
+    transition: all 0.15s ease;
+}
+
+#contacts  .form-check-input {
+    cursor: pointer;
+}
+
+#contacts  .card-header h5 i {
+    opacity: 0.8;
+}
+
+
+#contacts .preview-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--bg-soft);
+    border-radius: 0.5rem;
+}
+
+#contacts .preview-item i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-top: 0.25rem;
+}
+
+#contacts .preview-item span,
+#contacts .preview-item div {
+    flex: 1;
+    color: var(--text-main);
+}
+
+#contacts .preview-item a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+#contacts .preview-item a:hover {
+    text-decoration: underline;
+}

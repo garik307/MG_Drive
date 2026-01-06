@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('../parts/head.ejs') %>
+    </head>
+    <body>
+        <!-- Nav -->
+        <nav id="nav">
+            <%- include('../parts/nav.ejs') %>
+        </nav>
+
+        <!-- Main content -->
+        <main class="tests-page-main">
+            <div class="container">
+                <!-- Breadcrumbs -->
+                <div class="breadcrumbs">
+                    <a href="/">Գլխավոր</a> <span class="separator"><i class="fa-solid fa-chevron-right" style="font-size: 10px;"></i></span>
+                    <a href="/groups">Խումբ B</a> <span class="separator"><i class="fa-solid fa-chevron-right" style="font-size: 10px;"></i></span>
+                    <span class="current">Թեստեր</span>
+                </div>
+        
+                <!-- Header -->
+                <div class="page-header d-flex justify-content-between align-items-center flex-wrap"> 
+                    <div>
+                        <h1>Թեստերի էջ</h1>
+                        <p class="subtitle">Խումբ B - Տեսական քննություն</p>
+                    </div>
+                    <a href="javascript:history.back()" class="btn-back">
+                        <i class="fa-solid fa-arrow-left"></i> Վերադառնալ
+                    </a>
+                </div>
+        
+                <!-- Stats -->
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="stat-card h-100">
+                            <div class="stat-header d-flex justify-content-between align-items-center mb-3">
+                                <div class="icon-wrapper bg-light text-dark rounded-circle d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                                    <i class="fa-solid fa-box-archive fs-5"></i>
+                                </div>
+                                <span class="label text-muted small fw-bold text-uppercase">Ընդհանուր թեստեր</span>
+                            </div>
+                            <div class="stat-content">
+                                <span class="value display-6 fw-bold text-dark"><%= tests.length %></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card h-100">
+                            <div class="stat-header d-flex justify-content-between align-items-center mb-3">
+                                <div class="icon-wrapper bg-success bg-opacity-10 text-success rounded-circle d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                                    <i class="fa-solid fa-circle-check fs-5"></i>
+                                </div>
+                                <span class="label text-muted small fw-bold text-uppercase">Անցած թեստեր</span>
+                            </div>
+                            <div class="stat-content">
+                                <span class="value display-6 fw-bold text-dark"><%= stats.passedTests %></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card h-100">
+                            <div class="stat-header d-flex justify-content-between align-items-center mb-3">
+                                <div class="icon-wrapper bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                                    <i class="fa-solid fa-chart-pie fs-5"></i>
+                                </div>
+                                <span class="label text-muted small fw-bold text-uppercase">Միջին արդյունք</span>
+                            </div>
+                            <div class="stat-content">
+                                <span class="value display-6 fw-bold text-dark"><%= stats.avgScore %>%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Filters -->
+                <div class="filters">
+                    <button class="filter-btn active" data-filter="all">Բոլորը</button>
+                    <button class="filter-btn" data-filter="new">Նոր</button>
+                    <button class="filter-btn" data-filter="passed">Ավարտված</button>
+                    <button class="filter-btn" data-filter="failed">Սխալներով</button>
+                </div>
+        
+                <% if (typeof isLocked !== 'undefined' && isLocked) { %>
+                    <div class="alert alert-light border shadow-sm text-center mb-4 p-4 rounded-4">
+                        <div class="mb-2">
+                            <i class="fa-solid fa-lock text-warning fa-2x"></i>
+                        </div>
+                        <h5 class="fw-bold">Բաժինը հասանելի չէ</h5>
+                        <p class="text-muted mb-3">Թեստերից և խմբերից օգտվելու համար անհրաժեշտ է ակտիվացնել Պրեմիում փաթեթը։</p>
+                        <a href="/profile?tab=payment" class="btn btn-warning text-white px-4 rounded-pill fw-bold">
+                            <i class="fa-solid fa-crown me-2"></i>Ակտիվացնել հիմա
+                        </a>
+                    </div>
+                <% } %>
+
+                <!-- Tests Grid -->
+                <div class="row">
+                    <% uiTests.forEach((item) => { %>
+                    <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-3 test-col">
+                        <div class="test-card <%= item.cardClass %> h-100" data-status="<%= item.status %>">
+                            <% if (item.lockIcon) { %>
+                                <div style="position: absolute; top: 15px; right: 15px; color: #6c757d;">
+                                    <i class="fa-solid fa-lock"></i>
+                                </div>
+                            <% } %>
+                            <div class="card-header-row">
+                                <div class="icon-box <%= item.iconBoxClass %>">
+                                    <i class="<%= item.icon %>"></i>
+                                </div>
+                                <div class="test-info">
+                                    <h3>Թեստ №<%= item.number %></h3>
+                                    <p class="<%= item.subtitleClass %>"><%= item.subtitleText %></p>
+                                </div>
+                                <% if (item.scoreText) { %>
+                                    <div class="score-badge <%= item.badgeClass %>">
+                                        <%= item.scoreText %>
+                                    </div>
+                                <% } else if (item.showNewBadge) { %>
+                                    <span class="badge bg-primary-subtle text-primary rounded-pill px-3">Նոր</span>
+                                <% } %>
+                            </div>
+                            
+                            <div class="meta-row">
+                                <span><i class="fa-solid fa-circle-question"></i> <%= item.questionCount %> հարց</span>
+                                <span><i class="fa-regular fa-clock"></i> 30 րոպե</span>
+                            </div>
+
+                            <a href="<%= item.buttonHref %>" class="btn btn-action w-100 <%= item.buttonClass %>">
+                                <%= item.buttonText %> <i class="fa-solid <%= item.buttonIcon %>"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <% }); %>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <%- include('../parts/footer.ejs') %>
+        </footer>
+        
+        <!-- Scripts -->        
+        <%- include('../parts/scripts.ejs') %>
+    </body>
+</html>

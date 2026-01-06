@@ -1,0 +1,59 @@
+<% if (Array.isArray(users) && users.length) { %>
+    <% users.forEach(function(u){ %>
+        <tr data-role="<%= u.role %>">
+            <% 
+                let image = { img: '/images/no-image-profile.jpg' };
+                if (u && Array.isArray(u.files)) {
+                    const foundImage = u.files.find(f => f.name_used === 'user_img');
+                    if (foundImage) {
+                        image.img = `/images/users/large/${foundImage.name}.${foundImage.ext}`;
+                    }
+                }
+            %>
+            <td>
+                <img src="<%- image.img %>" class="rounded" style="width:40px;height:40px;object-fit:cover;">
+            </td>
+            <td><%= u.name %></td>
+            <td>
+                <span class="badge text-bg-primary">
+                    <%= u.role === 'user' ? 'Օգտվող'
+                    : u.role === 'student' ? 'Ուսանող'
+                    : u.role === 'team-member' ? 'Թիմի անդամ'
+                    : u.role === 'teacher' ? 'Ուսուցիչ'
+                    : u.role === 'admin' ? 'Ադմին' : (u.role || '') %>
+                </span>
+            </td>
+            <td><%= u.phone || '' %></td>
+            <td class="text-truncate" style="max-width: 200px;" title="<%= u.email || '' %>"><%= u.email || '' %></td>
+            <td>
+                <% if (u.isPaid) { %>
+                    <span class="badge bg-success">Այո</span>
+                <% } else { %>
+                    <span class="badge bg-secondary">Ոչ</span>
+                <% } %>
+            </td>
+            <td><%= u.date ? new Date(u.date).toLocaleDateString('hy-AM') : '' %></td>
+            <td><%= u.deleted ? 'Դադարեցված' : 'Ակտիվ' %></td>
+            <td>
+                <div class="d-flex gap-2">
+                    <button type="button" class="btn btn-sm btn-outline-primary"
+                        data-bs-toggle="modal" data-bs-target="#editUserRoleModal"
+                        data-user-id="<%= u.id %>" 
+                        data-user-name="<%= u.name %>" 
+                        data-user-email="<%= u.email %>"
+                        data-user-role="<%= u.role %>" 
+                        data-user-is-paid="<%= u.isPaid %>">
+                        Խմբագրել
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-danger btn-delete-user" data-user-id="<%= u.id %>">
+                        Ջնջել
+                    </button>
+                </div>
+            </td>
+        </tr>
+    <% }) %>
+<% } else { %>
+    <tr>
+        <td colspan="9" class="text-center">Օգտվողներ չեն գտնվել</td>
+    </tr>
+<% } %>

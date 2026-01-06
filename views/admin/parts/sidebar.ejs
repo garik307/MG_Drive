@@ -1,0 +1,84 @@
+<%
+    const active = nav_active || '';
+
+    const active_dashboard = active === 'dashboard' ? 'active' : '';
+    const active_tests = active === 'tests' ? 'active' : '';
+    const active_questions = active === 'questions' ? 'active' : '';
+    const active_groups = active === 'groups' ? 'active' : '';
+    const active_gallery = active === 'gallery' ? 'active' : '';
+    const active_users = active === 'users' ? 'active' : '';
+    const active_contacts = active === 'contacts' ? 'active' : '';
+    const active_faq = active === 'faq' ? 'active' : '';
+    const active_registrations = active === 'registrations' ? 'active' : '';
+    const active_contact_messages = active === 'contact_messages' ? 'active' : '';
+%>
+
+<nav class="sidebar collapse show d-lg-block" id="sidebarCollapse">
+    <div class="sidebar-logo">
+        <a href="/">
+            <img src="images/logo.png" alt="mg-drive Logo">
+        </a>
+    </div>
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link <%= active_dashboard %>" href="/admin">
+                <i class="bi bi-speedometer2"></i>
+                <span>Վահանակ</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link <%= active_tests %>" href="/admin/tests">
+                <i class="bi bi-file-earmark-text"></i>
+                <span>Թեստեր</span>
+            </a>
+        </li>
+         <li class="nav-item">
+            <a class="nav-link <%= active_groups %>" href="/admin/groups">
+                <i class="bi bi-people"></i>
+                <span>Խմբեր</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link <%= active_questions %>" href="/admin/questions">
+                <i class="bi bi-question-circle"></i>
+                <span>Հարցեր</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link <%= active_gallery %>" href="/admin/gallery">
+                <i class="bi bi-images"></i>
+                <span>Նկարների կառավարում</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link <%= active_users %>" href="/admin/users">
+                <i class="bi bi-person-badge"></i>
+                <span>Օգտվողներ / Ուսանողներ</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link <%= active_registrations %>" href="/admin/registrations">
+                <i class="bi bi-card-checklist"></i>
+                <span>Գրանցումներ</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link <%= active_contact_messages %>" href="/admin/contact-messages">
+                <i class="bi bi-envelope"></i>
+                <span>Կոնտակտային նամակներ</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link <%= active_contacts %>" href="/admin/contacts">
+                <i class="bi bi-telephone"></i>
+                <span>Կոնտակտային տվյալներ</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link <%= active_faq %>" href="/admin/faqs">
+                <i class="bi bi-question-diamond"></i>
+                <span>Հաճախ տրվող հարցեր</span>
+            </a>
+        </li>
+    </ul>
+</nav>

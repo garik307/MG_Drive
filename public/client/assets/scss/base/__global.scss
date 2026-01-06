@@ -1,0 +1,307 @@
+// global container reset
+.container {
+  max-width: $container;
+  margin: 0 auto;
+}
+
+section {
+    margin-bottom: 100px;
+    padding: 50px 0;  
+    @media(max-width: 992px) {
+      margin-bottom: 70px;
+    }
+}
+
+.btnStyle {
+  @include buttonStyle(10px, 20px);
+}
+
+.section_title {
+    background:var(--bacground-gradient);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.input_field {
+    position: relative;
+    .password-show {
+        position: absolute;
+        top: 58%;
+        right: 50px;
+        z-index: 1;
+        background: transparent !important;
+    }
+}
+
+#not-found {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.notification-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 23220000;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  pointer-events: none; // Allow clicking through the container
+
+  @media (max-width: 480px) {
+    left: 15px;
+    right: 15px;
+    max-width: none;
+    top: 15px;
+  }
+}
+
+.notification-title {
+  margin: 0 !important;
+}
+.notification {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  border-left: 5px solid transparent;
+  overflow: hidden;
+  pointer-events: auto; 
+  width: 100%;
+
+  &.show {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .notification-content {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    gap: 15px;
+    width: 100%;
+
+    @media (max-width: 480px) {
+      padding: 14px 16px;
+    }
+    
+    // Icon styles
+    .notification-icon {
+      font-size: 24px;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+  }
+
+  .notification-message {
+    font-size: 14px;
+    font-weight: 500;
+    color: #2c3e50;
+    flex: 1;
+    line-height: 1.5;
+  }
+
+  .notification-close {
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    color: #adb5bd;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    border-radius: 50%;
+    margin-left: 5px;
+
+    &:hover {
+      color: #495057;
+      background: #f1f3f5;
+    }
+  }
+
+  // --- Notification Types ---
+  
+  // Success
+  &.notification-success {
+    border-left-color: #2DCE89;
+    background: #fff;
+
+    .notification-icon {
+      color: #2DCE89;
+    }
+  }
+
+  // Warning
+  &.notification-warning {
+    border-left-color: #FB6340;
+    background: #fff;
+
+    .notification-icon {
+      color: #FB6340;
+    }
+  }
+
+  // Error
+  &.notification-error, &.notification-danger {
+    border-left-color: #F5365C;
+    background: #fff;
+
+    .notification-icon {
+      color: #F5365C;
+    }
+  }
+
+  // Info (Default)
+  &.notification-info {
+    border-left-color: #11CDEF;
+    background: #fff;
+
+    .notification-icon {
+      color: #11CDEF;
+    }
+  }
+
+  // Progress Bar
+  .notification-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    transform-origin: left;
+  }
+
+  &.notification-success .notification-progress { background: #2DCE89; }
+  &.notification-warning .notification-progress { background: #FB6340; }
+  &.notification-error .notification-progress, &.notification-danger .notification-progress { background: #F5365C; }
+  &.notification-info .notification-progress { background: #11CDEF; }
+}
+
+@keyframes notificationProgress {
+  0% { width: 100%; }
+  100% { width: 0%; }
+}
+
+.notification-confirm {
+  background: #fff;
+  border-left: 4px solid var(--color-primary);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all 0.3s ease;
+  margin-bottom: 10px;
+
+  &.show { opacity: 1; transform: translateX(0); }
+
+  .notification-content {
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    
+    &::before {
+      display: none;
+    }
+  }
+
+  .notification-title {
+    font-weight: 600;
+    margin-bottom: 0;
+    color: #000;
+  }
+
+  .notification-message {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 5px;
+  }
+
+  .notification-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+}
+
+// --- Client page entrance animations ---
+main {
+  animation: pageFadeIn .45s ease-out;
+}
+
+main > section,
+main > div {
+  animation: fadeInUp .24s ease-out;
+}
+
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.profile-placeholder-img {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    font-weight: 400;
+    color: #fff;
+    font-size: 4rem;
+    cursor: pointer;
+    border-radius: 50%;
+
+    &.bg-0 { background-color: #FF8A80; } /* Red */
+    &.bg-1 { background-color: #F48FB1; } /* Pink */
+    &.bg-2 { background-color: #CE93D8; } /* Purple */
+    &.bg-3 { background-color: #B39DDB; } /* Deep Purple */
+    &.bg-4 { background-color: #9FA8DA; } /* Indigo */
+    &.bg-5 { background-color: #90CAF9; } /* Blue */
+    &.bg-6 { background-color: #81D4FA; } /* Light Blue */
+    &.bg-7 { background-color: #80CBC4; } /* Teal */
+    &.bg-8 { background-color: #A5D6A7; } /* Green */
+    &.bg-9 { background-color: #FFCC80; } /* Orange */
+}
+
+// History Table Container
+.history-table-container {
+    max-height: 300px;
+    overflow-y: auto;
+    
+    // Custom scrollbar
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+    &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 3px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 3px;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+        background: #bbb;
+    }
+}

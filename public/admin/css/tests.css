@@ -1,0 +1,70 @@
+/* Tests Specific Styles */
+
+#tests .stat-card {
+    background: white;
+    border-radius: var(--card-radius);
+    box-shadow: var(--shadow-soft);
+    padding: 1.5rem;
+    height: 100%;
+}
+
+#tests .stat-card .icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+#tests .stat-card .icon.primary {
+    background: rgba(13, 110, 253, 0.1);
+    color: var(--primary-color);
+}
+
+#tests .stat-card .icon.success {
+    background: rgba(25, 135, 84, 0.1);
+    color: #198754;
+}
+
+#tests .stat-card .icon.warning {
+    background: rgba(255, 193, 7, 0.1);
+    color: #ffc107;
+}
+
+#tests .stat-card .icon.info {
+    background: rgba(13, 202, 240, 0.1);
+    color: var(--accent-color);
+}
+
+#tests .stat-card .number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin: 0.5rem 0;
+}
+
+#tests .stat-card .label {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+
+
+.editor-area {
+  min-height: 250px;
+  border: 1px solid #555;
+  color: black;
+  border-radius: .375rem;
+  padding: 1rem;
+  font-family: Arial, sans-serif;
+  overflow-y: auto;
+}
+
+.editor-area:focus {
+  border-color: var(--accent-primary);
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(255, 234, 0, 0.027);
+}

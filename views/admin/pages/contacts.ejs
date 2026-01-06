@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+    <head><%- include('../parts/head.ejs') %></head>
+    <body>
+        <!-- Navbar -->
+        <%- include('../parts/navbar.ejs') %>
+        <!-- Sidebar -->
+        <%- include('../parts/sidebar.ejs') %>
+        <%- include('../parts/confirm') %>
+
+        <!-- Main Content -->
+        <main class="main-content py-4">
+            <section id="contacts">
+                <form action="/api/v1/contact" method="patch" id="contactsForm">
+                    <!-- HEADER -->
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb mb-1">
+                                    <li class="breadcrumb-item"><a href="/admin">Վահանակ</a></li>
+                                    <li class="breadcrumb-item active">Կոնտակտային տվյալներ</li>
+                                </ol>
+                            </nav>
+                            <h2 class="fw-bold">Կոնտակտային տվյալների կառավարում</h2>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-save me-2"></i>Պահպանել փոփոխությունները
+                        </button>
+                    </div>
+                    <!--  CARD: CONTACT INFO  -->
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-header bg-white">
+                            <h5 class="mb-0">
+                                <i class="bi bi-info-circle me-2"></i>Ընդհանուր տեղեկություն
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">
+                                        <i class="fa-solid fa-warehouse"></i> Ընկերության անվանումը 
+                                    </label>
+                                    <input type="text" placeholder="Արթիկ Ավտոդպրոց" class="form-control" name="companyName" value="<%- contact.companyName || '' %>">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">
+                                        <i class="bi bi-telephone me-2"></i>Հեռախոս
+                                    </label>
+                                    <input type="tel" placeholder="(+374)-xx-xx-xx-xx" class="form-control" name="phone" value="<%- contact.phone || '' %>">
+                                </div>
+                                <!-- email -->
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">
+                                        <i class="bi bi-envelope me-2"></i>Էլ. փոստ
+                                    </label>
+                                    <input type="email" placeholder="example2025@mail.ru" class="form-control" name="email"
+                                        value="<%- contact?.email || '' %>">
+                                </div>
+                                <!-- address -->
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">
+                                        <i class="bi bi-geo-alt me-2"></i>Հասցե
+                                    </label>
+                                    <input type="text" placeholder="Ազատության պողոտա 14" class="form-control" name="address"
+                                        value="<%- contact?.address || '' %>">
+                                </div>
+                                <!-- Google Maps Link -->
+                                <div class="col-md-12">
+                                    <label class="form-label fw-semibold">
+                                        <i class="bi bi-map me-2"></i>Google Maps Link
+                                    </label>
+                                    <textarea name="mapsAddress" rows="4" placeholder="<iframe src='https://www.google.com/maps/embed?pb=!1m18!1m1..."
+                                        class="form-control"><%- contact?.mapsAddress || '' %></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  CARD: WORKING HOURS  -->
+                <div class="card shadow-sm mb-4 border-0 rounded-3">
+                        <div class="card-header bg-white py-3 border-bottom">
+                            <h5 class="mb-0 fw-bold">
+                                <i class="bi bi-clock me-2 text-primary"></i>
+                                Աշխատանքային ժամեր
+                            </h5>
+                        </div>
+                        <div class="card-body p-4" id="contactData" data-working-hours='<%- JSON.stringify(contact.workingHours || []) %>'>
+
+                            <!-- WEEKDAYS -->
+                            <div class="mb-4 pb-3 border-bottom">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <label class="form-label fw-semibold mb-0">Երկուշաբթի – Ուրբաթ</label>
+                                    <span class="text-muted small">5 օր</span>
+                                </div>
+
+                                <div class="schedule-input d-flex align-items-center">
+                                    <input type="time" id="wd-from" class="form-control form-control-sm w-auto rounded-2">
+                                    <span class="text-muted">–</span>
+                                    <input type="time" id="wd-to" class="form-control form-control-sm w-auto rounded-2">
+                                </div>
+                            </div>
+
+                            <!-- SATURDAY -->
+                            <div class="mb-4 pb-3 border-bottom">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <label class="form-label fw-semibold mb-0">Շաբաթ</label>
+                                    <div class="form-check form-switch">
+                                        <input type="checkbox" id="sat-open" class="form-check-input">
+                                    </div>
+                                </div>
+
+                                <div class="schedule-input d-flex align-items-center">
+                                    <input type="time" id="sat-from" class="form-control form-control-sm w-auto rounded-2" disabled>
+                                    <span class="text-muted">–</span>
+                                    <input type="time" id="sat-to" value="" class="form-control form-control-sm w-auto rounded-2" disabled>
+                                </div>
+                            </div>
+                            <!-- SUNDAY -->
+                            <div>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <label class="form-label fw-semibold mb-0">Կիրակի</label>
+                                    <div class="form-check form-switch">
+                                        <input type="checkbox" id="sun-open" class="form-check-input">
+                                    </div>
+                                </div>
+
+                                <div class="schedule-input d-flex align-items-center">
+                                    <input type="time" id="sun-from" class="form-control form-control-sm w-auto rounded-2" disabled>
+                                    <span class="text-muted">–</span>
+                                    <input type="time" id="sun-to" class="form-control form-control-sm w-auto rounded-2" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--  CARD: SOCIAL LINKS  -->
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-header bg-white">
+                            <h5 class="mb-0"><i class="bi bi-globe me-2"></i>Սոցիալական ցանցեր</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-semibold">Facebook</label>
+                                    <input type="url" class="form-control" name="facebook" value="<%- contact?.facebook || '' %>">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-semibold">Instagram</label>
+                                    <input type="url" class="form-control" name="instagram" value="<%- contact?.instagram || '' %>">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-semibold">WhatsApp</label>
+                                    <input type="url" class="form-control" name="whatsapp" value="<%- contact?.whatsapp || '' %>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  CARD: PREVIEW  -->
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-header bg-white">
+                            <h5 class="mb-0"><i class="bi bi-eye me-2"></i>Նախադիտում</h5>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="contact-preview">
+                                <div class="preview-item d-flex align-items-center mb-2">
+                                    <i class="fa-solid fa-warehouse"></i>
+                                    <span><%- contact?.companyName || '' %></span>
+                                </div>
+                                <div class="preview-item d-flex align-items-center mb-2">
+                                    <i class="bi bi-telephone me-2"></i>
+                                    <span><%- contact?.phone || '' %></span>
+                                </div>
+                                <div class="preview-item d-flex align-items-center mb-2">
+                                    <i class="bi bi-envelope me-2"></i>
+                                    <span><%- contact?.email || '' %></span>
+                                </div>
+                                <div class="preview-item d-flex align-items-center mb-3">
+                                    <i class="bi bi-geo-alt me-2"></i>
+                                    <span><%- contact.address || '' %></span>
+                                </div>
+                                <div class="preview-item mb-3">
+                                    <i class="bi bi-clock me-2"></i>
+                                    <div class="ms-3 small">
+                                        <strong>Երկուշաբթի–Ուրբաթ:</strong> <span id="previewWeekdays">09:00–18:00</span><br>
+                                        <strong>Շաբաթ:</strong> <span id="previewSaturday">Closed</span><br>
+                                        <strong>Կիրակի:</strong> <span id="previewSunday">Closed</span>
+                                    </div>
+                                </div>
+                                <% if (contact.mapsAddress) { %>
+                                <div class="preview-item d-flex align-items-center">
+                                    <i class="bi bi-map me-2"></i>
+                                    <a href="<%- contact?.mapsAddress || '' %>" target="_blank">Դիտել Google Maps-ում</a>
+                                </div>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </main>
+        <%- include('../parts/scripts.ejs') %>
+    </body>
+</html>

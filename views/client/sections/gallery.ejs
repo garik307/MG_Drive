@@ -1,0 +1,105 @@
+<section id="gallery">
+    <div class="container">
+        <!-- Header -->
+        <div class="header mb-5 scroll_animate bg-transparent">
+            <h2 class="display-5 fw-bold mb-3">
+                Մեր <span class="text-gradient">ուսանողները</span>
+            </h2>
+            <p class="text-secondary text-title">Նայեք մեր ուսանողներին, որոնք սովորում, մարզվում և հաջողության են հասնում: Յուրաքանչյուր լուսանկար պատմում է աճի, վստահության և նվաճումների մասին:</p>
+        </div>
+
+        <!-- Stats Row -->
+        <div class="row mb-3 results">
+            <!-- Card 1 -->
+            <div class="col-sm-6 col-lg-3 mb-3">
+                <div class="card text-center mx-auto p-4 shadow-sm border-0 card-radius scroll_animate">
+                    <div class="mx-auto mb-3 d-flex align-items-center justify-content-center rounded-circle blur-bg">
+                        <i class="fas fa-user-graduate text-primary display-5"></i>
+                    </div>
+                    <h3 class="h5 fw-bold mb-2">1,200+</h3>
+                    <p class="text-muted mb-0">Երջանիկ ուսանողներ</p>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="col-sm-6 col-lg-3 mb-3">
+                <div class="card text-center mx-auto p-4 shadow-sm border-0 card-radius scroll_animate">
+                    <div class="mx-auto mb-3 d-flex display-5 align-items-center justify-content-center rounded-circle blur-bg">
+                        <i class="fas fa-award text-success display-5"></i>
+                    </div>
+                    <h3 class="h5 fw-bold mb-2">95%</h3>
+                    <p class="text-muted mb-0">Հաջողության մակարդակ</p>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="col-sm-6 col-lg-3 mb-3">
+                <div class="card text-center mx-auto p-4 shadow-sm border-0 card-radius scroll_animate">
+                    <div class="mx-auto mb-3 d-flex display-5 align-items-center justify-content-center rounded-circle blur-bg">
+                        <i class="fas fa-chalkboard-teacher text-primary display-5"></i>
+                    </div>
+                    <h3 class="h5 fw-bold mb-2">10+</h3>
+                    <p class="text-muted mb-0">Տարիների փորձ</p>
+                </div>
+            </div>
+            <!-- Card 4 -->
+            <div class="col-sm-6 col-lg-3 mb-3">
+                <div class="card text-center mx-auto p-4 shadow-sm border-0 card-radius scroll_animate">
+                    <div class="mx-auto mb-3 d-flex display-5 align-items-center justify-content-center rounded-circle blur-bg">
+                        <i class="fas fa-users text-info display-5"></i>
+                    </div>
+                    <h3 class="h5 fw-bold mb-2">3+</h3>
+                    <p class="text-muted mb-0">Ուսուցիչներ</p>
+                </div>
+            </div>
+        </div>
+
+        <% if(gallery) { %> 
+            <!-- Gallery Grid -->
+            <div class="row mb-5" id="gallery-grid">
+                <% if (typeof gallery !== 'undefined' && gallery.length > 0) { %>
+                    <% gallery.forEach((item, index) => { %>
+                        <% 
+                            let imageSrc = '/images/no-image.png'; 
+                            if (item.files && item.files.length > 0) {
+                                const file = item.files[0];
+                                imageSrc = `/images/gallery/large/${file.name}.${file.ext}`;
+                            }
+                        %>
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-3 gallery-item <%= index >= 8 ? 'hidden-item' : '' %>">
+                            <div class="card mx-auto card-radius scroll_animate">
+                                <div class="position-relative">
+                                    <img src="<%= imageSrc %>" class="card-img-top" alt="<%= item.title %>" onerror="this.src='/images/no-image.png'">
+                                    <div class="position-absolute top-0 end-0 m-2">
+                                        <span class="badge bg-white text-primary">
+                                            <% 
+                                                const d = new Date(item.date);
+                                                const dateStr = d.getDate().toString().padStart(2, '0') + '.' + (d.getMonth() + 1).toString().padStart(2, '0') + '.' + d.getFullYear();
+                                            %>
+                                            <i class="fas fa-calendar-alt me-1"></i> <%= dateStr %>
+                                        </span>
+                                    </div>
+                                    <div class="img-content">
+                                        <h5 class="card-title mb-1"><%= item.title %></h5>
+                                        <% if (item.text) { %>
+                                            <p class="card-text small mb-0"><%= item.text %></p>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <div class="col-12 text-center">
+                        <p class="text-muted">Նկարներ դեռ չկան</p>
+                    </div>
+                <% } %>
+            </div>
+        <% } %> 
+
+        <!-- Load More Button -->
+        <div class="text-center mb-5">
+            <button id="loadMoreBtn" class="load-more-btn">
+                <span id="loadMoreText">Բեռնել ավելին</span>
+            </button>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('../parts/head.ejs') %>
+    </head>
+    <body>
+        <!-- Nav -->
+        <nav id="nav">
+            <%- include('../parts/nav.ejs') %>
+        </nav>
+        <!-- Mian content -->   
+        <main>
+            <section class="user-profile">
+                <div class="container">
+                    <div class="main-body">
+                        <div class="row">
+                            <%- include('../parts/profile-sidebar.ejs') %>
+                            <div class="col-lg-8">
+                                <%- include('../parts/profile-nav.ejs') %>
+                                <div class="card rounded rounded-4 mb-4">
+                                    <div class="card-body">
+                                        <form action="/api/v1/user/updateme" method="patch" enctype="multipart/form-data">
+                                            <div class="row mb-3">
+                                                <div class="col-sm-3">
+                                                    <h6 class="mb-0">Լուսանկար</h6>
+                                                </div>
+                                                <div class="col-sm-9 text-secondary">
+                                                    <input type="file" name="user_img" accept="image/*" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-sm-3">
+                                                    <h6 class="mb-0">Անուն</h6>
+                                                </div>
+                                                <div class="col-sm-9 text-secondary">
+                                                    <input type="text" name="name" class="form-control" value="<%= user.name || '' %>">
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <div class="col-sm-3">
+                                                    <h6 class="mb-0">Էլ․ փոստ</h6>
+                                                </div>
+                                                <div class="col-sm-9 text-secondary">
+                                                    <input type="email" name="email" class="form-control" value="<%= user.email || '' %>">
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <div class="col-sm-3">
+                                                    <h6 class="mb-0">Հեռախոս</h6>
+                                                </div>
+                                                <div class="col-sm-9 text-secondary">
+                                                    <input type="text" name="phone" class="form-control" value="<%= user.phone || '' %>">
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <div class="col-sm-3">
+                                                    <h6 class="mb-0">Հասցե</h6>
+                                                </div>
+                                                <div class="col-sm-9 text-secondary">
+                                                    <input type="text" name="address" class="form-control" value="<%= user.address || '' %>">
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <div class="col-sm-3">
+                                                    <h6 class="mb-0">Տարիք</h6>
+                                                </div>
+                                                <div class="col-sm-9 text-secondary">
+                                                    <input type="number" name="age" class="form-control" value="<%= user.age || '' %>">
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <div class="col-sm-3">
+                                                    <h6 class="mb-0">Իր մասին</h6>
+                                                </div>
+                                                <div class="col-sm-9 text-secondary">
+                                                    <textarea name="biography" class="form-control" rows="4"><%= user.biography || '' %></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <div class="col-sm-3">
+                                                    <h6 class="mb-0">Մասնագիտություն</h6>
+                                                </div>
+                                                <div class="col-sm-9 text-secondary">
+                                                    <input type="text" name="specialization" class="form-control" value="<%= user.specialization || '' %>">
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <div class="col-sm-3">
+                                                    <h6 class="mb-0">Տարիների փորձ</h6>
+                                                </div>
+                                                <div class="col-sm-9 text-secondary">
+                                                    <input type="number" name="experience" placeholder="Օրիանկ 5" class="form-control" value="<%= user.experience || '' %>">
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <div class="col-sm-3">
+                                                    <h6 class="mb-0">Կրթություն</h6>
+                                                </div>
+                                                <div class="col-sm-9 text-secondary">
+                                                    <input type="text" name="education" class="form-control" value="<%= user.education || '' %>">
+                                                </div>
+                                            </div>
+                                            <!-- Submit -->
+                                            <div class="row">
+                                                <div class="col-sm-3"></div>
+                                                <div class="col-sm-9 text-secondary">
+                                                    <button type="submit" class="btn btn-primary px-4 text-white">Պահպանել</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <!-- Footer -->
+        <footer>
+            <%- include('../parts/footer.ejs') %>
+        </footer>
+        <!-- Scripts -->    
+        <%- include('../parts/scripts.ejs') %>
+    </body>
+</html>

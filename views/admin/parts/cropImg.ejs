@@ -1,0 +1,54 @@
+<div class="img-cropper-container mb-3"
+     data-crop-wrapper="<%= cropId %>">
+
+    <input type="file"
+           class="d-none"
+           id="<%= cropId %>_file"
+           name="<%= filename %>"
+           accept="image/*">
+    <button type="button"
+            class="btn btn-primary"
+            data-crop-select="<%= cropId %>">
+        Ընտրեք նկարը
+    </button>
+    <div class="mt-2">
+        <div class="img-preview-area"
+             id="<%= cropId %>_preview"
+             data-crop-preview="<%= cropId %>">
+            <span class="text-secondary">Ավելացրած նկարը չկա</span>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade"
+     id="<%= cropId %>_modal"
+     tabindex="-1">
+
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Պատկերի կտրում</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="img-container">
+                    <img id="<%= cropId %>_img" src="">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button"
+                        class="btn btn-outline-secondary"
+                        data-bs-dismiss="modal">
+                    Չեղարկել
+                </button>
+                <button type="button"
+                        class="btn btn-primary"
+                        data-crop-save="<%= cropId %>">
+                    Կտրել
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

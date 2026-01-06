@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="hy">
+    <head>
+        <%- include('../parts/head.ejs') %>
+    </head>
+    <body>
+        <!-- Nav -->
+        <nav id="nav">
+            <%- include('../parts/nav.ejs') %>
+        </nav>
+
+        <!-- Mian content -->
+        <main class="test-details-page" id="groupRoot" data-group='<%= JSON.stringify(group || {}) %>' data-user-id="<%= user ? user.id : 'guest' %>">
+            <div class="container">
+                <!-- Header Card -->
+                <div class="test-header-card mb-4">
+                    <div class="header-top">
+                        <h1><span id="groupTitle"><%= (group?.title || 'Խումբ') + (group?.number > 0 ? ' ' + group.number : '') %></span></h1>
+                    </div>
+                    <div class="header-info d-flex flex-wrap justify-content-between align-items-center gap-3">
+                        <div>
+                            <p class="mb-1"><%= group?.text || 'Թեմատիկ հարցեր' %></p>
+                            <span>Ընտրեք ճիշտ պատասխանը նկարագրված իրավիճակի համար:</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-3 flex-wrap">
+                            <select id="limitSelect" class="form-select form-select-sm limit-select">
+                                <option value="10">10 հարց/էջ</option>
+                                <option value="20" selected>20 հարց/էջ</option>
+                                <option value="50">50 հարց/էջ</option>
+                            </select>
+                            <span id="totalCountBadge" class="badge bg-light text-dark border"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Questions List Container -->
+                <div id="questions-container">
+                    <!-- Questions will be rendered here via JS -->
+                </div>
+
+                <!-- Pagination -->
+                <div id="questionsPag" class="pagination-container d-flex justify-content-center mt-4 mb-5">
+                </div>
+            </div>
+        </main>
+
+        <!-- Result Modal -->
+        <div class="modal fade" id="resultModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content text-center p-4 result-modal-content">
+                    <div class="mb-3">
+                        <i class="fa-solid fa-trophy text-warning result-icon"></i>
+                    </div>
+                    <h3 class="mb-2">Արդյունքներ</h3>
+                    <p class="text-muted mb-4">Դուք ավարտեցիք թեստը <span id="timeSpentBadge" class="badge bg-primary rounded-pill"></span></p>
+                    
+                    <div class="d-flex justify-content-center gap-4 mb-4">
+                        <div class="text-success">
+                            <div class="h2 mb-0" id="correctCount">0</div>
+                            <small>Ճիշտ</small>
+                        </div>
+                        <div class="text-danger">
+                            <div class="h2 mb-0" id="wrongCount">0</div>
+                            <small>Սխալ</small>
+                        </div>
+                    </div>
+
+                    <div class="score-circle mb-4" id="scoreCircle">
+                        <div class="score-text">
+                            <span id="scorePercent">0</span>%
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2 justify-content-center">
+                        <a href="/groups" class="btn btn-outline-secondary px-4 text-white">Դուրս գալ</a>
+                        <button id="btnRetry" class="btn btn-primary px-4 text-white">Կրկնել</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <%- include('../parts/footer.ejs') %>
+        </footer>
+
+        <!-- Scripts -->    
+        <%- include('../parts/scripts.ejs') %>
+    </body>
+</html>

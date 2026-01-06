@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('../parts/head.ejs') %>
+    </head>
+    <body>
+        <nav id="nav">
+            <%- include('../parts/nav.ejs') %>
+        </nav>
+        <!-- Header -->
+        <main>
+            <section class="user-profile">
+                <div class="container">
+                    <div class="main-body">
+                        <div class="row">
+                        <%- include('../parts/profile-sidebar.ejs') %>
+                            <div class="col-lg-8">
+                                <%- include('../parts/profile-nav.ejs') %>
+                                <div class="card mb-4 shadow-sm p-4 border-0 rounded rounded-4">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <h5>Ընդհանուր Առաջընթաց</h5>
+                                        <span class="h3 text-primary">65%</span>
+                                    </div>
+                                    <div class="progress mb-2" style="height: 10px;">
+                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 20%"></div>
+                                    </div>
+                                    <small class="text-muted">Շարունակեք! Դուք հրաշալի եք գործում!</small>
+                                </div>
+                                <div class="row g-4">
+                                    <!-- Test Card 1 -->
+                                    <div class="col-12 col-md-6">
+                                        <div class="card p-4 border-0 rounded rounded-4 bg-white shadow-sm">
+                                            <div class="d-flex justify-content-between mb-3">
+                                                <div class="d-flex gap-3">
+                                                    <div class="card-icon fs-4 icon-circle text-white bg-primary">
+                                                        🏆
+                                                    </div>
+                                                    <div>
+                                                        <h5 class="mb-1">Տեսական Թեստ 1</h5>
+                                                        <small class="text-muted">Փետրվարի 5, 2024</small>
+                                                    </div>
+                                                </div>
+                                                <span class="text-success">✔</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                <div class="d-flex align-items-baseline gap-1">
+                                                    <span class="h3 text-dark">10</span>
+                                                    <span class="text-muted">/10</span>
+                                                </div>
+                                                <span class="badge bg-primary">Կատարյալ</span>
+                                            </div>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-primary" role="progressbar"
+                                                    style="width: 100%;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Test Card 2 -->
+                                    <div class="col-12 col-md-6">
+                                        <div class="card p-4 border-0 rounded rounded-4 bg-white shadow-sm">
+                                            <div class="d-flex justify-content-between mb-3">
+                                                <div class="d-flex gap-3">
+                                                    <div class="card-icon fs-4 icon-circle text-white bg-primary">
+                                                        📖
+                                                    </div>
+                                                    <div>
+                                                        <h5 class="mb-1">Տեսական Թեստ 2</h5>
+                                                        <small class="text-muted">Փետրվարի 8, 2024</small>
+                                                    </div>
+                                                </div>
+                                                <span class="text-dark">✔</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                <div class="d-flex align-items-baseline gap-1">
+                                                    <span class="h3 text-dark">9</span>
+                                                    <span class="text-muted">/10</span>
+                                                </div>
+                                                <span class="badge bg-warning">Անցած</span>
+                                            </div>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-warning" role="progressbar" style="width: 90%;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Test Card 3 -->
+                                    <div class="col-12 col-md-6">
+                                        <div class="card p-4 border-0 rounded rounded-4 bg-white shadow-sm">
+                                            <div class="d-flex justify-content-between mb-3">
+                                                <div class="d-flex gap-3">
+                                                    <div class="card-icon fs-4 icon-circle text-white bg-primary">
+                                                        📖
+                                                    </div>
+                                                    <div>
+                                                        <h5 class="mb-1">Առաջին Օգնություն</h5>
+                                                        <small class="text-muted">Փետրվարի 10, 2024</small>
+                                                    </div>
+                                                </div>
+                                                <span class="text-primary">✔</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                <div class="d-flex align-items-baseline gap-1">
+                                                    <span class="h3 text-fdark">8</span>
+                                                    <span class="text-muted">/10</span>
+                                                </div>
+                                                <span class="badge bg-warning">Անցած</span>
+                                            </div>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-warning" role="progressbar" style="width: 80%;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Test Card 4 -->
+                                    <div class="col-12 col-md-6">
+                                        <div class="card p-4 border-0 rounded rounded-4 bg-white shadow-sm">
+                                            <div class="d-flex justify-content-between mb-3">
+                                                <div class="d-flex gap-3">
+                                                    <div class="card-icon fs-4 icon-circle text-white bg-primary">
+                                                        🏆
+                                                    </div>
+                                                    <div>
+                                                        <h5 class="mb-1">Ճանապարհային Նշաններ</h5>
+                                                        <small class="text-muted">Փետրվարի 12, 2024</small>
+                                                    </div>
+                                                </div>
+                                                <span class="text-primary">✔</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                <div class="d-flex align-items-baseline gap-1">
+                                                    <span class="h3 text-dark">10</span>
+                                                    <span class="text-muted">/10</span>
+                                                </div>
+                                                <span class="badge bg-primary">Կատարյալ</span>
+                                            </div>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-primary" role="progressbar"
+                                                    style="width: 100%;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <!-- Footer -->
+        <footer>
+            <%- include('../parts/footer.ejs') %>
+        </footer>
+        <!-- Scripts -->
+        <%- include('../parts/scripts.ejs') %>
+    </body>
+</html>

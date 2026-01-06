@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+    <head><%- include('../parts/head.ejs') %></head>
+    <body>
+        <%- include('../parts/navbar.ejs') %>
+        <%- include('../parts/sidebar.ejs') %>
+        <%- include('../parts/alert') %>
+        <%- include('../parts/confirm') %>
+
+        <main class="main-content">
+            <section id="contact-messages">
+                <div class="page-header">
+                    <div>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/admin">Վահանակ</a></li>
+                                <li class="breadcrumb-item active">Կոնտակտային նամակներ</li>
+                            </ol>
+                        </nav>
+                        <h1 class="page-title">Կոնտակտային նամակներ</h1>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Անուն</th>
+                                        <th>Ազգանուն</th>
+                                        <th>Էլ. հասցե</th>
+                                        <th>Հեռախոս</th>
+                                        <th>Թեմա</th>
+                                        <th>Հաղորդագրություն</th>
+                                        <th>Ամսաթիվ</th>
+                                        <th class="text-end">Գործողություններ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if (Array.isArray(messages) && messages.length) { %>
+                                        <% messages.forEach((m) => { %>
+                                            <tr>
+                                                <td><%- m.id %></td>
+                                                <td><%- m.name %></td>
+                                                <td><%- m.lastname %></td>
+                                                <td><a href="mailto:<%- m.email %>"><%- m.email %></a></td>
+                                                <td><a href="tel:<%- m.phone %>"><%- m.phone %></a></td>
+                                                <td><%- m.subject %></td>
+                                                <td style="max-width: 360px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="<%- m.message %>"><%- m.message %></td>
+                                                <td><%- helpers.getDate(m.createdAt, 'full') %></td>
+                                                <td class="text-end">
+                                                    <form action="/api/v1/contact/message/<%- m.id %>" method="delete" class="d-inline">
+                                                        <button type="submit" class="btn btn-outline-danger btn-sm">
+                                                            <i class="bi bi-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        <% }) %>
+                                    <% } else { %>
+                                        <tr>
+                                            <td colspan="9" class="text-center text-muted py-4">Տվյալներ չկան</td>
+                                        </tr>
+                                    <% } %>
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+                <% if (typeof pagination !== 'undefined' && pagination.totalPages > 1) { %>
+                <div class="card-footer">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center mb-0">
+                            <li class="page-item <%= pagination.page === 1 ? 'disabled' : '' %>">
+                                <a class="page-link" href="?page=<%= pagination.page - 1 %>">Նախորդ</a>
+                            </li>
+                            <% for(let i = 1; i <= pagination.totalPages; i++) { %>
+                                <li class="page-item <%= pagination.page === i ? 'active' : '' %>">
+                                    <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+                                </li>
+                            <% } %>
+                            <li class="page-item <%= pagination.page === pagination.totalPages ? 'disabled' : '' %>">
+                                <a class="page-link" href="?page=<%= pagination.page + 1 %>">Հաջորդ</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <% } %>
+            </div>
+        </section>
+        </main>
+        <%- include('../parts/scripts.ejs') %>
+    </body>
+</html>

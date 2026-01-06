@@ -1,0 +1,112 @@
+.notification-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10000;
+    max-width: 400px;
+}
+
+.notification {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    margin-bottom: 10px;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.3s ease;
+    border-left: 4px solid #0D6EFD;
+    overflow: hidden;
+}
+
+.notification.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.notification-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+}
+
+.notification-message {
+    font-size: 14px;
+    color: #000;
+    flex: 1;
+    margin-right: 10px;
+}
+
+.notification-close {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #999;
+    cursor: pointer;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+}
+
+.notification-close:hover {
+    color: #666;
+}
+
+/* Notification Types */
+.notification-info {
+    border-left-color: #0D6EFD;
+}
+
+.notification-success {
+    border-left-color: #00e46b;
+}
+
+.notification-warning {
+    border-left-color: #ffc400;
+}
+
+.notification-error {
+    border-left-color: #dc3545;
+}
+
+/* Progress Bar */
+@keyframes notificationProgress {
+  0% { width: 100%; }
+  100% { width: 0%; }
+}
+
+.notification .notification-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    transform-origin: left;
+}
+
+.notification-success .notification-progress { background: #00e46b; }
+.notification-warning .notification-progress { background: #ffc400; }
+.notification-error .notification-progress { background: #dc3545; }
+.notification-info .notification-progress { background: #0D6EFD; }
+
+/* Responsive */
+@media (max-width: 480px) {
+    .notification-container {
+        left: 10px;
+        right: 10px;
+        max-width: none;
+    }
+
+    .notification-content {
+        padding: 12px 16px;
+    }
+
+    .notification-message {
+        font-size: 13px;
+    }
+}

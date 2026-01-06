@@ -1,0 +1,17 @@
+<%
+  const nav_active_profile = nav_active == 'profile' ? 'active' : ''
+  const nav_active_options = nav_active == 'options' ? 'active' : ''
+  const nav_active_history = nav_active == 'history' ? 'active' : ''
+  const nav_active_info = nav_active == 'info' ? 'active' : ''
+%>
+
+<nav>
+    <div class="nav nav-tabs mb-4" id="nav-tab" role="tablist">
+        <a href="/profile/" class="nav-link <%= nav_active_profile %>" id="nav-home-tab">Կարգավորումներ</a>
+        <a href="/profile/options" class="nav-link <%= nav_active_options %>" id="nav-profile-tab">Կուրսեր</a>
+        <a href="/profile/history" class="nav-link <%= nav_active_history %>" id="nav-profile-tab">Պատմություն</a>
+        <% if(user.role === 'team-member' || user.role === 'admin') {%>
+          <a href="/profile/info" class="nav-link <%= nav_active_info %>" id="nav-profile-tab">Անձնական տվյալներ</a>
+        <% } %>
+    </div>
+</nav>
