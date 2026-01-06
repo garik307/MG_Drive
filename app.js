@@ -77,10 +77,10 @@ const readLimiter = rateLimit({
 });
 
 // Apply limiters
-// app.use('/api/v1/users/login', authLimiter);
-// app.use('/api/v1/tests', readLimiter); 
+app.use('/api/v1/users/login', authLimiter);
+app.use('/api/v1/tests', readLimiter); 
 
-// app.use('/api', limiter);
+app.use('/api', limiter);
 
 // REQUEST TIME
 app.use((req, res, next) => {
@@ -139,7 +139,7 @@ app.all('*', (req, res, next) => {
     title: 'Էջը չի գտնվել (404)',
     description: 'Հասցեն գոյություն չունի կամ տեղափոխվել է',
     canonical: url,
-    og_image: '/client/images/404.jpg',
+    og_image: './images/404.jpg',
     nav_active: '404',
     page: req.path
   });

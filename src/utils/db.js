@@ -4,9 +4,11 @@ const dbName = process.env.DB_NAME;
 const dbUsername = process.env.DB_USERNAME;
 const dbPassword = process.env.DB_PASSWORD;
 const dbHost = process.env.DB_HOST;
+const dbPort = Number(process.env.DB_PORT); 
 
 const dbConfig = {
     host: dbHost,
+    port: dbPort, 
     dialect: 'mysql',
     logging: false,
     pool: {
