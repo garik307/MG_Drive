@@ -98,7 +98,7 @@ const redis = new Proxy({}, {
     try {
         await realClient.connect();
         activeClient = realClient;
-        console.log("🟢 Redis connected ✔", redisUrl);
+        console.log("🟢 Redis connected ✔", (redisUrl ? redisUrl : "In-Memory Cache 😒"));
     } catch (err) {
         console.warn("🟡 Redis unavailable, using fallback");
         activeClient = mockClient;
