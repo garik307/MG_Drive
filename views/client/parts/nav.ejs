@@ -97,6 +97,19 @@
                 <span class="text">Կապ</span>
             </a>
         </li>
+        <li>
+            <div class="d-flex justify-content-center gap-4 mt-3 mb-2">
+                <a href="<%= (typeof contact !== 'undefined' && contact?.facebook) ? contact.facebook : '#' %>" target="_blank">
+                    <i class="fa-brands fa-facebook-f text-white fs-4"></i>
+                </a>
+                <a href="<%= (typeof contact !== 'undefined' && contact?.instagram) ? contact.instagram : '#' %>" target="_blank">
+                    <i class="fa-brands fa-instagram text-white fs-4"></i>
+                </a>
+                <a href="<%= (typeof contact !== 'undefined' && contact?.whatsapp) ? contact.whatsapp : '#' %>" target="_blank">
+                    <i class="fa-brands fa-whatsapp text-white fs-4"></i>
+                </a>
+            </div>
+        </li>
         <li class="close_menu">
             <button class="close_menu" aria-label="Փակել մենյուն">
                 <i class="fa-solid fa-xmark"></i>

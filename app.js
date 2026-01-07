@@ -12,7 +12,7 @@ const rateLimit = require('express-rate-limit');
 
 if (process.env.NODE_ENV !== 'production') dotenv.config({ path: './.env' });
 
-// 🔥 Redis (SAFE, optional)
+// Redis (SAFE, optional)
 const redis = require('./src/utils/redisClient');
 
 const Server = require('./src/utils/server');
