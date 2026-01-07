@@ -423,6 +423,7 @@ module.exports = {
 
     getInfoDetails: async (req, res) => {
         let user = req.user;
+        const contact = await Contact.findOne();
         if (req.user && req.user.id) {
             const fullUser = await User.findByPk(req.user.id, { include: 'files' });
             if (fullUser) {
@@ -437,12 +438,14 @@ module.exports = {
             }),
             nav_active: 'info',
             page: req.path,
+            contact,
             user // Pass full user data
         });
     },
 
     getProfileHistory: async (req, res) => {
         let user = req.user;
+        const contact = await Contact.findOne();
         if (req.user && req.user.id) {
             const fullUser = await User.findByPk(req.user.id, { include: 'files' });
             if (fullUser) {
@@ -457,12 +460,14 @@ module.exports = {
             }),
             nav_active: 'history',
             page: req.path,
+            contact,
             user // Pass full user data
         });
     },
 
     getProfileOptions: async (req, res) => {
         let user = req.user;
+        const contact = await Contact.findOne();
         if (req.user && req.user.id) {
             const fullUser = await User.findByPk(req.user.id, { include: 'files' });
             if (fullUser) {
@@ -477,6 +482,7 @@ module.exports = {
             }),
             nav_active: 'options',
             page: req.path,
+            contact,
             user // Pass full user data
         });
     },
@@ -553,18 +559,21 @@ module.exports = {
     },
 
     getLogin: async (req, res) => {
+        const contact = await Contact.findOne();
         res.render('client/pages/login', {
             ...buildSEO(req, {
                 title: 'Մուտք',
                 description: 'Մուտք գործեք անձնական հաշվին։'
             }),
             nav_active: 'login',
-            page: req.path
+            page: req.path,
+            contact
         });
     },
 
     getResetPassword: async (req, res) => {
         try {
+            const contact = await Contact.findOne();
             const token = req.params.token;
             const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
             const user = await User.findOne({
@@ -580,7 +589,8 @@ module.exports = {
                         description: 'Վերականգնման հղման ժամկետը լրացել է կամ թոքենը սխալ է'
                     }),
                     nav_active: 'error',
-                    msg: 'Վերականգնման հղման ժամկետը լրացել է կամ թոքենը սխալ է'
+                    msg: 'Վերականգնման հղման ժամկետը լրացել է կամ թոքենը սխալ է',
+                    contact
                 });
             }
             res.render('client/pages/resetPassword', {
@@ -590,7 +600,8 @@ module.exports = {
                 }),
                 nav_active: 'login',
                 token,
-                page: req.path
+                page: req.path,
+                contact
             });
         } catch (e) {
             return res.status(500).render('error', {

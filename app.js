@@ -20,6 +20,8 @@ const ctrls = require('./src/controllers');
 const globalErrorHandler = ctrls.error;
 const metrics = require('./src/utils/metrics');
 const AppError = require('./src/utils/appError');
+const DB = require('./src/models');
+const { Contact } = DB.models;
 
 const app = express();
 
@@ -129,11 +131,12 @@ app.use((req, res, next) => {
 Api(app);
 
 // 404 HANDLER
-app.all('*', (req, res, next) => {
+app.all('*', async (req, res, next) => {
   if (req.originalUrl.startsWith('/api')) {
     return next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
   }
 
+  const contact = await Contact.findOne();
   const url = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
   res.status(404).render('./notFount/404', {
     title: 'Էջը չի գտնվել (404)',
@@ -141,7 +144,8 @@ app.all('*', (req, res, next) => {
     canonical: url,
     og_image: './images/404.jpg',
     nav_active: '404',
-    page: req.path
+    page: req.path,
+    contact
   });
 });
 
