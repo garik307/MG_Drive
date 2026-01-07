@@ -27,7 +27,8 @@ const app = express();
 
 // 1. COMPRESSION 
 app.use(compression());
-app.set('trust proxy', true);
+app.set('trust proxy', 1);
+
 
 // 2. STATIC FILES
 // Production: Enable caching

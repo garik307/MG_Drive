@@ -8,75 +8,26 @@
         <!-- FAQ Cards -->
         <div class="card p-4 mb-5 faq-card rounded-3">
             <div class="accordion" id="faqAccordion">
-                <div class="accordion-item mb-4">
-                    <h2 class="accordion-header" id="heading1">
-                        <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
-                            Որ դասերին է հնարավոր գրանցվել առցանց?
-                        </button>
-                    </h2>
-                    <div id="collapse1" class="accordion-collapse collapse" aria-labelledby="heading1"
-                        data-bs-parent="#faqAccordion">
-                        <div class="accordion-body text-muted">
-                            Առցանց գրանցվել կարող եք թե՛ տեսական դասերին, թե՛ մեքենայի վարելու գործնական
-                            պարապմունքներին։
+                <% if (typeof faqs !== 'undefined' && faqs.length > 0) { %>
+                    <% faqs.forEach((faq, index) => { %>
+                        <div class="accordion-item mb-4">
+                            <h2 class="accordion-header" id="heading<%= faq.id %>">
+                                <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse<%= faq.id %>" aria-expanded="false" aria-controls="collapse<%= faq.id %>">
+                                    <%= faq.question %>
+                                </button>
+                            </h2>
+                            <div id="collapse<%= faq.id %>" class="accordion-collapse collapse" aria-labelledby="heading<%= faq.id %>"
+                                data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted" style="white-space: pre-line;">
+                                    <%= faq.answer %>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="accordion-item mb-4">
-                    <h2 class="accordion-header" id="heading2">
-                        <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
-                            Ինչ փաստաթղթեր են անհրաժեշտ գրանցման համար?
-                        </button>
-                    </h2>
-                    <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2"
-                        data-bs-parent="#faqAccordion">
-                        <div class="accordion-body text-muted">
-                            Գրանցման համար անհրաժեշտ են անձնագիր և բժշկական տեղեկանք (եթե պահանջվում է)։
-                        </div>
-                    </div>
-                </div>
-
-                <div class="accordion-item mb-4">
-                    <h2 class="accordion-header" id="heading3">
-                        <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
-                            Արդյոք հնարավոր է ընտրել մեքենայի տեսակը՝ ավտոմատ կամ մեխանիկ?
-                        </button>
-                    </h2>
-                    <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3"
-                        data-bs-parent="#faqAccordion">
-                        <div class="accordion-body text-muted">
-                            Այո, դուք կարող եք ընտրել մեքենայի տեսակը՝ գրանցման պահին։
-                        </div>
-                    </div>
-                </div>
-
-                <div class="accordion-item mb-4">
-                    <h2 class="accordion-header" id="heading4">
-                        <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">Որ տարիքային սահմանափակումն է գործում վարորդական դասընթացների համար?</button>
-                    </h2>
-                    <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4"
-                        data-bs-parent="#faqAccordion">
-                        <div class="accordion-body text-muted">Վարորդական դասընթացներին կարող են մասնակցել 16 տարին լրացած անձինք։</div>
-                    </div>
-                </div>
-
-                <div class="accordion-item mb-4">
-                    <h2 class="accordion-header" id="heading5">
-                        <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
-                            Կան արդյոք խմբային և անհատական դասընթացներ?
-                        </button>
-                    </h2>
-                    <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading5"
-                        data-bs-parent="#faqAccordion">
-                        <div class="accordion-body text-muted">Այո, առաջարկվում են և՛ խմբային, և՛ անհատական դասընթացներ՝ ըստ ձեր հարմարության։</div>
-                    </div>
-                </div>
+                    <% }); %>
+                <% } else { %>
+                    <p class="text-center text-muted">Հարցեր չեն գտնվել։</p>
+                <% } %>
             </div>
         </div>
         <!-- Call to Action -->
