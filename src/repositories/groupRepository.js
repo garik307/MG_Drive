@@ -73,6 +73,9 @@ module.exports = {
             'id', 
             'title', 
             'number',
+            'text',
+            'createdAt',
+            'updatedAt',
             [DB.Sequelize.literal('(SELECT COUNT(*) FROM questions WHERE questions.row_id = groups.id AND questions.table_name = "groups")'), 'questionCount']
         ],
         order: [['number', 'ASC']]

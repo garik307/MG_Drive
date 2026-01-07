@@ -41,6 +41,9 @@ async function listAllMetadata() {
           id: plain.id,
           title: plain.title,
           number: plain.number,
+          text: plain.text,
+          createdAt: plain.createdAt,
+          updatedAt: plain.updatedAt,
           questionCount: parseInt(plain.questionCount || 0, 10)
       };
   });
