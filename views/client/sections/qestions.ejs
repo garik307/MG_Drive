@@ -6,11 +6,11 @@
             <p class="lead text-muted mx-auto text-title">Տեղեկացեք ամենակարևոր մանրամասների մասին</p>
         </div>
         <!-- FAQ Cards -->
-        <div class="card p-4 mb-5 faq-card rounded-3">
+        <div class="card p-4 mb-3 faq-card rounded-3">
             <div class="accordion" id="faqAccordion">
                 <% if (typeof faqs !== 'undefined' && faqs.length > 0) { %>
                     <% faqs.forEach((faq, index) => { %>
-                        <div class="accordion-item mb-4">
+                        <div class="accordion-item mb-3">
                             <h2 class="accordion-header" id="heading<%= faq.id %>">
                                 <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapse<%= faq.id %>" aria-expanded="false" aria-controls="collapse<%= faq.id %>">
