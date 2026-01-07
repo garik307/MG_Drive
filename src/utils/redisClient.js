@@ -1,4 +1,5 @@
 const { createClient } = require("redis");
+console.trace('🔥 REDIS CLIENT INIT TRACE');
 
 // In-memory fallback client (safe, simple)
 const mockClient = {
