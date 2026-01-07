@@ -10,7 +10,7 @@ const fileUpload = require('express-fileupload');
 const crypto = require('crypto');
 const rateLimit = require('express-rate-limit');
 
-dotenv.config({ path: './.env' });
+if (process.env.NODE_ENV !== 'production') dotenv.config({ path: './.env' });
 
 // 🔥 Redis (SAFE, optional)
 const redis = require('./src/utils/redisClient');
