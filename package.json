@@ -4,8 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js",
-    "worker": "node src/workers/emailWorker.js",
+    "start": "node app.js",
     "build": "gulp build",
     "dev": "gulp"
   },
@@ -16,7 +15,6 @@
     "@babel/preset-env": "^7.27.2",
     "bcryptjs": "^2.4.3",
     "browser-sync": "^3.0.4",
-    "bull": "^4.16.5",
     "compression": "^1.8.0",
     "cookie-parser": "^1.4.6",
     "crypto": "^1.0.1",
