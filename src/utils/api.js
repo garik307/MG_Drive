@@ -2,7 +2,6 @@ const routes = require('../routes');
 
 module.exports = api = (app) => {
     try {
-        console.log('[API] routes keys:', Object.keys(routes));
         const regs = [
             ['/api/v1/user', routes.user, 'user'],
             ['/api/v1/tests', routes.test, 'test'],

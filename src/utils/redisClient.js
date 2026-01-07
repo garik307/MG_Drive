@@ -1,5 +1,4 @@
 const { createClient } = require("redis");
-console.trace('🔥 REDIS CLIENT INIT TRACE');
 
 // In-memory fallback client (safe, simple)
 const mockClient = {
@@ -7,7 +6,7 @@ const mockClient = {
     isOpen: true,
 
     async connect() {
-        console.log("👌 Using In-Memory Cache (Redis fallback)");
+        console.log("⚠️ Using In-Memory Cache (Redis fallback)");
     },
 
     async get(key) {
@@ -57,7 +56,8 @@ const mockClient = {
 /**
  * REAL Redis client (Railway / Production)
  */
-const redisUrl = process.env.REDIS_URL;
+// const redisUrl = process.env.REDIS_URL;
+const redisUrl =  process.env.NODE_ENV === 'production' ? process.env.REDIS_URL : null;
 
 let realClient = null;
 let activeClient = mockClient;
