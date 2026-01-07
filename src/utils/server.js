@@ -6,7 +6,7 @@ module.exports = function server(app) {
             // await ensureQuestionNumberColumn();
             const port = process.env.PORT || 3300;
             const server = app.listen(port, () => console.log(`App running on port ${port}...`));
-
+ 
             process.on('unhandledRejection', e => {
                 console.log('UNHANDLED REJECTION! Shutting down...');
                 console.log(e.name, e.message);
@@ -14,4 +14,4 @@ module.exports = function server(app) {
             })
         }).catch(e => console.log(e));
     return DB;
-}
+} 
