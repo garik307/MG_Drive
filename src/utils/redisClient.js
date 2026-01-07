@@ -53,9 +53,9 @@ const mockClient = {
     on() {}
 };
 
-/**
- * REAL Redis client (Railway / Production)
- */
+// REAL Redis client (Railway / Production)
+
+
 // const redisUrl = process.env.REDIS_URL;
 const redisUrl =  process.env.NODE_ENV === 'production' ? process.env.REDIS_URL : null;
 
@@ -77,9 +77,7 @@ if (redisUrl) {
     });
 }
 
-/**
- * Proxy – app uses ONE client always
- */
+// Proxy – app uses ONE client always
 const redis = new Proxy({}, {
     get(_, prop) {
         const client = activeClient || mockClient;
@@ -90,9 +88,7 @@ const redis = new Proxy({}, {
     }
 });
 
-/**
- * Init Redis
- */
+// Init Redis
 (async () => {
     if (!realClient) {
         await mockClient.connect();
@@ -102,7 +98,7 @@ const redis = new Proxy({}, {
     try {
         await realClient.connect();
         activeClient = realClient;
-        console.log("🟢 Redis connected ✔");
+        console.log("🟢 Redis connected ✔", redisUrl);
     } catch (err) {
         console.warn("🟡 Redis unavailable, using fallback");
         activeClient = mockClient;
