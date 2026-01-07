@@ -1,3 +1,16 @@
+<%
+    let wh = [];
+    if (typeof contact !== 'undefined' && contact?.workingHours) {
+        wh = contact.workingHours;
+        if (typeof wh === 'string') {
+            try { wh = JSON.parse(wh); } catch(e) { wh = []; }
+        }
+    }
+    
+    const weekdays = wh.find(x => x.days.includes("mon"));
+    const saturday = wh.find(x => x.days.includes("sat"));
+    const sunday = wh.find(x => x.days.includes("sun"));
+%>
 <section id="contact" class="py-5 bg-light">
      <div class="container">
          <!-- Header -->
@@ -96,7 +109,9 @@
                                 <div>
                                     <h5 class="fw-semibold mb-1">Հեռախոս</h5>
                                     <p class="mb-0 text-muted"><%= contact?.phone || '' %></p>
-                                    <p class="small text-muted mb-0">Երկուշաբթի-Ուրբաթ 9:00-18:00</p>
+                                    <% if (weekdays && weekdays.hours !== 'closed') { %>
+                                        <p class="small text-muted mb-0">Երկուշաբթի-Ուրբաթ <%= weekdays.hours %></p>
+                                    <% } %>
                                 </div>
                             </div>
                         </div>
@@ -136,8 +151,15 @@
                                 </div>
                                 <div>
                                     <h5 class="fw-semibold mb-1">Աշխատանքային Ժամեր</h5>
-                                    <p class="small text-muted mb-0">Երկ – Ուրբ: 08:00 – 20:00 Շաբաթ – Կիր: 09:00 –
-                                            18:00</p>
+                                    <% if (weekdays && weekdays.hours !== 'closed') { %>
+                                        <p class="small text-muted mb-0">Երկ – Ուրբ: <%= weekdays.hours %></p>
+                                    <% } %>
+                                    <% if (saturday && saturday.hours !== 'closed') { %>
+                                        <p class="small text-muted mb-0">Շաբաթ: <%= saturday.hours %></p>
+                                    <% } %>
+                                    <% if (sunday && sunday.hours !== 'closed') { %>
+                                        <p class="small text-muted mb-0">Կիրակի: <%= sunday.hours %></p>
+                                    <% } %>
                                 </div>
                             </div>
                         </div>

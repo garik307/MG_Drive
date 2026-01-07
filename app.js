@@ -27,6 +27,7 @@ const app = express();
 
 // 1. COMPRESSION 
 app.use(compression());
+app.set('trust proxy', true);
 
 // 2. STATIC FILES
 // Production: Enable caching
@@ -78,6 +79,7 @@ const readLimiter = rateLimit({
     message: { message: 'Չափազանց շատ ընթերցման հարցումներ' }
 });
 
+
 // Apply limiters
 app.use('/api/v1/users/login', authLimiter);
 app.use('/api/v1/tests', readLimiter); 
@@ -124,7 +126,7 @@ app.use((req, res, next) => {
   redis.expire(`visitors:${dateKey}`, 3 * 24 * 60 * 60).catch(() => {});
   redis.expire(`visits:${dateKey}`, 3 * 24 * 60 * 60).catch(() => {});
 
-  
+
   next();
 });
 

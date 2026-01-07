@@ -2,6 +2,20 @@
 <% const companyNameFirst = companyName.split(' ')[0] || 'MG'; %>
 <% const companyNameSecond = companyName.split(' ').slice(1).join(' ') || 'Drive'; %>
 
+<%
+    let wh = [];
+    if (typeof contact !== 'undefined' && contact?.workingHours) {
+        wh = contact.workingHours;
+        if (typeof wh === 'string') {
+            try { wh = JSON.parse(wh); } catch(e) { wh = []; }
+        }
+    }
+    
+    const weekdays = wh.find(x => x.days.includes("mon"));
+    const saturday = wh.find(x => x.days.includes("sat"));
+    const sunday = wh.find(x => x.days.includes("sun"));
+%>
+
 <div class="container py-5">
     <div class="row">
         <!-- Brand Section -->
@@ -48,7 +62,19 @@
                 </li>
                 <li class="d-flex align-items-center gap-2 mb-4">
                     <i class="fa-solid fa-clock"></i>
-                    <span>Երկ - Ուրբ: 09:00 - 18:00</span>
+                    <div>
+                        <% if (weekdays && weekdays.hours !== 'closed') { %>
+                            <div>Երկ - Ուրբ: <%= weekdays.hours %></div>
+                        <% } else { %>
+                            <div>Երկ - Ուրբ: 09:00 - 18:00</div>
+                        <% } %>
+                        <% if (saturday && saturday.hours !== 'closed') { %>
+                            <div>Շաբաթ: <%= saturday.hours %></div>
+                        <% } %>
+                        <% if (sunday && sunday.hours !== 'closed') { %>
+                            <div>Կիրակի: <%= sunday.hours %></div>
+                        <% } %>
+                    </div>
                 </li>
             </ul>
         </div>
