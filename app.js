@@ -30,7 +30,6 @@ const app = express();
 app.set('trust proxy', 1);
 app.use(compression());
 
-
 // 2. STATIC FILES
 const staticOptions = {
   etag: true,
@@ -70,15 +69,15 @@ const limiter = rateLimit({
 });
 
 const authLimiter = rateLimit({
-    max: 100, // Increased for Load Testing
-    windowMs: 60 * 1000, // 1 minute
-    message: { message: 'Այս IP-ից մուտք գործելու չափազանց շատ փորձեր կան, խնդրում ենք կրկին փորձել մեկ ժամից։' }
+  max: 100, // Increased for Load Testing
+  windowMs: 60 * 1000, // 1 minute
+  message: { message: 'Այս IP-ից մուտք գործելու չափազանց շատ փորձեր կան, խնդրում ենք կրկին փորձել մեկ ժամից։' }
 });
 
 const readLimiter = rateLimit({
-    max: 5000, // Increased for Load Testing (50 VUs * 60s = 3000 reqs)
-    windowMs: 60 * 1000, // 1 minute
-    message: { message: 'Չափազանց շատ ընթերցման հարցումներ' }
+  max: 5000, // Increased for Load Testing (50 VUs * 60s = 3000 reqs)
+  windowMs: 60 * 1000, // 1 minute
+  message: { message: 'Չափազանց շատ ընթերցման հարցումներ' }
 });
 
 

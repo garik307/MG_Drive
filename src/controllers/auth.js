@@ -130,40 +130,64 @@ module.exports = {
         }
     }),
     signUpByAdmin: catchAsync(async (req, res, next) => {
-        const allowedRoles = ['user','student','team-member'];
-        const role = String(req.body.role || '').trim();
-        const name = String(req.body.name || '').trim();
-        const lastName = String(req.body.last_name || '').trim();
-        const phone = String(req.body.phone || '').trim();
-        const email = String(req.body.email || '').trim();
-        const password = String(req.body.password || '').trim();
+        try {
+            const allowedRoles = ['user','student','team-member'];
+            const role = String(req.body.role || '').trim();
+            const name = String(req.body.name || '').trim();
+            const lastName = String(req.body.last_name || '').trim();
+            const phone = String(req.body.phone || '').trim();
+            const email = String(req.body.email || '').trim();
+            const password = String(req.body.password || '').trim();
 
-        if (!name || !phone || !email || !password || !role) {
-            return next(new AppError('Պարտադիր դաշտերը բաց են մնացել', 403));
+            if (!name || !phone || !email || !password || !role) {
+                return next(new AppError('Պարտադիր դաշտերը բաց են մնացել', 403));
+            }
+            if (!allowedRoles.includes(role)) {
+                return next(new AppError('Սխալ կարգավիճակ է ընտրվել', 403));
+            }
+
+            const existingEmail = await User.findOne({ where: { email } });
+            if (existingEmail) {
+                return next(new AppError('Այս էլ․ հասցեն արդեն գրանցված է։', 409, 'EMAIL_EXISTS'));
+            }
+
+            const payload = {
+                name: lastName ? `${name} ${lastName}` : name,
+                phone,
+                email,
+                role,
+                password
+            };
+
+            const user = await User.create(payload);
+            res.status(201).json({
+                status: 'success',
+                time: (Date.now() - req.time) + ' ms',
+                user
+            });
+        } catch (err) {
+             // Handle unique constraint violation
+             if (err.name === 'SequelizeUniqueConstraintError') {
+                const field = err.errors?.[0]?.path;
+                const msg = field === 'phone' 
+                    ? 'Այս հեռախոսահամարն արդեն գրանցված է։' 
+                    : 'Այս էլ․ հասցեն արդեն գրանցված է։';
+                const code = field === 'phone' ? 'PHONE_EXISTS' : 'EMAIL_EXISTS';
+                return next(new AppError(msg, 409, code));
+            }
+
+            // Handle validation errors from Sequelize
+            if (err.name === 'SequelizeValidationError') {
+                 const messages = err.errors.map(e => {
+                    if (e.path === 'phone') return 'Հեռախոսահամարը պետք է լինի 0-ով սկսվող 9 նիշ (օր․ 091234567)';
+                    if (e.path === 'email') return 'Էլ․ հասցեն սխալ է';
+                    return e.message;
+                 });
+                 return next(new AppError(`${messages.join('. ')}`, 400, 'VALIDATION_ERROR'));
+            }
+            
+            return next(err);
         }
-        if (!allowedRoles.includes(role)) {
-            return next(new AppError('Սխալ կարգավիճակ է ընտրվել', 403));
-        }
-
-        const existingEmail = await User.findOne({ where: { email } });
-        if (existingEmail) {
-            return next(new AppError('Այս էլ․ հասցեն արդեն գրանցված է։', 409, 'EMAIL_EXISTS'));
-        }
-
-        const payload = {
-            name: lastName ? `${name} ${lastName}` : name,
-            phone,
-            email,
-            role,
-            password
-        };
-
-        const user = await User.create(payload);
-        res.status(201).json({
-            status: 'success',
-            time: (Date.now() - req.time) + ' ms',
-            user
-        });
     }),
     logOut: catchAsync(async (req, res, next) => {
         // Set cookie expiry to 2 seconds from now
