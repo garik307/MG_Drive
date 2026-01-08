@@ -18,7 +18,6 @@ module.exports = (con, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
             defaultValue: "",
-            unique: true,
             validate: {
                 is: /^0\d{8}$/
             }
@@ -113,6 +112,23 @@ module.exports = (con, DataTypes) => {
                     // clear reset token if pass changed
                     user.passwordResetToken = null;
                     user.passwordResetExpires = null;
+                }
+            },
+            
+            // Clean up orphan files if user ID is reused (e.g. after manual DB cleanup)
+            afterCreate: async (user, options) => {
+                try {
+                    if (user.sequelize && user.sequelize.models.files) {
+                        await user.sequelize.models.files.destroy({
+                            where: {
+                                row_id: user.id,
+                                table_name: 'users'
+                            },
+                            individualHooks: true
+                        });
+                    }
+                } catch (err) {
+                    // console.error("Error cleaning up orphan files:", err);
                 }
             }
         }

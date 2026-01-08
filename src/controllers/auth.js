@@ -150,11 +150,6 @@ module.exports = {
             return next(new AppError('Այս էլ․ հասցեն արդեն գրանցված է։', 409, 'EMAIL_EXISTS'));
         }
 
-        const existingPhone = await User.findOne({ where: { phone } });
-        if (existingPhone) {
-            return next(new AppError('Այս հեռախոսահամարն արդեն գրանցված է։', 409, 'PHONE_EXISTS'));
-        }
-
         const payload = {
             name: lastName ? `${name} ${lastName}` : name,
             phone,
