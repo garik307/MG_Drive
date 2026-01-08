@@ -82,6 +82,18 @@ async function listAdmin() {
 async function getById(id) {
     const test = await repo.findById(id);
     if (!test) throw new AppError('Թեստը չի գտնվել', 404);
+
+    // Consistency Logic with Admin Panel
+    if (test.questions && test.questions.length > 0) {
+        const hasNumbers = test.questions.every(q => (Number(q.number) || 0) > 0);
+        if (!hasNumbers) {
+            test.questions.sort((a, b) => a.id - b.id);
+            test.questions.forEach((q, idx) => {
+                q.number = idx + 1;
+            });
+        }
+    }
+    
     return test;
 }
 

@@ -498,15 +498,35 @@ module.exports = {
              return res.redirect('/tests');
         }
 
-        const test = await Test.findOne({
+        let test = await Test.findOne({
             include: [{ model: DB.models.Question, as: 'questions', include: 'files' }],
-            where: { id: req.params.id }
+            where: { id: req.params.id },
+            order: [
+                [{ model: DB.models.Question, as: 'questions' }, 'number', 'ASC'],
+                [{ model: DB.models.Question, as: 'questions' }, 'id', 'ASC']
+            ]
         });
         const contact = await Contact.findOne();
 
         if (!test) {
             return next(new AppError('Թեստը չի գտնվել', 404));
         }
+        
+        // Convert to plain object to allow modification
+        test = test.get({ plain: true });
+
+        // --- Consistency Logic with Admin Panel ---
+        // If any question has number 0, admin panel resorts by ID and renumbers 1..N
+        if (test.questions && test.questions.length > 0) {
+            const hasNumbers = test.questions.every(q => (Number(q.number) || 0) > 0);
+            if (!hasNumbers) {
+                test.questions.sort((a, b) => a.id - b.id);
+                test.questions.forEach((q, idx) => {
+                    q.number = idx + 1;
+                });
+            }
+        }
+        // ------------------------------------------
 
         res.render('client/pages/test-details', {
             ...buildSEO(req, {

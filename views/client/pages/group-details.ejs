@@ -25,6 +25,9 @@
                             <span>Ընտրեք ճիշտ պատասխանը նկարագրված իրավիճակի համար:</span>
                         </div>
                         <div class="d-flex align-items-center gap-3 flex-wrap">
+                            <button id="resetProgressBtn" class="btn btn-danger btn-sm text-white" title="Սկսել նորից">
+                                <i class="fa-solid fa-rotate-right"></i>
+                            </button>
                             <select id="limitSelect" class="form-select form-select-sm limit-select">
                                 <option value="10">10 հարց/էջ</option>
                                 <option value="20" selected>20 հարց/էջ</option>
@@ -74,8 +77,27 @@
                     </div>
 
                     <div class="d-flex gap-2 justify-content-center">
-                        <a href="/groups" class="btn btn-outline-secondary px-4 text-white">Դուրս գալ</a>
+                        <a href="/groups" class="btn btn-outline-secondary px-4 text-dark">Դուրս գալ</a>
                         <button id="btnRetry" class="btn btn-primary px-4 text-white">Կրկնել</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reset Confirm Modal (Bootstrap) -->
+        <div class="modal fade" id="resetConfirmModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header border-bottom-0">
+                        <h5 class="modal-title">Սկսել նորից</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body py-4">
+                        <p class="mb-0 text-center fs-5">Ցանկանու՞մ եք սկսել նորից: <br> <small class="text-muted">Բոլոր պահպանված պատասխանները կջնջվեն:</small></p>
+                    </div>
+                    <div class="modal-footer border-top-0 justify-content-center">
+                        <button type="button" class="btn btn-light px-4" data-bs-dismiss="modal">Ոչ</button>
+                        <button type="button" class="btn btn-danger px-4 text-white" id="confirmResetBtnAction">Այո, սկսել</button>
                     </div>
                 </div>
             </div>

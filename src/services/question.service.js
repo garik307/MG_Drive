@@ -99,7 +99,8 @@ async function listNormalized() {
     const bOwnerNum = b.owner?.data?.number ?? 0;
     if (a.table_name !== b.table_name) return a.table_name < b.table_name ? -1 : 1;
     if (aOwnerNum !== bOwnerNum) return aOwnerNum - bOwnerNum;
-    return a.number - b.number;
+    if (a.number !== b.number) return a.number - b.number;
+    return a.id - b.id;
   });
   await cache.set(QUESTIONS_ALL_KEY, ordered, 60);
   return { questions: ordered, fromCache: false };

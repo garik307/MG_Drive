@@ -23,6 +23,7 @@ module.exports = {
             attributes: ['id', 'question'],
             separate: true,
             order: [
+                ['number', 'ASC'],
                 ['id', 'ASC']
             ],
             include: [{
@@ -49,6 +50,7 @@ module.exports = {
             attributes: ['id', 'question'],
             separate: true,
             order: [
+                ['number', 'ASC'],
                 ['id', 'ASC']
             ],
             include: [{
@@ -61,7 +63,9 @@ module.exports = {
     }),
     findAllAdmin: async () => Group.findAll({
         order: [
-            ['number', 'ASC']
+            ['number', 'ASC'],
+            [{ model: Question, as: 'questions' }, 'number', 'ASC'],
+            [{ model: Question, as: 'questions' }, 'id', 'ASC']
         ],
         include: [{
             model: Question,
@@ -91,7 +95,11 @@ module.exports = {
                 as: 'files',
                 attributes: ['id', 'name', 'ext', 'name_used']
             }]
-        }]
+        }],
+        order: [
+            [{ model: Question, as: 'questions' }, 'number', 'ASC'],
+            [{ model: Question, as: 'questions' }, 'id', 'ASC']
+        ]
     }),
     findByNumber: async (number) => Group.findOne({
         where: {
@@ -143,7 +151,7 @@ module.exports = {
             },
             limit,
             offset,
-            order: [['id', 'ASC']],
+            order: [['number', 'ASC'], ['id', 'ASC']],
             include: [{
                 model: File,
                 as: 'files',

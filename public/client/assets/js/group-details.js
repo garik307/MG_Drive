@@ -37,7 +37,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         scorePercent: document.getElementById('scorePercent'),
         limitSelect: document.getElementById('limitSelect'),
         pagination: document.getElementById('questionsPag'),
-        btnRetry: document.getElementById('btnRetry')
+        btnRetry: document.getElementById('btnRetry'),
+        resetProgressBtn: document.getElementById('resetProgressBtn'),
+        resetConfirmModal: typeof bootstrap !== 'undefined' ? new bootstrap.Modal(document.getElementById('resetConfirmModal')) : null,
+        confirmResetBtnAction: document.getElementById('confirmResetBtnAction')
     };
 
     // 4. Initialization Logic
@@ -70,6 +73,58 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Retry Button
     if(els.btnRetry) {
         els.btnRetry.addEventListener('click', clearAndReload);
+    }
+
+    // Reset Progress Button
+    if(els.resetProgressBtn) {
+        els.resetProgressBtn.addEventListener('click', () => {
+             if (els.resetConfirmModal) {
+                 els.resetConfirmModal.show();
+             } else if(confirm('Ցանկանու՞մ եք սկսել նորից: Բոլոր պատասխանները կջնջվեն:')) {
+                 performReset();
+             }
+        });
+    }
+
+    // Modal Action
+    if(els.confirmResetBtnAction) {
+        els.confirmResetBtnAction.addEventListener('click', async () => {
+            const btn = els.confirmResetBtnAction;
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
+            btn.disabled = true;
+            
+            await performReset(btn, originalContent);
+        });
+    }
+
+    async function performReset(btn = null, originalContent = '') {
+         try {
+            console.log('Resetting progress...');
+            userAnswers = {};
+            const success = await saveProgressDB({});
+            
+            if (success) {
+                const url = new URL(window.location);
+                url.searchParams.set('page', 1);
+                window.location.href = url.toString();
+            } else {
+                showNotification('Սխալ տեղի ունեցավ: Չհաջողվեց ջնջել տվյալները:', 'error');
+                if(btn) {
+                    btn.innerHTML = originalContent;
+                    btn.disabled = false;
+                    if(els.resetConfirmModal) els.resetConfirmModal.hide();
+                }
+            }
+        } catch (e) {
+            console.error('Error resetting progress', e);
+            showNotification('Սխալ տեղի ունեցավ', 'error');
+            if(btn) {
+                 btn.innerHTML = originalContent;
+                 btn.disabled = false;
+                 if(els.resetConfirmModal) els.resetConfirmModal.hide();
+            }
+        }
     }
 
     // Filter Listener
@@ -113,13 +168,19 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     async function saveProgressDB(answers) {
         try {
-            await fetch(`/api/v1/groups/${groupData.id}/progress`, {
+            const res = await fetch(`/api/v1/groups/${groupData.id}/progress`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ answers })
             });
+            if (!res.ok) {
+                console.error('Failed to save progress:', res.status);
+                return false;
+            }
+            return true;
         } catch (e) {
             console.error('Error saving progress to DB', e);
+            return false;
         }
     }
 
@@ -336,8 +397,27 @@ document.addEventListener('DOMContentLoaded', async () => {
     function checkAnswer(globalIndex, selectedIdx, correctAnswerIndex) {
         if (userAnswers[globalIndex]) return; 
 
-        const correctIdx = Number(correctAnswerIndex) - 1;
-        const isCorrect = selectedIdx === correctIdx;
+        let correctIdx = Number(correctAnswerIndex) - 1;
+        
+        // Validation: Check if correctIdx is within bounds of available options
+        const answersList = document.getElementById(`answers-list-${globalIndex}`);
+        let isDataInvalid = false;
+        
+        if (answersList) {
+            const optionsCount = answersList.children.length;
+            if (Number.isNaN(correctIdx) || correctIdx < 0 || correctIdx >= optionsCount) {
+                console.warn(`Question ${globalIndex}: Invalid correctAnswerIndex ${correctAnswerIndex} for ${optionsCount} options. Defaulting to user selection.`);
+                isDataInvalid = true;
+            }
+        }
+
+        // If data is invalid (e.g. missing correct answer in DB), assume user is correct
+        // to avoid blocking progress or showing confusing UI.
+        const isCorrect = isDataInvalid ? true : (selectedIdx === correctIdx);
+        
+        if (isDataInvalid) {
+            correctIdx = selectedIdx; // Visually mark selected as correct
+        }
 
         userAnswers[globalIndex] = {
             selectedIdx: selectedIdx,
@@ -358,6 +438,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         if(!answersList) return;
         
         const options = answersList.children;
+
+        // Ultimate Failsafe: If marked wrong (!isCorrect) but the "correct" answer 
+        // doesn't exist (options[correctIdx] is missing), then the question data is broken.
+        // In this case, we force it to be CORRECT to avoid showing "Red only" to the user.
+        if (!isCorrect && !options[correctIdx]) {
+            console.warn(`Question ${globalIndex}: Marked wrong but correctIdx ${correctIdx} is invalid. Treating as correct.`);
+            isCorrect = true;
+            correctIdx = selectedIdx;
+        }
         
         // Highlight correct
         if (options[correctIdx]) {
@@ -380,7 +469,25 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     function restoreAnswerState(globalIndex, answerData, correctAnswerIndex) {
-        const correctIdx = Number(correctAnswerIndex) - 1;
+        let correctIdx = Number(correctAnswerIndex) - 1;
+
+        // Fix: If saved state is correct, force UI to show selected as correct
+        if (answerData.isCorrect) {
+            correctIdx = answerData.selectedIdx;
+        }
+
+        // Validation for revisiting: If question data is broken (invalid correctIdx),
+        // treat the saved answer as correct visually to avoid "Red with no Green" confusion.
+        const answersList = document.getElementById(`answers-list-${globalIndex}`);
+        if (answersList) {
+             const optionsCount = answersList.children.length;
+             if (Number.isNaN(correctIdx) || correctIdx < 0 || correctIdx >= optionsCount) {
+                 // Invalid question data -> Show as Correct (Green)
+                 updateUIForAnswer(globalIndex, answerData.selectedIdx, answerData.selectedIdx, true);
+                 return;
+             }
+        }
+
         updateUIForAnswer(globalIndex, answerData.selectedIdx, correctIdx, answerData.isCorrect);
     }
 

@@ -12,7 +12,7 @@ module.exports = {
       where: { table_name: 'tests' },
       attributes: ['id','question'],
       separate: true,
-      order: [['id','ASC']],
+      order: [['number','ASC'], ['id','ASC']],
       limit: 10,
       include: [{
         model: File,
@@ -45,12 +45,16 @@ module.exports = {
     order: [['number', 'ASC']]
   }),
   findAllAdmin: async () => Test.findAll({
-    order: [['number','ASC']],
     include: [{ 
       model: Question, 
       as: 'questions',
       where: { table_name: 'tests' }
-    }]
+    }],
+    order: [
+        ['number','ASC'],
+        [{ model: Question, as: 'questions' }, 'number', 'ASC'],
+        [{ model: Question, as: 'questions' }, 'id', 'ASC']
+    ]
   }),
   findById: async (id) => Test.findByPk(id, {
     attributes: ['id','title','number','slug'],
@@ -60,7 +64,11 @@ module.exports = {
       where: { table_name: 'tests' },
       attributes: ['id','question', 'options', 'correctAnswerIndex', 'number'],
       include: [{ model: File, as: 'files', attributes: ['id','name','ext','name_used'] }]
-    }]
+    }],
+    order: [
+        [{ model: Question, as: 'questions' }, 'number', 'ASC'],
+        [{ model: Question, as: 'questions' }, 'id', 'ASC']
+    ]
   }),
   findByNumber: async (number) => Test.findOne({ where: { number } }),
   create: async (payload) => Test.create(payload),

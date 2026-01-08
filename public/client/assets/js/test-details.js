@@ -161,7 +161,16 @@ document.addEventListener('DOMContentLoaded', () => {
             options = q.options || [];
         }
         
-        const correctIdx = Number(q.correctAnswerIndex);
+        let correctIdx = Number(q.correctAnswerIndex) - 1;
+
+        // Validation: Check bounds
+        if (Number.isNaN(correctIdx) || correctIdx < 0 || correctIdx >= options.length) {
+             console.warn(`Question ${currentQuestionIndex}: Invalid correctAnswerIndex ${q.correctAnswerIndex}.`);
+             // Failsafe: if user answered, and we can't find correct, assume user was right to avoid RED only
+             if (userAnswers[currentQuestionIndex] && userAnswers[currentQuestionIndex].isCorrect) {
+                 correctIdx = userAnswers[currentQuestionIndex].selectedIdx;
+             }
+        }
 
         options.forEach((opt, idx) => {
             const btn = document.createElement('div');
@@ -172,9 +181,15 @@ document.addEventListener('DOMContentLoaded', () => {
             
             if (isAnswered) {
                 btn.classList.add('disabled');
+                
+                const userSel = userAnswers[currentQuestionIndex].selectedIdx;
+                const userCorrect = userAnswers[currentQuestionIndex].isCorrect;
+
                 if (idx === correctIdx) {
                     btn.classList.add('correct');
-                } else if (idx === userAnswers[currentQuestionIndex].selectedIdx) {
+                } 
+                
+                if (!userCorrect && idx === userSel) {
                      btn.classList.add('wrong');
                 }
             }
@@ -196,8 +211,23 @@ document.addEventListener('DOMContentLoaded', () => {
         if (userAnswers[currentQuestionIndex] !== null) return; // Already answered
 
         const q = questions[currentQuestionIndex];
-        const correctIdx = Number(q.correctAnswerIndex) - 1;
-        const isCorrect = selectedIdx === correctIdx;
+        let correctIdx = Number(q.correctAnswerIndex) - 1;
+        
+        // Validation
+        let optionsCount = 0;
+        if(els.answersList) optionsCount = els.answersList.children.length;
+        
+        let isDataInvalid = false;
+        if (Number.isNaN(correctIdx) || correctIdx < 0 || correctIdx >= optionsCount) {
+             console.warn(`Question ${currentQuestionIndex}: Invalid correctAnswerIndex ${q.correctAnswerIndex}. Defaulting to user selection.`);
+             isDataInvalid = true;
+        }
+
+        const isCorrect = isDataInvalid ? true : (selectedIdx === correctIdx);
+        
+        if (isDataInvalid) {
+            correctIdx = selectedIdx; 
+        }
 
         userAnswers[currentQuestionIndex] = {
             selectedIdx: selectedIdx,
