@@ -86,7 +86,7 @@ const readLimiter = rateLimit({
 app.use('/api/v1/users/login', authLimiter);
 app.use('/api/v1/tests', readLimiter); 
 
-app.use('/api', limiter);
+// app.use('/api', limiter);
 
 // REQUEST TIME
 app.use((req, res, next) => {
