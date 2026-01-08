@@ -8,7 +8,7 @@
   const aria_profile = nav_active == 'profile' ? 'aria-current="page"' : ''
 %>
 
-<div class="container my-3">
+<div class="container py-3">
     <!-- logo -->
     <div class="logo">
         <a href="/">
@@ -98,7 +98,7 @@
             </a>
         </li>
         <li>
-            <div class="d-flex justify-content-center gap-4 mt-3 mb-2">
+            <div class="d-flex justify-content-center gap-4">
                 <a href="<%= (typeof contact !== 'undefined' && contact?.facebook) ? contact.facebook : '#' %>" target="_blank">
                     <i class="fa-brands fa-facebook-f text-white fs-4"></i>
                 </a>

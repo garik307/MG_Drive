@@ -77,7 +77,7 @@ const authLimiter = rateLimit({
 const readLimiter = rateLimit({
   max: 5000, // Increased for Load Testing (50 VUs * 60s = 3000 reqs)
   windowMs: 60 * 1000, // 1 minute
-  message: { message: 'Չափազանց շատ ընթերցման հարցումներ' }
+  message: { message: 'Չափազանց շատ ընթերցման հարցումներ կան, խնդրում ենք կրկին փորձել մեկ ժամից։' }
 });
 
 
@@ -85,7 +85,7 @@ const readLimiter = rateLimit({
 app.use('/api/v1/users/login', authLimiter);
 app.use('/api/v1/tests', readLimiter); 
 
-// app.use('/api', limiter);
+app.use('/api', limiter);
 
 // REQUEST TIME
 app.use((req, res, next) => {
@@ -135,7 +135,7 @@ Api(app);
 // 404 HANDLER
 app.all('*', async (req, res, next) => {
   if (req.originalUrl.startsWith('/api')) {
-    return next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+    return next(new AppError(`Հնարավոր չէ գտնել ${req.originalUrl}-ը այս սերվերի վրա!`, 404));
   }
 
   const contact = await Contact.findOne();
