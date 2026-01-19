@@ -25,9 +25,14 @@
                         <h1>Խմբերի ցանկ</h1>
                         <p class="subtitle">Խումբ B - Թեմատիկ հարցեր</p>
                     </div>
-                    <a href="javascript:history.back()" class="btn-back">
-                        <i class="fa-solid fa-arrow-left"></i> Վերադառնալ
-                    </a>
+                    <div class="d-flex gap-2">
+                        <button id="resetGroupsBtn" class="btn btn-back">
+                            <i class="fa-solid fa-rotate-left me-2"></i><span class="d-none d-sm-block">Զրոյացնել</span>
+                        </button>
+                        <a href="javascript:history.back()" class="btn-back">
+                            <i class="fa-solid fa-arrow-left"></i> Վերադառնալ
+                        </a>
+                    </div>
                 </div>
         
                 <!-- Stats -->
@@ -137,12 +142,10 @@
                 </div>
             </div>
         </main>
-
         <!-- Footer -->
         <footer>
             <%- include('../parts/footer.ejs') %>
         </footer>
-
         <!-- Scripts -->
         <%- include('../parts/scripts.ejs') %>
     </body>

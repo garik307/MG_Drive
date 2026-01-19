@@ -67,7 +67,7 @@
                         <div class="col-lg-3 col-md-4 col-sm-6 mb-3 gallery-item <%= index >= 8 ? 'hidden-item' : '' %>">
                             <div class="card mx-auto card-radius scroll_animate">
                                 <div class="position-relative">
-                                    <img src="<%= imageSrc %>" class="card-img-top" alt="<%= item.title %>" onerror="this.src='/images/no-image.png'">
+                                    <img src="<%= imageSrc %>" class="card-img-top" alt="<%= item.title %>" loading="lazy" onerror="this.src='/images/no-image.png'">
                                     <div class="position-absolute top-0 end-0 m-2">
                                         <span class="badge bg-white text-primary">
                                             <% 

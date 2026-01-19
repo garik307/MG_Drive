@@ -132,7 +132,44 @@ async function deleteAvatar(currentUserId) {
   if (!file) throw new AppError('Avatar not found.', 404);
   await repo.destroyFileById(file.id);
   await cache.del(USERS_ALL_KEY);
-  return true;
+  return user;
 }
 
-module.exports = { getAll, listPaged, countByRole, updateUser, updateMe, deleteUser, deleteAvatar };
+async function resetTests(userId) {
+    const { TestResult } = require('../models').models;
+    const { Op } = Sequelize;
+    await TestResult.destroy({
+        where: {
+            userId,
+            testId: { [Op.not]: null }
+        }
+    });
+}
+
+async function resetGroups(userId) {
+    const { TestResult, GroupProgress } = require('../models').models;
+    const { Op } = Sequelize;
+    await Promise.all([
+        TestResult.destroy({
+            where: {
+                userId,
+                groupId: { [Op.not]: null }
+            }
+        }),
+        GroupProgress.destroy({
+            where: { userId }
+        })
+    ]);
+}
+
+module.exports = {
+  getAll,
+  listPaged,
+  countByRole,
+  updateUser,
+  updateMe,
+  deleteUser,
+  deleteAvatar,
+  resetTests,
+  resetGroups
+};

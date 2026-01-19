@@ -10,38 +10,75 @@ const AppError = require('../utils/appError');
 
 module.exports = {
     getHome: async (req, res) => {
-        const contact = await Contact.findOne();
-        const reviews = await Review.findAll({
-            include: [
-                {
-                    model: DB.models.User,
-                    as: 'user',
-                    include: [
-                        {
-                            model: DB.models.File,
-                            as: 'files',
-                            required: false
-                        }
-                    ]
-                }
-            ],
-            order: [['id', 'DESC']]
-        });
-        const gallery = await Gallery.findAll({
-            include: 'files',
-            order: [['date', 'DESC']]
-        });
-        const faqs = await Faq.findAll();
+        const [contact, latestReviews, allRatings, gallery, faqs, teamMembers] = await Promise.all([
+            Contact.findOne(),
+            Review.findAll({
+                include: [
+                    {
+                        model: DB.models.User,
+                        as: 'user',
+                        attributes: ['id', 'name', 'role'], // Limit user fields
+                        include: [
+                            {
+                                model: DB.models.File,
+                                as: 'files',
+                                required: false,
+                                attributes: ['name', 'ext', 'name_used'] // Limit file fields
+                            }
+                        ]
+                    }
+                ],
+                order: [['id', 'DESC']],
+                limit: 15
+            }),
+            Review.findAll({ attributes: ['rating'] }),
+            Gallery.findAll({
+                include: [{
+                    model: DB.models.File,
+                    as: 'files',
+                    attributes: ['name', 'ext', 'name_used']
+                }],
+                order: [['date', 'DESC']],
+                limit: 50 // Limit gallery items
+            }),
+            Faq.findAll(),
+            User.findAll({
+                where: { role: 'teacher' },
+                include: [{
+                    model: DB.models.File,
+                    as: 'files',
+                    attributes: ['name', 'ext', 'name_used']
+                }],
+                attributes: ['id', 'name', 'role', 'specialization', 'experience'] // Limit user fields
+            })
+        ]);
 
-        const teamMembers = await User.findAll({
-            where: { role: 'teacher' },
-            include: 'files'
+        // Calculate review stats
+        const totalReviews = allRatings.length;
+        let totalRating = 0;
+        const starCounts = [0, 0, 0, 0, 0];
+
+        allRatings.forEach(r => {
+            const val = Number(r.rating) || 0;
+            totalRating += val;
+            let s = Math.round(val);
+            if (s < 1) s = 1; if (s > 5) s = 5;
+            starCounts[s - 1]++;
         });
+
+        const averageRating = totalReviews ? (totalRating / totalReviews).toFixed(1) : 0;
+        
+        const reviewStats = {
+            totalReviews,
+            averageRating,
+            starCounts
+        };
 
         res.render('client/index', {
             ...buildSEO(req),
             teamMembers,
-            reviews,
+            reviews: latestReviews,
+            reviewStats,
             contact,
             gallery,
             faqs,

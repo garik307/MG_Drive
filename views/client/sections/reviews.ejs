@@ -1,22 +1,27 @@
 <% 
-  var totalReviews = Array.isArray(reviews) ? reviews.length : 0;
-  var totalRating = 0;
-  if (totalReviews) {
-    for (var i = 0; i < reviews.length; i++) {
-      totalRating += Number(reviews[i].rating) || 0;
-    }
-  }
-  var averageRating = totalReviews ? (totalRating / totalReviews).toFixed(1) : 0;
-
+  var totalReviews = 0;
+  var averageRating = 0;
   var starCounts = [0,0,0,0,0];
-  if (totalReviews) {
-    for (var j = 0; j < reviews.length; j++) {
-      var r = reviews[j];
-      var s = Math.round(Number(r.rating) || 0);
-      if (s < 1) s = 1; if (s > 5) s = 5;
-      starCounts[s - 1]++;
-    }
+
+  if (typeof reviewStats !== 'undefined') {
+      totalReviews = reviewStats.totalReviews;
+      averageRating = reviewStats.averageRating;
+      starCounts = reviewStats.starCounts;
+  } else if (Array.isArray(reviews)) {
+      // Fallback calculation (for backward compatibility)
+      totalReviews = reviews.length;
+      var totalRating = 0;
+      if (totalReviews) {
+        for (var i = 0; i < reviews.length; i++) {
+          totalRating += Number(reviews[i].rating) || 0;
+          var s = Math.round(Number(reviews[i].rating) || 0);
+          if (s < 1) s = 1; if (s > 5) s = 5;
+          starCounts[s - 1]++;
+        }
+      }
+      averageRating = totalReviews ? (totalRating / totalReviews).toFixed(1) : 0;
   }
+
   function percentFor(star) {
     var idx = star - 1;
     return totalReviews ? Math.round((starCounts[idx] / totalReviews) * 100) : 0;
@@ -192,7 +197,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <p class="descr mb-0 text-muted small lh-lg">
+                            <p class="descr mb-4 text-muted small">
                                 <%- review.comment.substring(0, 150) %>
                                 <% if(review.comment.length > 150){ %>...<% } %>
                             </p>

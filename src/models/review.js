@@ -16,7 +16,7 @@ module.exports = (con, DataTypes) => {
             allowNull: false
         },
         type: { type: DataTypes.STRING },
-        user_id: { type: DataTypes.INTEGER, allowNull: false },
+        user_id: { type: DataTypes.INTEGER, allowNull: true },
         comment: {
             type: DataTypes.TEXT,
             allowNull: true

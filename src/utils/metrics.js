@@ -53,8 +53,8 @@ exports.middleware = (req, res, next) => {
         const isError = res.statusCode >= 400;
         exports.trackRequest(duration, isError);
         
-        // Log slow requests
-        if (duration > 200) {
+        // Log slow requests (threshold: 500ms)
+        if (duration > 500) {
             console.warn(`[SLOW] ${req.method} ${req.originalUrl} - ${duration}ms`);
         }
     });

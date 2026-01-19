@@ -18,5 +18,7 @@ router.delete('/avatar', ctrls.auth.protect, ctrls.user.deleteAvatar);
 router.patch('/:id', ctrls.auth.protect, ctrls.auth.restrictTo('admin'), ctrls.user.updateUser);
 router.delete('/:id', ctrls.auth.protect, ctrls.auth.restrictTo('admin'), ctrls.user.deleteUser);
 router.post('/logout', ctrls.auth.protect, ctrls.auth.logOut);
+router.post('/reset-tests', ctrls.auth.protect, ctrls.user.resetTests);
+router.post('/reset-groups', ctrls.auth.protect, ctrls.user.resetGroups);
 
 module.exports = router;

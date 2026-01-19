@@ -167,9 +167,25 @@ function showModalConfirm({ title = 'Հաստատում', message = '', confirmT
         overlay.appendChild(modal);
         document.body.appendChild(overlay);
 
+        // Add class to trigger animation after a small delay
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                overlay.classList.add('open');
+            });
+        });
+
         const cleanup = () => {
             notifications.confirmOpen = false;
-            if (overlay && overlay.parentElement) overlay.parentElement.removeChild(overlay);
+            overlay.classList.remove('open');
+            
+            const removeOverlay = () => {
+                if (overlay && overlay.parentElement) overlay.parentElement.removeChild(overlay);
+            };
+
+            overlay.addEventListener('transitionend', removeOverlay, { once: true });
+            
+            // Safety timeout in case transitionend doesn't fire
+            setTimeout(removeOverlay, 400);
         };
 
         modal.querySelector('.confirm-cancel').addEventListener('click', () => {

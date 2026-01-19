@@ -64,3 +64,21 @@ exports.deleteAvatar = async (req, res, next) => {
         next(err);
     }
 };
+
+exports.resetTests = async (req, res, next) => {
+    try {
+        await userService.resetTests(req.user.id);
+        res.status(200).json({ status: 'success', message: 'Թեստերի արդյունքները հաջողությամբ զրոյացվեցին' });
+    } catch (err) {
+        next(err);
+    }
+};
+
+exports.resetGroups = async (req, res, next) => {
+    try {
+        await userService.resetGroups(req.user.id);
+        res.status(200).json({ status: 'success', message: 'Խմբերի արդյունքները հաջողությամբ զրոյացվեցին' });
+    } catch (err) {
+        next(err);
+    }
+};

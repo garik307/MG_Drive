@@ -10,7 +10,6 @@
         <nav id="nav">
             <%- include('../parts/nav.ejs') %>
         </nav>
-
         <!-- Main content -->
         <main class="tests-page-main">
             <div class="container">
@@ -27,9 +26,14 @@
                         <h1>Թեստերի էջ</h1>
                         <p class="subtitle">Խումբ B - Տեսական քննություն</p>
                     </div>
-                    <a href="javascript:history.back()" class="btn-back">
-                        <i class="fa-solid fa-arrow-left"></i> Վերադառնալ
-                    </a>
+                    <div class="d-flex gap-2 flex-wrap">
+                        <button id="resetTestsBtn" class="btn btn-back">
+                            <i class="fa-solid fa-rotate-left me-2"></i><span class="d-none d-sm-block">Զրոյացնել</span>
+                        </button>
+                        <a href="javascript:history.back()" class="btn-back">
+                            <i class="fa-solid fa-arrow-left"></i> Վերադառնալ
+                        </a>
+                    </div>
                 </div>
         
                 <!-- Stats -->
@@ -99,8 +103,8 @@
                 <!-- Tests Grid -->
                 <div class="row">
                     <% uiTests.forEach((item) => { %>
-                    <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-3 test-col">
-                        <div class="test-card <%= item.cardClass %> h-100" data-status="<%= item.status %>">
+                    <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-3 test-col" data-status="<%= item.status %>">
+                        <div class="test-card <%= item.cardClass %> h-100">
                             <% if (item.lockIcon) { %>
                                 <div style="position: absolute; top: 15px; right: 15px; color: #6c757d;">
                                     <i class="fa-solid fa-lock"></i>
@@ -137,12 +141,10 @@
                 </div>
             </div>
         </main>
-
         <!-- Footer -->
         <footer>
             <%- include('../parts/footer.ejs') %>
         </footer>
-        
         <!-- Scripts -->        
         <%- include('../parts/scripts.ejs') %>
     </body>
