@@ -7,9 +7,10 @@
         <!-- Modal -->
         <%- include('../parts/modal.ejs') %>
         <!-- Nav -->
-        <nav id="nav">
-            <%- include('../parts/nav.ejs') %>
-        </nav>
+        <%- include('../parts/nav.ejs') %>
+        
+        <%- include('../parts/nav_mobile.ejs') %>
+        
         <!-- Mian content -->   
         <main class="tests-page-main">
             <div class="container">
@@ -93,7 +94,7 @@
                         </div>
                         <h5 class="fw-bold">Բաժինը հասանելի չէ</h5>
                         <p class="text-muted mb-3">Թեստերից և խմբերից օգտվելու համար անհրաժեշտ է ակտիվացնել Պրեմիում փաթեթը։</p>
-                        <a href="/profile?tab=payment" class="btn btn-warning text-white px-4 rounded-pill fw-bold">
+                        <a href="/profile?tab=payment" class="btn btn-warning text-white px-4 rounded-3 fw-bold">
                             <i class="fa-solid fa-crown me-2"></i>Ակտիվացնել հիմա
                         </a>
                     </div>

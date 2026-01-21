@@ -12,10 +12,6 @@ section {
     }
 }
 
-.btnStyle {
-  @include buttonStyle(10px, 20px);
-}
-
 .section_title {
     background:var(--bacground-gradient);
     -webkit-background-clip: text;
@@ -50,7 +46,7 @@ section {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  pointer-events: none; // Allow clicking through the container
+  pointer-events: none; 
 
   @media (max-width: 480px) {
     left: 15px;
@@ -133,7 +129,6 @@ section {
     }
   }
 
-  // --- Notification Types ---
   
   // Success
   &.notification-success {

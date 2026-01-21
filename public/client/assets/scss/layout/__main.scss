@@ -1,3 +1,98 @@
+.rights-section {
+    background-color: #fff;
+    position: relative;
+    padding: 80px 0;
+
+    .card {
+        border: none;
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        position: relative;
+        z-index: 1;
+        height: 100%;
+        overflow: visible; // Allow badge to scale/pop if needed
+
+        &:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(68, 76, 247, 0.15) !important;
+
+            .icon-box {
+                transform: scale(1.1) rotate(-5deg);
+                background: var(--color-primary) !important;
+                
+                i {
+                    color: #fff !important;
+                }
+            }
+            
+            .step-badge {
+                 background: var(--color-primary);
+                 color: #fff;
+                 transform: translateX(-50%) scale(1.1);
+                 box-shadow: 0 0 0 5px rgba(68, 76, 247, 0.2);
+            }
+        }
+
+        .card-body {
+            padding: 2.5rem 2rem 2rem;
+            position: relative;
+        }
+
+        .step-badge {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: #fff;
+            color: var(--color-primary);
+            border: 2px solid var(--color-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.1rem;
+            z-index: 2;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .icon-box {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            background: rgba(68, 76, 247, 0.1) !important; // Primary with opacity
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            transition: all 0.4s ease;
+
+            i {
+                font-size: 2rem;
+                color: var(--color-primary);
+                transition: all 0.4s ease;
+            }
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--color-dark);
+        }
+
+        .card-text {
+            color: #6c757d;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+    }
+}
 .about {
     .image_box {
         position: relative;
@@ -29,13 +124,14 @@
         }
 
         .pattern {
-            width: 300px;
-            height: 300px;
+            width: 360px;
+            height: 330px;
             position: absolute;
             top: -100px;
             left: -100px;
             z-index: -1;
             box-shadow: none;
+            opacity: 0.8 !important; 
         }
 
         .traingl {
@@ -282,7 +378,6 @@
 .user_reviews {
     .add-review {
         font-size: 15px;
-        @include buttonStyle(10px, 20px);
     }
 
     .number {
@@ -886,12 +981,7 @@
                         color: var(--dark-text);
                     }
                 }
-
-                button {
-                    @include buttonStyle()
-                }
             }
-
         }
 
         .nav {

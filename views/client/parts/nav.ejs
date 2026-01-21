@@ -1,193 +1,84 @@
-<%
-  const nav_active_home = nav_active == 'home' ? 'active' : ''
-  const nav_active_group = nav_active == 'groups' ? 'active' : ''
-  const nav_active_test = nav_active == 'tests' ? 'active' : ''
-  const aria_home = nav_active == 'home' ? 'aria-current="page"' : ''
-  const aria_tests = nav_active == 'tests' ? 'aria-current="page"' : ''
-  const aria_groups = nav_active == 'groups' ? 'aria-current="page"' : ''
-  const aria_profile = nav_active == 'profile' ? 'aria-current="page"' : ''
-%>
-
-<div class="container py-3">
-    <!-- logo -->
-    <div class="logo">
-        <a href="/">
-            <img src="../images/logo.png" alt="">
-        </a>
-    </div>
-    <!-- mobile toolbar -->
-    <div class="mobile-toolbar" role="navigation" aria-label="Մոբայլ նավիգացիա">
-        <a href="/" class="toolbar-link <%= nav_active_home %>" aria-label="Գլխավոր" <%= aria_home %>>
-            <div class="icon-box">
-                <i class="fa-solid fa-house"></i>
+<!-- Top Bar -->
+<nav class="top-bar py-2 text-white bg-dark">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center align-items-center flex-wrap gap-3">
+            <div class="contact-info d-flex gap-4 my-2 d-flex flex-wrap">
+                <span><i class="fas fa-phone-alt me-2"></i>+374 (93) 44-70-33</span>
+                <span class="d-none d-sm-flex"><i class="fas fa-envelope me-2"></i>artikautoschool@gmail.com</span>
             </div>
-            <span>Գլխավոր</span>
-        </a>
-        <a href="/tests" class="toolbar-link <%= nav_active_test %>" aria-label="Թեստեր" <%= aria_tests %>>
-            <div class="icon-box">
-                <i class="fa-solid fa-file-alt"></i>
+            <div class="social-icons d-flex gap-3 my-2 order-unordered">
+                <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-white"><i class="fas fa-camera"></i></a>
+                <a href="#" class="text-white"><i class="fab fa-youtube"></i></a>
             </div>
-            <span>Թեստեր</span>
-        </a>
-        <a href="/groups" class="toolbar-link <%= nav_active_group %>" aria-label="Խմբեր" <%= aria_groups %>>
-            <div class="icon-box">
-                <i class="fa-solid fa-users"></i>
-            </div>
-            <span>Խմբեր</span>
-        </a>
-        <% if (typeof user !== 'undefined' && user) { %>
-        <a href="/profile" class="toolbar-link <%= nav_active == 'profile' ? 'active' : '' %>" aria-label="Պրոֆիլ"
-            <%= aria_profile %>>
-            <div class="icon-box">
-                <i class="fa-solid fa-user"></i>
-            </div>
-            <span>Պրոֆիլ</span>
-        </a>
-        <% } else { %>
-        <button class="toolbar-link" aria-label="Մուտք" data-bs-target="#signIn_signUp" data-bs-toggle="modal">
-            <div class="icon-box">
-                <i class="fa-solid fa-right-to-bracket"></i>
-            </div>
-            <span>Մուտք</span>
-        </button>
-        <% } %>
-        <button class="toolbar-link open_menu" aria-label="Բացել մենյուն">
-            <div class="icon-box">
-                <i class="fa-solid fa-bars"></i>
-            </div>
-            <span>Մենյու</span>
-        </button>
-    </div>
-    <!-- nav menu -->
-    <div class="mobile-overlay" aria-hidden="true"></div>
-    <ul class="navbar" role="menu" aria-label="Լրացուցիչ մենյու">
-        <li>
-            <a href="/" class="<%= nav_active_home %> nav_link">
-                <i class="icon fa-solid fa-house"></i>
-                <span class="text">Գլխավոր</span>
-            </a>
-        </li>
-        <li>
-            <a href="#about" class="nav_link" data-section="about">
-                <i class="icon fa-solid fa-info-circle"></i>
-                <span class="text">Մեր Մասին</span>
-            </a>
-        </li>
-        <li>
-            <a href="/groups" class="nav_link <%= nav_active_group %>">
-                <i class="icon fa-solid fa-users"></i>
-                <span class="text">Խմբեր</span>
-            </a>
-        </li>
-        <li>
-            <a href="/tests" class="nav_link <%= nav_active_test %>">
-                <i class="icon fa-solid fa-file-alt"></i>
-                <span class="text">Թեստեր</span>
-            </a>
-        </li>
-        <li>
-            <a href="#reviews" class="nav_link" data-section="reviews">
-                <i class="icon fa-solid fa-star"></i>
-                <span class="text">Կարծիքներ</span>
-            </a>
-        </li>
-        <li>
-            <a href="#contact" class="nav_link" data-section="contact">
-                <i class="icon fa-solid fa-envelope"></i>
-                <span class="text">Կապ</span>
-            </a>
-        </li>
-        <li>
-            <div class="d-flex justify-content-center gap-4">
-                <a href="<%= (typeof contact !== 'undefined' && contact?.facebook) ? contact.facebook : '#' %>" target="_blank">
-                    <i class="fa-brands fa-facebook-f text-white fs-4"></i>
-                </a>
-                <a href="<%= (typeof contact !== 'undefined' && contact?.instagram) ? contact.instagram : '#' %>" target="_blank">
-                    <i class="fa-brands fa-instagram text-white fs-4"></i>
-                </a>
-                <a href="<%= (typeof contact !== 'undefined' && contact?.whatsapp) ? contact.whatsapp : '#' %>" target="_blank">
-                    <i class="fa-brands fa-whatsapp text-white fs-4"></i>
-                </a>
-            </div>
-        </li>
-        <li class="close_menu">
-            <button class="close_menu" aria-label="Փակել մենյուն">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-        </li>
-    </ul>
-
-    <!-- social media icons -->
-    <div class="user_actions d-flex gap-3 align-items-center">
-        <div class="d-none d-sm-flex gap-3">
-            <a href="<%= (typeof contact !== 'undefined' && contact?.facebook) ? contact.facebook : '#' %>"
-                class="Btn social-icon" target="_blank">
-                <span class="svgContainer">
-                    <i class="fa-brands fa-facebook text-white"></i>
-                </span>
-                <span class="BG"></span>
-            </a>
-            <a href="<%= (typeof contact !== 'undefined' && contact?.instagram) ? contact.instagram : '#' %>"
-                class="Btn social-icon" target="_blank">
-                <span class="svgContainer">
-                    <i class="fa-brands fa-instagram text-white"></i>
-                </span>
-                <span class="BG"></span>
-            </a>
-            <a href="<%= (typeof contact !== 'undefined' && contact?.whatsapp) ? contact.whatsapp : '#' %>"
-                class="Btn social-icon" target="_blank">
-                <span class="svgContainer">
-                    <i class="fa-brands fa-whatsapp text-white"></i>
-                </span>
-                <span class="BG"></span>
-            </a>
         </div>
-
-        <% if (typeof user !== 'undefined' && user) { %>
-        <%
-          let profileImageSrc = null;
-          let nameInitial = 'U';
-          let profileColorClass = 'bg-0';
-
-          if (user.name) {
-             nameInitial = user.name.charAt(0).toUpperCase();
-             
-             let hash = 0;
-             for (let i = 0; i < user.name.length; i++) {
-                hash = user.name.charCodeAt(i) + ((hash << 5) - hash);
-             }
-             
-             const index = Math.abs(hash) % 10;
-             profileColorClass = `bg-${index}`;
-          }
-
-          if (user.files) {
-            let foundImage = user.files.find(file => file.name_used === "user_img");
-            
-            if (foundImage) {
-                profileImageSrc = `../images/users/large/${foundImage.name}.${foundImage.ext}`;
-            }
-          }
-        %>
-
-        <a href="/profile" class="login" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip"
-            data-bs-placement="bottom" data-bs-title="<%- user.name || 'Օգտվող' %>">
-            <% if (profileImageSrc) { %>
-            <img src="<%- profileImageSrc %>" class="profime-sm-image border border-primary border-2" alt="<%- user.name %>">
-            <% } else { %>
-            <div class="profime-sm-image border border-primary border-2 d-flex align-items-center justify-content-center text-white <%- profileColorClass %>">
-                <span style="font-size: 1.2rem; line-height: 1;"><%- nameInitial %></span>
-            </div>
-            <% } %>
-        </a>
-        <% } else { %>
-        <button class="btn btn-sm text-white rounded-3" data-bs-target="#signIn_signUp" data-bs-toggle="modal">
-            Մուտք
-        </button>
-        <% } %>
-
-        <button class="menu open_menu desktop-only" aria-label="Բացել մենյուն">
-            <i class="fa-solid fa-bars-staggered"></i>
-        </button>
     </div>
-</div>
+</nav>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top py-1">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-3" href="/">
+            <div class="logo-icon bg-opacity-10 w-25 text-white m-0 rounded-circle d-flex align-items-center">
+                <img src="../images/favicon.png" alt="logo" loading="lazy">
+            </div>
+            <div class="d-flex flex-column fw-bold brand-text mb-0">
+                MG-Drive<span class="small text-primary brand-subtitle">ԱՎՏՈԴՊՐՈՑ</span>
+            </div>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Գլխավոր</a></li>
+                <li class="nav-item"><a class="nav-link" href="/#about">Մեր մասին</a></li>
+                <li class="nav-item"><a class="nav-link" href="/groups">Խմբեր</a></li>
+                <li class="nav-item"><a class="nav-link" href="/tests">Թեստեր</a></li>
+                <li class="nav-item"><a class="nav-link" href="/#reviews">Կարծիքներ</a></li>
+                <li class="nav-item"><a class="nav-link" href="/#contact">Հետադարձ կապ</a></li>
+            </ul>
+            <div class="d-flex align-items-center gap-3">
+            <% if (typeof user !== 'undefined' && user) { %>
+                <%
+                    let profileImageSrc = null;
+                    let nameInitial = 'U';
+                    let profileColorClass = 'bg-0';
+
+                    if (user.name) {
+                        nameInitial = user.name.charAt(0).toUpperCase();
+                        
+                        let hash = 0;
+                        for (let i = 0; i < user.name.length; i++) {
+                            hash = user.name.charCodeAt(i) + ((hash << 5) - hash);
+                        }
+                        
+                        const index = Math.abs(hash) % 10;
+                        profileColorClass = `bg-${index}`;
+                    }
+
+                    if (user.files) {
+                        let foundImage = user.files.find(file => file.name_used === "user_img");
+                        
+                        if (foundImage) {
+                            profileImageSrc = `../images/users/large/${foundImage.name}.${foundImage.ext}`;
+                        }
+                    }
+                %>
+
+                <a href="/profile" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="<%- user.name || 'Օգտվող' %>" class="rounded-circle profile-btn p-0 overflow-hidden d-flex align-items-center justify-content-center">
+                    <% if (profileImageSrc) { %>
+                        <img src="<%- profileImageSrc %>" alt="<%- user.name || 'Օգտվող' %>" loading="lazy" class="w-100 h-100 object-fit-cover">
+                    <% } else { %>
+                        <div class="profile-placeholder-img d-flex align-items-center justify-content-center fw-bold text-white <%- profileColorClass %>">
+                            <%- nameInitial %>
+                        </div>
+                    <% } %>
+                </a>
+                <% } else { %>
+                <button class="btn-flash d-flex gap-2 align-items-center fw-bold" data-bs-target="#signIn_signUp" data-bs-toggle="modal"><span></span><i class="far fa-user-circle me-1"></i>Մուտք</button>
+            <% } %> 
+            </div>
+        </div>
+    </div>
+</nav>

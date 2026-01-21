@@ -7,9 +7,10 @@
         <!-- Modal -->
         <%- include('../parts/modal.ejs') %>
         <!-- Nav -->
-        <nav id="nav">
-            <%- include('../parts/nav.ejs') %>
-        </nav>
+        <%- include('../parts/nav.ejs') %>
+        
+        <%- include('../parts/nav_mobile.ejs') %>
+        
 
         <!-- Mian content -->
         <main class="test-details-page" id="groupRoot" data-group='<%= JSON.stringify(group || {}) %>' data-user-id="<%= user ? user.id : 'guest' %>">

@@ -1,20 +1,35 @@
-:root {
-  --color-primary: #444cf7;
-  --color-secondary: #F9F7F3;
-  --color-accent: #444cf7;
-  --color-dark: #2E2E2E;
-  --color-ligth: #fff;
-  --color-white: #FFFFFF;
-  --bacground-gradient: linear-gradient(to right, #444cf7, #1822e9);
-  --secondary-text: #a3aed0;
-}
+$primary-hex: #444cf7;
+$dark-hex: #2E2E2E;
+$secondary-hex: #a3aed0;
+$white-hex: #ffffff;
+$light-hex: #F9F7F3;
+$font-family: 'Montserrat', sans-serif;
+
+:root { 
+   --color-primary: #444cf7; 
+   --color-secondary: #F9F7F3; 
+   --color-accent: #444cf7; 
+   --color-dark: #2E2E2E; 
+   --color-ligth: #fff; 
+   --color-white: #FFFFFF; 
+   --bacground-gradient: linear-gradient(to right, #444cf7, #1822e9); 
+   --secondary-text: #a3aed0; 
+} 
+
+// 3. Map SCSS Variables to CSS Variables
+$primary-color: var(--color-primary);
+$dark-color: var(--color-dark);
+$secondary-color: var(--secondary-text); 
+$white: var(--color-white);
+$light-bg: var(--color-secondary); 
+
 
 .text-primary {
   color: var(--color-primary) !important;
 }
 
 .bg-primary {
-  background-color: rgba(68, 76, 247, var(--bs-bg-opacity, 1)) !important;
+  background: var(--bacground-gradient) !important;
 }
 
 .text-gradient {
