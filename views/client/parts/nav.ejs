@@ -1,15 +1,31 @@
+<% const companyName = (typeof contact !== 'undefined' && contact?.companyName) ? contact.companyName : 'MG Drive'; %>
+
+<%
+    let wh = [];
+    if (typeof contact !== 'undefined' && contact?.workingHours) {
+        wh = contact.workingHours;
+        if (typeof wh === 'string') {
+            try { wh = JSON.parse(wh); } catch(e) { wh = []; }
+        }
+    }
+    
+    const weekdays = wh.find(x => x.days.includes("mon"));
+    const saturday = wh.find(x => x.days.includes("sat"));
+    const sunday = wh.find(x => x.days.includes("sun"));
+%>
+
 <!-- Top Bar -->
 <nav class="top-bar py-2 text-white bg-dark">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center align-items-center flex-wrap gap-3">
             <div class="contact-info d-flex gap-4 my-2 d-flex flex-wrap">
-                <span><i class="fas fa-phone-alt me-2"></i>+374 (93) 44-70-33</span>
+                <span><i class="fas fa-phone-alt me-2"></i><%= (typeof contact !== 'undefined' && contact?.phone) ? contact.phone : '+374 (93) 44-70-33' %></span>
                 <span class="d-none d-sm-flex"><i class="fas fa-envelope me-2"></i>artikautoschool@gmail.com</span>
             </div>
             <div class="social-icons d-flex gap-3 my-2 order-unordered">
-                <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="text-white"><i class="fas fa-camera"></i></a>
-                <a href="#" class="text-white"><i class="fab fa-youtube"></i></a>
+                <a href="<%= (typeof contact !== 'undefined' && contact?.facebook) ? contact.facebook : '#' %>"  target="_blank" class="text-white"><i class="fa-brands fa-facebook"></i></a>
+                <a href="<%= (typeof contact !== 'undefined' && contact?.instagram) ? contact.instagram : '#' %>" target="_blank"  class="text-white"><i class="fa-brands fa-instagram"></i></a>
+                <a href="<%= (typeof contact !== 'undefined' && contact?.whatsapp) ? contact.whatsapp : '#' %>" target="_blank"  class="text-white"><i class="fa-brands fa-whatsapp"></i></a>
             </div>
         </div>
     </div>
@@ -23,7 +39,8 @@
                 <img src="../images/favicon.png" alt="logo" loading="lazy">
             </div>
             <div class="d-flex flex-column fw-bold brand-text mb-0">
-                MG-Drive<span class="small text-primary brand-subtitle">ԱՎՏՈԴՊՐՈՑ</span>
+                <%= companyName %> 
+                <span class="small text-primary brand-subtitle">ԱՎՏՈԴՊՐՈՑ</span>
             </div>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
