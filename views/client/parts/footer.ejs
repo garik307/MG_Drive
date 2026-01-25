@@ -26,9 +26,9 @@
             <p>Պրոֆեսիոնալ վարորդական դպրոց։ Սովորեք վարել անվտանգ և վստահորեն մեր վկայակոչված ուսուցիչների հետ։</p>
             
             <div class="footer-social mb-4">
-                <a href="<%= (typeof contact !== 'undefined' && contact?.facebook) ? contact.facebook : '#' %>" class="social-btn" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
-                <a href="<%= (typeof contact !== 'undefined' && contact?.instagram) ? contact.instagram : '#' %>" class="social-btn" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-                <a href="<%= (typeof contact !== 'undefined' && contact?.whatsapp) ? contact.whatsapp : '#' %>" class="social-btn" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="<%= (typeof contact !== 'undefined' && contact?.facebook) ? contact.facebook : '#' %>" class="social-btn" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="<%= (typeof contact !== 'undefined' && contact?.instagram) ? contact.instagram : '#' %>" class="social-btn" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="<%= (typeof contact !== 'undefined' && contact?.whatsapp) ? contact.whatsapp : '#' %>" class="social-btn" target="_blank" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
             </div>
         </div>
 
@@ -85,7 +85,7 @@
             <p class="text-white-50 small">Բաժանորդագրվեք մեր նորություններին՝ ստանալու վերջին թարմացումները։</p>
             <form class="newsletter-form manual-submit" action="/api/v1/contact/subscribe" method="POST">
                 <input type="email" name="email" class="input-radius" placeholder="Ձեր էլ․ հասցեն" required>
-                <button type="submit"><i class="fa-solid fa-paper-plane"></i></button>
+                <button type="submit" aria-label="Subscribe"><i class="fa-solid fa-paper-plane"></i></button>
             </form>
         </div>
     </div>
