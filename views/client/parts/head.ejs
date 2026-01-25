@@ -15,7 +15,7 @@
     <meta name="twitter:image" content="<%- og_image %>">
 
     <!-- Mobile / Browser -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#ffffff">
     
     <!-- Icons -->
@@ -23,12 +23,19 @@
     <link rel="apple-touch-icon" href="/client/images/favicon.png">
 
     <!-- vendor -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="./client/vendors/css/lightgallery.min.css">
-    <link rel="stylesheet" href="./client/vendors/css/swiper-bundle.min.css">
-    <link rel="stylesheet" href="./client/vendors/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./client/vendors/css/font-awesome.css" />
+    <noscript><link rel="stylesheet" href="./client/vendors/css/font-awesome.css"></noscript>
+
+    <link rel="stylesheet" href="./client/vendors/css/lightgallery.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="./client/vendors/css/lightgallery.min.css"></noscript>
+
+    <link rel="stylesheet" href="./client/vendors/css/swiper-bundle.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="./client/vendors/css/swiper-bundle.min.css"></noscript>
+
     <link rel="stylesheet" href="./client/vendors/css/coreui.min.css">
-    <link rel="stylesheet" href="./client/vendors/css/cropper.css">
+
+    <link rel="stylesheet" href="./client/vendors/css/cropper.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="./client/vendors/css/cropper.css"></noscript>
 
     <!-- Main CSS -->
     <link rel="stylesheet" href="./client/dist/css/main.css">

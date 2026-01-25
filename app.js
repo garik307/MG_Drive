@@ -32,7 +32,7 @@ app.use(compression());
 // 2. STATIC FILES
 const staticOptions = {
   etag: true,
-  maxAge: '1d', 
+  maxAge: '1y', 
   setHeaders: res => res.setHeader('X-Content-Type-Options', 'nosniff')
 };
 
