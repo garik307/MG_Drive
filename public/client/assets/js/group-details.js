@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     async function performReset(btn = null, originalContent = '') {
          try {
-            console.log('Resetting progress...');
+            // console.log('Resetting progress...');
             userAnswers = {};
             const success = await saveProgressDB({});
             
@@ -543,7 +543,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             body: JSON.stringify(resultData)
         }).then(res => res.json())
             .then(data => {
-                console.log('Saved:', data);
+                // console.log('Saved:', data);
                 // Clear progress from DB
                 saveProgressDB({});
             })

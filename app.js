@@ -24,10 +24,22 @@ const DB = require('./src/models');
 const { Contact } = DB.models;
 
 const app = express();
+app.disable('x-powered-by');
 
 // 1. COMPRESSION (gzip)
 app.set('trust proxy', 1);
 app.use(compression());
+
+// SECURITY HEADERS
+app.use((req, res, next) => {
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+  res.setHeader('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
+  next();
+});
 
 // 2. STATIC FILES
 const staticOptions = {

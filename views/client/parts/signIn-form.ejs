@@ -1,15 +1,15 @@
 <form class="needs-validation" action="/api/v1/user/signIn" method="post" novalidate>
     <!-- Email -->
     <div class="mb-3">
-        <label for="email" class="form-label">Էլ․ փոստ</label>
-        <input type="email" class="form-control" name="email" placeholder="example@mail.com" required>
+        <label for="signin-email" class="form-label">Էլ․ փոստ</label>
+        <input type="email" class="form-control" id="signin-email" name="email" placeholder="example@mail.com" required>
         <div class="invalid-feedback">Խնդրում ենք մուտքագրել վավեր էլ․ փոստ։</div>
     </div>
 
     <!-- Password -->
     <div class="mb-3 input_field">
-        <label for="password" class="form-label">Գաղտնաբառ</label>
-        <input type="password" class="form-control" name="password" minlength="6" required>
+        <label for="signin-password" class="form-label">Գաղտնաբառ</label>
+        <input type="password" class="form-control" id="signin-password" name="password" minlength="6" required>
         <div class="invalid-feedback">Գաղտնաբառը պետք է լինի առնվազն 6 նիշ։</div>
     </div>
 

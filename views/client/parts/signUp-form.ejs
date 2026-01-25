@@ -1,29 +1,29 @@
 <form class="needs-validation" action="/api/v1/user/signUp" method="post" novalidate>
     <!-- Full Name -->
     <div class="mb-3">
-        <label for="fullName" class="form-label">Անուն և Ազգանուն</label>
-        <input type="text" class="form-control" name="name" placeholder="Օրինակ՝ Արմեն Սարգսյան" required>
+        <label for="signup-name" class="form-label">Անուն և Ազգանուն</label>
+        <input type="text" class="form-control" id="signup-name" name="name" placeholder="Օրինակ՝ Արմեն Սարգսյան" required>
         <div class="invalid-feedback">Խնդրում ենք մուտքագրել ձեր անունն ու ազգանունը։</div>
     </div>
 
     <!-- Phone -->
     <div class="mb-3">
-        <label for="phone" class="form-label">Հեռախոսահամար</label>
-        <input type="tel" class="form-control" name="phone" placeholder="091234567" pattern="[0-9]{9}" minlength="9" maxlength="9" required oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+        <label for="signup-phone" class="form-label">Հեռախոսահամար</label>
+        <input type="tel" class="form-control" id="signup-phone" name="phone" placeholder="091234567" pattern="[0-9]{9}" minlength="9" maxlength="9" required oninput="this.value = this.value.replace(/[^0-9]/g, '')">
         <div class="invalid-feedback">Հեռախոսահամարը պետք է լինի 9 նիշ (օր.՝ 091234567)։</div>
     </div>
 
     <!-- Email -->
     <div class="mb-3">
-        <label for="email" class="form-label">Էլ․ փոստ</label>
-        <input type="email" class="form-control" name="email" placeholder="example@mail.com" required>
+        <label for="signup-email" class="form-label">Էլ․ փոստ</label>
+        <input type="email" class="form-control" id="signup-email" name="email" placeholder="example@mail.com" required>
         <div class="invalid-feedback">Խնդրում ենք մուտքագրել վավեր էլ․ փոստ։</div>
     </div>
 
     <!-- Password -->
     <div class="mb-3 input_field">
-        <label for="password" class="form-label">Գաղտնաբառ</label>
-        <input type="password" class="form-control" name="password" minlength="6" required>
+        <label for="signup-password" class="form-label">Գաղտնաբառ</label>
+        <input type="password" class="form-control" id="signup-password" name="password" minlength="6" required>
         <div class="invalid-feedback">Գաղտնաբառը պետք է լինի առնվազն 6 նիշ։</div>
     </div>
 

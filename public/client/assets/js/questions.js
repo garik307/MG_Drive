@@ -29,7 +29,7 @@ class Questions {
         let image = {
             img: ''
         };
-        console.log(item.files)
+        // console.log(item.files)
 
         if (item.files) {
             let foundImage = item.files.find(file => file.name_used === 'question_img');
@@ -158,7 +158,7 @@ async function handleSelectChange(e) {
             return;
         }
         const test = await doAxios(`/api/v1/tests/${selectedValue}`);
-        console.log(test)
+        // console.log(test)
         new Questions(test.data.tests.questions, '.tests_page .question_card');
     } else if (selectedName === 'selected_groups') {
 

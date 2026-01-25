@@ -220,8 +220,7 @@ if (!window.__clientAppInitialized) {
         const togglePasswordBtn = document.getElementById('togglePassword');
         const passwordInput = document.getElementById('password');
 
-        console.log('wedwe');
-        
+
         // Toggle password visibility
         togglePasswordBtn.addEventListener('click', function () {
             const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';

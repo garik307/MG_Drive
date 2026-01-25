@@ -339,9 +339,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }).then(res => res.json())
           .then(data => {
               if (data.saved) {
-                  console.log('Result saved successfully');
+                  // console.log('Result saved successfully');
               } else {
-                  console.log('Result not saved (user not logged in or error)');
+                  // console.log('Result not saved (user not logged in or error)');
                   // Optional: Show notification?
               }
           })

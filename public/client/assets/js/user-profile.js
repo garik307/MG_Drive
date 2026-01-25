@@ -71,10 +71,10 @@ document.addEventListener('DOMContentLoaded', function () {
         // When payment tab is shown
         paymentTabBtn.addEventListener('shown.bs.tab', function () {
             if (paymentTimer) clearTimeout(paymentTimer);
-            console.log('Payment timer started (2 mins)');
+            // console.log('Payment timer started (2 mins)');
             // Set 2 minutes (120000ms) timer
             paymentTimer = setTimeout(() => {
-                console.log('Timer expired, switching to overview');
+                // console.log('Timer expired, switching to overview');
                 // Switch back to overview
                 overviewTabBtn.click();
             }, 120000);
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (tab.id !== 'payment-tab') {
                 tab.addEventListener('show.bs.tab', function () {
                     if (paymentTimer) {
-                        console.log('Payment timer cleared');
+                        // console.log('Payment timer cleared');
                         clearTimeout(paymentTimer);
                         paymentTimer = null;
                     }
