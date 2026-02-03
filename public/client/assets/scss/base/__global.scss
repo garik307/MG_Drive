@@ -1,3 +1,8 @@
+html {
+    scroll-behavior: smooth;
+    text-rendering: optimizeSpeed;
+}
+
 // global container reset
 .container {
   max-width: $container;
@@ -6,7 +11,9 @@
 
 section {
     margin-bottom: 100px;
-    padding: 50px 0;  
+    padding: 50px 0;
+    content-visibility: auto;
+    contain-intrinsic-size: 1000px;
     @media(max-width: 992px) {
       margin-bottom: 70px;
     }

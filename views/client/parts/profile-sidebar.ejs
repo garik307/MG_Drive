@@ -28,7 +28,7 @@
         <div class="d-flex flex-column align-items-center text-center">
             <% if (profileImageSrc) { %>
             <img src="<%- profileImageSrc %>" alt="loading..." class="p-1 bg-primary profile-img mb-3"
-                data-crop-trigger="user_avatar">
+                data-crop-trigger="user_avatar" width="120" height="120">
             <% } else { %>
             <div class="p-1 bg-primary profile-img mb-3 d-flex" data-crop-trigger="user_avatar"
                 style="width: 120px; height: 120px;">

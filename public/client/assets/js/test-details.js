@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
         testData = JSON.parse(testRoot.dataset.test || '{}');
     } catch (e) {
-        console.error('Error parsing test data', e);
+        // console.error('Error parsing test data', e);
     }
 
     const questions = testData.questions || [];
@@ -346,8 +346,8 @@ document.addEventListener('DOMContentLoaded', () => {
               }
           })
           .catch(err => {
-              console.error('Error saving result:', err);
-              showNotification('Արդյունքները պահպանելու սխալ', 'error');
+              // console.error('Error saving result:', err);
+              // showNotification('Արդյունքները պահպանելու սխալ', 'error');
           });
     }
 

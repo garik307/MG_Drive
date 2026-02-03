@@ -153,7 +153,7 @@
                         </h5>
                         <div class="ratio ratio-16x9 rounded-4">
                             <!-- Replace with real Google Maps embed -->
-                            <%- contact?.mapsAddress || '' %>
+                            <%- (contact?.mapsAddress || '').replace('<iframe', '<iframe title="Google Maps"') %>
                         </div>
                     </div>
                 </div>

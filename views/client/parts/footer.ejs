@@ -20,10 +20,10 @@
     <div class="row">
         <!-- Brand Section -->
         <div class="col-lg-4 col-md-6 footer-brand scroll_animate">
-            <h3 class="fw-bold text-white">
+            <h4 class="fw-bold text-white h3">
                 <span class="text-primary"><%= companyNameFirst %></span> <%= companyNameSecond %>
-            </h3>
-            <p>Պրոֆեսիոնալ վարորդական դպրոց։ Սովորեք վարել անվտանգ և վստահորեն մեր վկայակոչված ուսուցիչների հետ։</p>
+            </h4>
+            <p class="text-white-50">Պրոֆեսիոնալ վարորդական դպրոց։ Սովորեք վարել անվտանգ և վստահորեն մեր վկայակոչված ուսուցիչների հետ։</p>
             
             <div class="footer-social mb-4">
                 <a href="<%= (typeof contact !== 'undefined' && contact?.facebook) ? contact.facebook : '#' %>" class="social-btn" target="_blank" aria-label="Facebook" rel="noopener noreferrer"><i class="fa-brands fa-facebook-f"></i></a>
@@ -34,20 +34,20 @@
 
         <!-- Links -->
         <div class="col-lg-2 col-md-6 mb-3 scroll_animate">
-            <h5 class="footer-heading">Հղումներ</h5>
+            <h4 class="footer-heading h5">Հղումներ</h4>
             <ul class="footer-links">
-                <li><a href="/" class="d-flex gap-2 mb-3"><i class="fa-solid fa-angle-right"></i> Գլխավոր</a></li>
-                <li><a href="/#about" class="d-flex gap-2 mb-3"><i class="fa-solid fa-angle-right"></i> Մեր Մասին</a></li>
-                <li><a href="/groups" class="d-flex gap-2 mb-3"><i class="fa-solid fa-angle-right"></i> Դասընթացներ</a></li>
-                <li><a href="/#contact" class="d-flex gap-2 mb-3"><i class="fa-solid fa-angle-right"></i> Կապ</a></li>
-                <li><a href="/#faq" class="d-flex gap-2 mb-3"><i class="fa-solid fa-angle-right"></i> ՀՏՀ</a></li>
+                <li><a href="/" class="d-flex gap-2 mb-3 text-white-50"><i class="fa-solid fa-angle-right"></i> Գլխավոր</a></li>
+                <li><a href="/#about" class="d-flex gap-2 mb-3 text-white-50"><i class="fa-solid fa-angle-right"></i> Մեր Մասին</a></li>
+                <li><a href="/groups" class="d-flex gap-2 mb-3 text-white-50"><i class="fa-solid fa-angle-right"></i> Դասընթացներ</a></li>
+                <li><a href="/#contact" class="d-flex gap-2 mb-3 text-white-50"><i class="fa-solid fa-angle-right"></i> Կապ</a></li>
+                <li><a href="/#faq" class="d-flex gap-2 mb-3 text-white-50"><i class="fa-solid fa-angle-right"></i> ՀՏՀ</a></li>
             </ul>
         </div>
 
         <!-- Contact -->
         <div class="col-lg-3 col-md-6 scroll_animate">
-            <h5 class="footer-heading">Կապ</h5>
-            <ul class="footer-contact">
+            <h4 class="footer-heading h5">Կապ</h4>
+            <ul class="footer-contact text-white-50">
                 <li class="d-flex align-items-center gap-2 mb-4">
                     <i class="fa-solid fa-location-dot"></i>
                     <span><%= (typeof contact !== 'undefined' && contact?.address) ? contact.address : 'Երևան, Հայաստան' %></span>
@@ -81,8 +81,8 @@
 
         <!-- Newsletter -->
         <div class="col-lg-3 col-md-6 scroll_animate">
-            <h5 class="footer-heading">Նորություններ</h5>
-            <p class="text-white-50 small">Բաժանորդագրվեք մեր նորություններին՝ ստանալու վերջին թարմացումները։</p>
+            <h4 class="footer-heading h5">Նորություններ</h4>
+            <p class="text-white small">Բաժանորդագրվեք մեր նորություններին՝ ստանալու վերջին թարմացումները։</p>
             <form class="newsletter-form manual-submit" action="/api/v1/contact/subscribe" method="POST">
                 <input type="email" name="email" class="input-radius" placeholder="Ձեր էլ․ հասցեն" aria-label="Ձեր էլ․ հասցեն" required>
                 <button type="submit" aria-label="Subscribe"><i class="fa-solid fa-paper-plane"></i></button>
@@ -94,10 +94,10 @@
      <div class="row">
         <div class="col-12">
             <div class="footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center">
-                <p class="copyright-text mb-2 mb-md-0 small">&copy; <%= new Date().getFullYear() %> <%= companyName %>. Բոլոր իրավունքները պաշտպանված են։</p>
+                <p class="copyright-text mb-2 mb-md-0 small text-white">&copy; <%= new Date().getFullYear() %> <%= companyName %>. Բոլոր իրավունքները պաշտպանված են։</p>
                 <div class="footer-bottom-links small">
-                    <a href="#">Գաղտնիություն</a>
-                    <a href="#">Պայմաններ</a>
+                    <a href="#" class="text-white">Գաղտնիություն</a>
+                    <a href="#" class="text-white">Պայմաններ</a>
                 </div>
             </div>
         </div>

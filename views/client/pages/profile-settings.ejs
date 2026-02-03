@@ -3,7 +3,7 @@
         <form action="/api/v1/user/updateme" method="patch" enctype="multipart/form-data" class="form-user-update manual-submit">
             <div class="row mb-3">
                 <div class="col-sm-3">
-                    <h6 class="mb-0">Անուն</h6>
+                    <h5 class="h6 mb-0">Անուն</h5>
                 </div>
                 <div class="col-sm-9 text-secondary">
                     <input type="text" name="name" class="form-control" value="<%= user.name || '' %>">
@@ -11,7 +11,7 @@
             </div>
             <div class="row mb-3">
                 <div class="col-sm-3">
-                    <h6 class="mb-0">Էլ․ փոստ</h6>
+                    <h5 class="h6 mb-0">Էլ․ փոստ</h5>
                 </div>
                 <div class="col-sm-9 text-secondary">
                     <input type="email" name="email" class="form-control" value="<%= user.email || '' %>">
@@ -19,7 +19,7 @@
             </div>
             <div class="row mb-3">
                 <div class="col-sm-3">
-                    <h6 class="mb-0">Հեռախոս</h6>
+                    <h5 class="h6 mb-0">Հեռախոս</h5>
                 </div>
                 <div class="col-sm-9 text-secondary">
                     <input type="text" name="phone" class="form-control" value="<%= user.phone || '' %>">
@@ -27,7 +27,7 @@
             </div>
             <div class="row mb-3">
                 <div class="col-sm-3">
-                    <h6 class="mb-0">Հասցե</h6>
+                    <h5 class="h6 mb-0">Հասցե</h5>
                 </div>
                 <div class="col-sm-9 text-secondary">
                     <input type="text" name="address" class="form-control" value="<%= user.address || '' %>">

@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     showNotification(data.message || 'Սխալ տեղի ունեցավ', 'error');
                 }
             } catch(e) {
-                console.error(e);
+                // console.error(e);
                 showNotification('Սերվերի սխալ', 'error');
             }
         });

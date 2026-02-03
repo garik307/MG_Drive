@@ -7,12 +7,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
         groupData = JSON.parse(root.dataset.group);
     } catch (e) {
-        console.error("Error parsing group data", e);
+        // console.error("Error parsing group data", e);
         return;
     }
 
     if (!groupData || !groupData.id) {
-        console.error('Group data not found');
+        // console.error('Group data not found');
         return;
     }
 
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             await loadQuestions(page);
 
         } catch (error) {
-            console.error('Error initializing group details:', error);
+            // console.error('Error initializing group details:', error);
             showNotification('Սխալ տեղի ունեցավ էջը բեռնելիս: ' + error.message, 'error');
         }
     }

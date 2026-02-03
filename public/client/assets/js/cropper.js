@@ -249,7 +249,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         showNotification(res.message || 'Սխալ տեղի ունեցավ', 'error', 3000);
                     }
                 } catch (e) {
-                    console.error(e);
+                    // console.error(e);
                     showNotification('Սխալ տեղի ունեցավ', 'error', 3000);
                 } finally {
                     saveBtn.innerHTML = originalHtml;

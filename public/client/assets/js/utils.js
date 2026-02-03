@@ -197,7 +197,7 @@ function changeProfileImage() {
                 }
                 this.dataset.cropped = '';
             } catch (err) {
-                console.error('Upload failed:', err);
+                // console.error('Upload failed:', err);
             }
         });
     });

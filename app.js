@@ -28,15 +28,24 @@ app.disable('x-powered-by');
 
 // 1. COMPRESSION (gzip)
 app.set('trust proxy', 1);
-app.use(compression());
+app.use(compression({
+  level: 6, // Default level is better for TTFB (speed)
+  threshold: 0,
+  filter: (req, res) => {
+    if (req.headers['x-no-compression']) {
+      return false;
+    }
+    return compression.filter(req, res);
+  }
+}));
 
-// SECURITY HEADERS
+// SECURITY HEADERS (Essential for Best Practices 100)
 app.use((req, res, next) => {
+  res.setHeader('Content-Security-Policy', "default-src 'self' https: data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://maps.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https://maps.googleapis.com https://*.firebaseio.com wss://*.firebaseio.com; frame-src 'self' https://www.google.com https://maps.googleapis.com;");
+  res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
   res.setHeader('X-Frame-Options', 'SAMEORIGIN');
-  res.setHeader('X-XSS-Protection', '1; mode=block');
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
-  res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
   res.setHeader('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
   next();
 });
@@ -44,7 +53,8 @@ app.use((req, res, next) => {
 // 2. STATIC FILES
 const staticOptions = {
   etag: true,
-  maxAge: '1y', 
+  maxAge: '1y',
+  immutable: true,
   setHeaders: res => res.setHeader('X-Content-Type-Options', 'nosniff')
 };
 

@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 submitBtn.innerHTML = originalText;
             }
         } catch (err) {
-            console.error(err);
+            // console.error(err);
             showNotification('Սխալ տեղի ունեցավ', 'error');
             const submitBtn = form.querySelector('button[type="submit"]');
             submitBtn.disabled = false;

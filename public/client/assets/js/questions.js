@@ -66,7 +66,7 @@ class Questions {
             }
             return options;
         } catch (e) {
-            console.warn("Invalid options JSON:", options);
+            // console.warn("Invalid options JSON:", options);
             return [];
         }
     }

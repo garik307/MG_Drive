@@ -1,10 +1,22 @@
 <!-- Vendor -->
 <script src="/client/vendors/js/axios.min.js" defer></script>
-<script src="/client/vendors/js/bootstrap.bundle.min.js" defer></script>
+<!-- <script src="/client/vendors/js/bootstrap.bundle.min.js" defer></script> -->
 <script src="/client/vendors/js/coreui.bundle.min.js" defer></script>
-<script src="/client/vendors/js/font_awesome.js" defer></script>
+<script defer>
+  document.addEventListener("DOMContentLoaded", function() {
+      if (typeof bootstrap === 'undefined' && typeof coreui !== 'undefined') {
+          window.bootstrap = window.coreui;
+      }
+  });
+</script>
+
+<% if (typeof nav_active !== 'undefined' && nav_active === 'home') { %>
 <script src="/client/vendors/js/swiper-bundle.min.js" defer></script>
+<% } %>
+
+<% if (typeof nav_active !== 'undefined' && ['profile', 'options', 'info'].includes(nav_active)) { %>
 <script src="/client/vendors/js/cropper.min.js" defer></script>
+<% } %>
 
 <!-- Main js -->
 <script src="/client/dist/js/main.js" defer></script>

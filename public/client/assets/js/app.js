@@ -3,28 +3,18 @@ if (!window.__clientAppInitialized) {
     const backToTop = document.getElementById('backToTop');
     const progress = document.getElementById('progress');
     const navProgress = document.querySelector('.nav_progress');
+    const nav = document.querySelector('nav');
+    const body = document.querySelector('body');
 
     function handleNavbar() {
-        let nav = document.querySelector('nav');
-        let body = document.querySelector('body');
-
         let navLinks = document.querySelectorAll('.nav_link');
         navLinks.forEach(link => {
             link.addEventListener('click', () => body.classList.remove('nav-open'));
         });
 
-        document.querySelector('body').addEventListener('click', (e) => {
+        body.addEventListener('click', (e) => {
             if (e.target.classList.contains('mobile-overlay')) {
                 body.classList.remove('nav-open');
-            }
-        });
-
-        window.addEventListener('scroll', () => {
-            // Check the vertical scroll position
-            if (window.scrollY > 700) {
-                nav.classList.add('sticky');
-            } else {
-                nav.classList.remove('sticky');
             }
         });
     }
@@ -47,29 +37,49 @@ if (!window.__clientAppInitialized) {
         }
     }
 
+    // Optimized Scroll Handler using requestAnimationFrame
+    let ticking = false;
+    function updateOnScroll() {
+        const scrollTop = window.scrollY;
+        
+        // Navbar Sticky
+        if (nav) {
+            if (scrollTop > 700) {
+                nav.classList.add('sticky');
+            } else {
+                nav.classList.remove('sticky');
+            }
+        }
 
-    if (progress) {
-        window.addEventListener('scroll', () => {
-            // Back to Top visibility
-            if (window.scrollY > 700) backToTop.classList.add('active');
-            else backToTop.classList.remove('active');
-
-            // Scroll progress
-            const scrollTop = window.scrollY;
+        // Back to Top & Progress
+        if (progress || backToTop) {
             const docHeight = document.documentElement.scrollHeight - window.innerHeight;
             const scrollPercent = (scrollTop / docHeight) * 100;
 
-            if (Math.round(scrollPercent) > 60) {
-                backToTop.style.color = '#fff';
-            } else {
-                backToTop.style.color = 'var(--primary-color)';
+            if (backToTop) {
+                if (scrollTop > 700) backToTop.classList.add('active');
+                else backToTop.classList.remove('active');
+
+                if (Math.round(scrollPercent) > 60) {
+                    backToTop.style.color = '#fff';
+                } else {
+                    backToTop.style.color = 'var(--primary-color)';
+                }
             }
 
-
-            progress.style.width = scrollPercent + "%";
+            if (progress) progress.style.width = scrollPercent + "%";
             if (navProgress) navProgress.style.width = scrollPercent + "%";
-        });
+        }
+        
+        ticking = false;
     }
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(updateOnScroll);
+            ticking = true;
+        }
+    });
 
     if (backToTop) {
         backToTop.addEventListener('click', () => {
