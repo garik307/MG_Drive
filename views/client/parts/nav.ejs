@@ -20,7 +20,7 @@
         <div class="d-flex justify-content-between align-items-center align-items-center flex-wrap gap-3">
             <div class="contact-info d-flex gap-4 my-2 d-flex flex-wrap">
                 <span><i class="fas fa-phone-alt me-2"></i><%= (typeof contact !== 'undefined' && contact?.phone) ? contact.phone : '+374 (93) 44-70-33' %></span>
-                <span class="d-none d-sm-flex"><i class="fas fa-envelope me-2"></i>artikautoschool@gmail.com</span>
+                <span class="d-none d-sm-flex"><i class="fas fa-envelope me-2"></i><%= (typeof contact !== 'undefined' && contact?.email) ? contact.email : 'artikautoschool@gmail.com' %></span>
             </div>
             <div class="social-icons d-flex gap-3 my-2 order-unordered">
                 <a href="<%= (typeof contact !== 'undefined' && contact?.facebook) ? contact.facebook : '#' %>"  target="_blank" class="text-white" aria-label="Facebook" rel="noopener noreferrer"><i class="fa-brands fa-facebook"></i></a>
