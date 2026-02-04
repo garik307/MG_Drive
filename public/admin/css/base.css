@@ -2,6 +2,10 @@ img {
     width: 100%;
 }
 
+button {
+    min-width: max-content;
+}
+
 #galleryEditImagePreview img {
     object-fit: cover;
 }

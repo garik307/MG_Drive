@@ -1,93 +1,93 @@
 <!doctype html>
 <html lang="en">
-<head><%- include('../parts/head.ejs') %></head>
-<body>
-    <%- include('../parts/navbar.ejs') %>
-    <%- include('../parts/sidebar.ejs') %>
-    <%- include('../parts/alert') %>
-    <%- include('../parts/confirm') %>
+    <head><%- include('../parts/head.ejs') %></head>
+    <body>
+        <%- include('../parts/navbar.ejs') %>
+        <%- include('../parts/sidebar.ejs') %>
+        <%- include('../parts/alert') %>
+        <%- include('../parts/confirm') %>
 
-    <main class="main-content">
-        <section id="registrations">
-            <div class="page-header">
-                <div>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="/admin">Վահանակ</a></li>
-                            <li class="breadcrumb-item active">Գրանցումներ</li>
-                        </ol>
-                    </nav>
-                    <h1 class="page-title">Գրանցված ուսանողներ</h1>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table table-hover mb-0">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Անուն</th>
-                                    <th>Ազգանուն</th>
-                                    <th>Էլ. հասցե</th>
-                                    <th>Հեռախոս</th>
-                                    <th>Փաթեթ</th>
-                                    <th>Ամսաթիվ</th>
-                                    <th class="text-end">Գործողություններ</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% if (registrations && registrations.length) { %>
-                                    <% registrations.forEach(r => { %>
-                                        <tr>
-                                            <td><%- r.id %></td>
-                                            <td><%- r.name %></td>
-                                            <td><%- r.lastname %></td>
-                                            <td><%- r.email %></td>
-                                            <td><%- r.phone %></td>
-                                            <td><%- r.packageType %></td>
-                                            <td><%- helpers.getDate(r.date, 'full') %></td>
-                                            <td class="text-end">
-                                                <form action="/api/v1/registration/<%- r.id %>" method="delete" class="d-inline">
-                                                    <button type="submit" class="btn btn-outline-danger btn-sm">
-                                                        <i class="bi bi-trash"></i>
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    <% }) %>
-                                <% } else { %>
-                                    <tr>
-                                        <td colspan="7" class="text-center text-muted py-4">Տվյալներ չկան</td>
-                                    </tr>
-                                <% } %>
-                            </tbody>
-                        </table>
+        <main class="main-content">
+            <section id="registrations">
+                <div class="page-header">
+                    <div>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/admin">Վահանակ</a></li>
+                                <li class="breadcrumb-item active">Գրանցումներ</li>
+                            </ol>
+                        </nav>
+                        <h1 class="page-title">Գրանցված ուսանողներ</h1>
                     </div>
                 </div>
-                <% if (typeof pagination !== 'undefined' && pagination.totalPages > 1) { %>
-                <div class="card-footer">
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination justify-content-center mb-0">
-                            <li class="page-item <%= pagination.page === 1 ? 'disabled' : '' %>">
-                                <a class="page-link" href="?page=<%= pagination.page - 1 %>">Նախորդ</a>
-                            </li>
-                            <% for(let i = 1; i <= pagination.totalPages; i++) { %>
-                                <li class="page-item <%= pagination.page === i ? 'active' : '' %>">
-                                    <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+
+                <div class="card">
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Անուն</th>
+                                        <th>Ազգանուն</th>
+                                        <th>Էլ. հասցե</th>
+                                        <th>Հեռախոս</th>
+                                        <th>Փաթեթ</th>
+                                        <th>Ամսաթիվ</th>
+                                        <th class="text-end">Գործողություններ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if (registrations && registrations.length) { %>
+                                        <% registrations.forEach(r => { %>
+                                            <tr>
+                                                <td><%- r.id %></td>
+                                                <td><%- r.name %></td>
+                                                <td><%- r.lastname %></td>
+                                                <td><%- r.email %></td>
+                                                <td><%- r.phone %></td>
+                                                <td><%- r.packageType %></td>
+                                                <td><%- helpers.getDate(r.date, 'full') %></td>
+                                                <td class="text-end">
+                                                    <form action="/api/v1/registration/<%- r.id %>" method="delete" class="d-inline">
+                                                        <button type="submit" class="btn btn-outline-danger btn-sm">
+                                                            <i class="bi bi-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        <% }) %>
+                                    <% } else { %>
+                                        <tr>
+                                            <td colspan="7" class="text-center text-muted py-4">Տվյալներ չկան</td>
+                                        </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <% if (typeof pagination !== 'undefined' && pagination.totalPages > 1) { %>
+                    <div class="card-footer">
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination justify-content-center mb-0">
+                                <li class="page-item <%= pagination.page === 1 ? 'disabled' : '' %>">
+                                    <a class="page-link" href="?page=<%= pagination.page - 1 %>">Նախորդ</a>
                                 </li>
-                            <% } %>
-                            <li class="page-item <%= pagination.page === pagination.totalPages ? 'disabled' : '' %>">
-                                <a class="page-link" href="?page=<%= pagination.page + 1 %>">Հաջորդ</a>
-                            </li>
-                        </ul>
-                    </nav>
+                                <% for(let i = 1; i <= pagination.totalPages; i++) { %>
+                                    <li class="page-item <%= pagination.page === i ? 'active' : '' %>">
+                                        <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+                                    </li>
+                                <% } %>
+                                <li class="page-item <%= pagination.page === pagination.totalPages ? 'disabled' : '' %>">
+                                    <a class="page-link" href="?page=<%= pagination.page + 1 %>">Հաջորդ</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <% } %>
                 </div>
-                <% } %>
-            </div>
-        </section>
-    </main>
-    <%- include('../parts/scripts.ejs') %>
-</body>
+            </section>
+        </main>
+        <%- include('../parts/scripts.ejs') %>
+    </body>
 </html>
