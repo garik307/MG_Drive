@@ -109,17 +109,30 @@ document.addEventListener('DOMContentLoaded', function () {
             const updateStars = (value) => {
                 wrappers.forEach(w => {
                     const starValue = parseInt(w.dataset.value);
-                    const solid = w.querySelector('.fa-solid');
-                    const regular = w.querySelector('.fa-regular');
+                    let solid = w.querySelector('.fa-solid, [data-prefix="fas"]');
+                    let regular = w.querySelector('.fa-regular, [data-prefix="far"]');
                     
-                    // Reset
+                    if (!solid || !regular) {
+                        const icons = w.querySelectorAll('i, svg');
+                        if (icons.length >= 2) {
+                            solid = icons[0];
+                            regular = icons[1];
+                        }
+                    }
+
                     if (solid && regular) {
                         if (starValue <= value) {
                             solid.classList.remove('d-none');
+                            solid.style.display = 'inline-block';
+                            
                             regular.classList.add('d-none');
+                            regular.style.display = 'none';
                         } else {
                             solid.classList.add('d-none');
+                            solid.style.display = 'none';
+                            
                             regular.classList.remove('d-none');
+                            regular.style.display = 'inline-block';
                         }
                     }
                 });
@@ -161,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function () {
                  });
             });
 
-            starsContainer.addEventListener('mouseout', function(e) {
+            starsContainer.addEventListener('mouseleave', function(e) {
                 updateStars(currentRating);
                 wrappers.forEach(w => w.style.transform = 'scale(1)');
             });
