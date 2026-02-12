@@ -411,12 +411,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         }
 
-        // If data is invalid (e.g. missing correct answer in DB), assume user is correct
-        // to avoid blocking progress or showing confusing UI.
+    
         const isCorrect = isDataInvalid ? true : (selectedIdx === correctIdx);
         
         if (isDataInvalid) {
-            correctIdx = selectedIdx; // Visually mark selected as correct
+            correctIdx = selectedIdx; 
         }
 
         userAnswers[globalIndex] = {

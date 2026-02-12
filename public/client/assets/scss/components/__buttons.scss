@@ -1,57 +1,87 @@
-.neon-pulse {
-    position: relative;
-    padding: 13px 20px;
+@keyframes pulse-glow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(68, 76, 247, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(68, 76, 247, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(68, 76, 247, 0);
+  }
+}
+
+
+.btn-animated {
+    padding: 15px 40px;
     font-size: 18px;
-    font-weight: 600;
-    color: #fff;
-    background: none;
-    border: none;
-    cursor: pointer;
-    overflow: hidden;
-    transition: all .3s ease;
+    font-weight: 500;
     border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out !important;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
     z-index: 1;
-    background: #000;
-    border: 4px solid rgb(64, 106, 255);
-    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
-    background: #57C785;
-    background-size: 200% auto;
-    background-image: linear-gradient(to right, #1822e9 0%, #6e75f9  50%, #000bd8  100%);
-    overflow: visible;
-
-    &::before,
-    &::after {
-        content: "";
-        position: absolute;
-        inset: -4px;
-        border: 2px solid rgb(64, 106, 255);
-        border-radius: inherit;
-        animation: pulseOut 2s ease-out infinite;
-        opacity: 0;
+    outline: none;
+    // Filled Button (Background)
+    &.btn-primary {
+        background: var(--bacground-gradient);
+        color: var(--color-white);
+        box-shadow: 0 4px 15px rgba(68, 76, 247, 0.4);
+        animation: pulse-glow 2s infinite;
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, #1822e9, #444cf7);
+            z-index: -1;
+            transition: opacity 0.3s ease-in-out;
+            opacity: 0;
+        }
+    
+        &:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(68, 76, 247, 0.5);
+            
+            &::before {
+                opacity: 1;
+            }
+        }
+    
+        // Ripple effect or shine
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+    
+        &:hover::after {
+            left: 100%;
+        }
     }
-
-    &::after {
-        animation-delay: 1s;
-    }
-    &:hover {
-        background-size: 400px;
-        background-position: right center;
-    }
-    &:active {
-        transform: scale(0.9);
+    
+    // Outline/Transparent Button
+    &.btn-outline {
+        background: transparent;
+        color: var(--color-primary);
+        border: 2px solid var(--color-primary);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        &:hover {
+            background: var(--color-primary);
+            color: var(--color-white);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(68, 76, 247, 0.3);
+        }
     }
 }
-
-@keyframes pulseOut {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-    }
-
-    100% {
-        transform: scale(1.2);
-        opacity: 0;
-    }
-}
-
-

@@ -127,7 +127,6 @@ class Questions {
     }
 }
 
-// ==========================
 const selectQuestionTest = document.querySelector('#select_tests');
 const selectQuestionGroup = document.querySelector('#select_groups');
 
