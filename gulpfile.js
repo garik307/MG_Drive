@@ -16,7 +16,11 @@ const purgeSafelist = [
     'show', 'active', 'fade', 'collapse', 'collapsing', 'modal-backdrop', 'modal-open',
     /^nav-/, /^dropdown-/, /^modal-/, /^btn-/, /^text-/, /^bg-/, /^col-/, /^row/, /^container/,
     /^d-/, /^m-/, /^p-/, /^align-/, /^justify-/, /^display-/, /^position-/,
-    /^swiper/, /^lg-/, /^cropper-/
+    /^swiper/, /^lg-/, /^cropper-/,
+    // Notifications (dynamic classes used in JS)
+    'notification', 'notification-container', 'notification-content', 'notification-close', 'notification-progress',
+    'notification-success', 'notification-warning', 'notification-error', 'notification-danger', 'notification-info',
+    'notification-confirm'
 ];
 
 // ✅ Vendor CSS (Purge CoreUI)

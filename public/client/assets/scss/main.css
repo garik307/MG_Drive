@@ -673,28 +673,28 @@ section {
 }
 .notification.notification-success {
   border-left-color: #2DCE89;
-  background: #fff;
+  background: rgba(45, 206, 137, 0.1);
 }
 .notification.notification-success .notification-icon {
   color: #2DCE89;
 }
 .notification.notification-warning {
   border-left-color: #FB6340;
-  background: #fff;
+  background: rgba(251, 99, 64, 0.12);
 }
 .notification.notification-warning .notification-icon {
   color: #FB6340;
 }
 .notification.notification-error, .notification.notification-danger {
   border-left-color: #F5365C;
-  background: #fff;
+  background: rgba(245, 54, 92, 0.12);
 }
 .notification.notification-error .notification-icon, .notification.notification-danger .notification-icon {
   color: #F5365C;
 }
 .notification.notification-info {
   border-left-color: #11CDEF;
-  background: #fff;
+  background: rgba(17, 205, 239, 0.1);
 }
 .notification.notification-info .notification-icon {
   color: #11CDEF;

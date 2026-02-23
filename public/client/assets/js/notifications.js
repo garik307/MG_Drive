@@ -21,11 +21,22 @@ class NotificationManager {
             duration = 5000;
         }
 
-        // Determine icon based on type
         let icon = 'fa-circle-info';
-        if (type === 'success') icon = 'fa-circle-check';
-        else if (type === 'danger' || type === 'error') icon = 'fa-circle-exclamation';
-        else if (type === 'warning') icon = 'fa-triangle-exclamation';
+        let color = '#11CDEF';
+        let bg = '#fff';
+        if (type === 'success') {
+            icon = 'fa-circle-check';
+            color = '#2DCE89';
+            bg = '#ffff';
+        } else if (type === 'danger' || type === 'error') {
+            icon = 'fa-circle-exclamation';
+            color = '#F5365C';
+            bg = '#fff';
+        } else if (type === 'warning') {
+            icon = 'fa-triangle-exclamation';
+            color = '#FB6340';
+            bg = '#fff';
+        }
 
         const notification = document.createElement('div');
         notification.className = `notification notification-${type}`;
@@ -39,7 +50,11 @@ class NotificationManager {
             <div class="notification-progress"></div>
         `;
 
-        // Close button
+        notification.style.borderLeftColor = color;
+        notification.style.background = bg;
+        const iconEl = notification.querySelector('.notification-icon');
+        if (iconEl) iconEl.style.color = color;
+
         notification.querySelector('.notification-close').addEventListener('click', () => {
             this.hide(notification);
         });
@@ -184,7 +199,6 @@ function showModalConfirm({ title = 'Հաստատում', message = '', confirmT
 
             overlay.addEventListener('transitionend', removeOverlay, { once: true });
             
-            // Safety timeout in case transitionend doesn't fire
             setTimeout(removeOverlay, 400);
         };
 

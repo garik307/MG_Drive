@@ -140,7 +140,7 @@ section {
   // Success
   &.notification-success {
     border-left-color: #2DCE89;
-    background: #fff;
+    background: rgba(45, 206, 137, 0.1);
 
     .notification-icon {
       color: #2DCE89;
@@ -150,7 +150,7 @@ section {
   // Warning
   &.notification-warning {
     border-left-color: #FB6340;
-    background: #fff;
+    background: rgba(251, 99, 64, 0.12);
 
     .notification-icon {
       color: #FB6340;
@@ -160,7 +160,7 @@ section {
   // Error
   &.notification-error, &.notification-danger {
     border-left-color: #F5365C;
-    background: #fff;
+    background: rgba(245, 54, 92, 0.12);
 
     .notification-icon {
       color: #F5365C;
@@ -170,7 +170,7 @@ section {
   // Info (Default)
   &.notification-info {
     border-left-color: #11CDEF;
-    background: #fff;
+    background: rgba(17, 205, 239, 0.1);
 
     .notification-icon {
       color: #11CDEF;
