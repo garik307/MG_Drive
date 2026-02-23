@@ -40,7 +40,21 @@ export default class Confirm {
 
         this.okBtn.className = `btn ${okClass}`;
 
+        // Dynamic z-index so it appears above the current modal
+        const openModals = document.querySelectorAll('.modal.show').length;
+        const base = 1050; // Bootstrap modal base z-index
+        const zIndex = base + (openModals + 1) * 20;
+        this.modalEl.style.zIndex = String(zIndex);
+
         this.modal.show();
+
+        // Raise backdrop too
+        // Pick the last backdrop created by Bootstrap
+        const backdrops = document.querySelectorAll('.modal-backdrop');
+        const backdrop = backdrops[backdrops.length - 1];
+        if (backdrop) {
+            backdrop.style.zIndex = String(zIndex - 10);
+        }
 
         return new Promise(resolve => {
             this.resolver = resolve;

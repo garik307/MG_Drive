@@ -50,5 +50,13 @@ module.exports = {
         } catch (e) {
             return next(e);
         }
+    },
+    deleteQuestionImage: async (req, res, next) => {
+        try {
+            await questionService.deleteImage(req.params.id);
+            res.status(200).json({ message: 'Նկարը հաջողությամբ ջնջվեց' });
+        } catch (e) {
+            return next(e);
+        }
     }
 }

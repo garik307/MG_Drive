@@ -24,6 +24,7 @@ module.exports = {
   save: async (question) => question.save(),
 
   findFileByRowId: async (rowId) => File.findOne({ where: { row_id: rowId } }),
+  findFileByRowIdAndName: async (rowId, name_used) => File.findOne({ where: { row_id: rowId, table_name: 'questions', name_used } }),
   destroyById: async (id) => Question.destroy({ where: { id } }),
   destroyFileById: async (id) => File.destroy({ where: { id } }),
 

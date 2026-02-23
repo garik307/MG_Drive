@@ -322,7 +322,15 @@ function initEditModal() {
              const foundImage = Array.isArray(q.files) ? q.files.find(file => file.name_used === "question_img") : null;
              if(foundImage) {
                  const src = `../images/questions/large/${foundImage.name}.${foundImage.ext}`;
-                 editImagePreview.innerHTML = `<img src="${src}" class="img-fluid rounded mb-2" style="max-height:250px;"><hr>`;
+                 editImagePreview.innerHTML = `
+                    <img src="${src}" class="img-fluid rounded mb-2" style="max-height:250px;">
+                    <div class="d-flex justify-content-end gap-2">
+                        <button type="button" class="btn btn-sm btn-outline-danger" data-act="delete-image" data-qid="${q.id}">
+                            <i class="bi bi-trash me-1"></i> Ջնջել նկարը
+                        </button>
+                    </div>
+                    <hr>
+                 `;
              }
         }
 
@@ -339,6 +347,39 @@ function initEditModal() {
         updateIndexes();
 
         new bootstrap.Modal(editModalEl).show();
+    });
+
+    // Delete image (from edit modal)
+    editImagePreview.addEventListener('click', async (e) => {
+        const btn = e.target.closest('[data-act="delete-image"]');
+        if (!btn) return;
+        const qid = btn.dataset.qid;
+        const confirm = new Confirm();
+        const yes = await confirm.open({
+            title: 'Ջնջե՞լ նկարը',
+            message: 'Նկարը կմոռացվի բացայից և ֆայլերից։ Շարունակե՞լ։',
+            okText: 'Ջնջել',
+            cancelText: 'Չեղարկել',
+            okClass: 'btn-danger'
+        });
+        if (!yes) return;
+        try {
+            const res = await axios({ url: `/api/v1/question/${qid}/image`, method: 'DELETE' });
+            if (res && res.status === 200) {
+                showNotification('Նկարը հաջողությամբ ջնջվեց', 'success');
+                editImagePreview.innerHTML = '';
+                // Update in-memory data
+                const idx = window.allQuestions.findIndex(item => String(item.id) === String(qid));
+                if (idx >= 0 && Array.isArray(window.allQuestions[idx].files)) {
+                    window.allQuestions[idx].files = window.allQuestions[idx].files.filter(f => f.name_used !== 'question_img');
+                }
+            } else {
+                showNotification('Չհաջողվեց ջնջել նկարը', 'error');
+            }
+        } catch (e) {
+            const msg = e?.response?.data?.message || 'Սերվերի սխալ';
+            showNotification(msg, 'error');
+        }
     });
 
     // DELEGATION: Delete Question

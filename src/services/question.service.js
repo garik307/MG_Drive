@@ -148,4 +148,26 @@ async function remove(id) {
   return true;
 }
 
-module.exports = { add, listNormalized, update, remove };
+async function deleteImage(id) {
+  const fs = require('fs');
+  const path = require('path');
+  const question = await repo.findByIdWithFiles(id);
+  if (!question) throw new AppError('Question not found.', 404);
+  const file = await repo.findFileByRowIdAndName(question.id, 'question_img');
+  if (!file) throw new AppError('Նկար չկա կամ արդեն ջնջված է', 404);
+  
+  const sizes = ['small', 'large'];
+  for (const size of sizes) {
+    const filePath = path.resolve(process.cwd(), 'public', 'images', 'questions', size, `${file.name}.${file.ext}`);
+    try {
+      if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+    } catch (e) {
+      // continue even if one size missing
+    }
+  }
+  await repo.destroyFileById(file.id);
+  await cache.del(QUESTIONS_ALL_KEY);
+  return true;
+}
+
+module.exports = { add, listNormalized, update, remove, deleteImage };

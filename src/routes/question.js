@@ -10,4 +10,6 @@ router.route('/:id')
     .patch(ctrls.auth.protect, ctrls.auth.restrictTo('admin'), ctrls.question.updateQuestion)
     .delete(ctrls.auth.protect, ctrls.auth.restrictTo('admin'), ctrls.question.deleteQuestion)
 
+router.delete('/:id/image', ctrls.auth.protect, ctrls.auth.restrictTo('admin'), ctrls.question.deleteQuestionImage);
+
 module.exports = router;
