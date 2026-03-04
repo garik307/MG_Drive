@@ -3,7 +3,6 @@ module.exports = function server(app) {
     DB.con
         .sync({ alter: false })
         .then(async (res) => {
-            // await ensureQuestionNumberColumn();
             const port = process.env.PORT || 3300;
             const server = app.listen(port, () => console.log(`App running on port ${port}...`));
  

@@ -67,11 +67,11 @@
                         <span
                             class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill border border-success border-opacity-25 d-flex align-items-center gap-2 me-2">
                             <% 
-                                        let roleLabel = 'Օգտվող';
-                                        if (user.role === 'student') roleLabel = 'Ակտիվ Ուսանող';
-                                        else if (user.role === 'admin') roleLabel = 'Ադմինիստրատոր';
-                                        else if (user.role === 'team-member') roleLabel = 'Թիմի անդամ';
-                                    %>
+                                let roleLabel = 'Օգտվող';
+                                if (user.role === 'student') roleLabel = 'Ակտիվ Ուսանող';
+                                else if (user.role === 'admin') roleLabel = 'Ադմինիստրատոր';
+                                else if (user.role === 'team-member') roleLabel = 'Թիմի անդամ';
+                            %>
                             <i class="fa-solid fa-circle fa-2xs"></i> <%= roleLabel %>
                         </span>
                         <% } %>
@@ -87,8 +87,7 @@
                                 style="min-width: 200px;">
                                 <% if(user.role === 'admin') { %>
                                 <li>
-                                    <a href="/admin"
-                                        class="dropdown-item rounded-3 py-2 d-flex align-items-center gap-2 fw-medium mb-1">
+                                    <a href="/admin" class="dropdown-item rounded-3 py-2 d-flex align-items-center gap-2 fw-medium mb-1">
                                         <i class="fa-solid fa-gauge text-primary"></i> Admin Panel
                                     </a>
                                 </li>

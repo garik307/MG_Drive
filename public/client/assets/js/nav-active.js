@@ -11,9 +11,14 @@ document.addEventListener("DOMContentLoaded", function() {
         if (href === currentPath) {
             link.classList.add('active');
         } 
-        // Handle sub-paths (e.g. /groups/123 should activate /groups)
         else if (href !== '/' && href !== '#' && currentPath.startsWith(href)) {
              link.classList.add('active');
         }
+    });
+
+    const navIcon = document.getElementById("hamburgetButton");
+
+    navIcon.addEventListener("click", function () {
+        this.classList.toggle("open");
     });
 });

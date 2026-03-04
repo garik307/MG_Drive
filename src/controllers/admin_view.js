@@ -114,7 +114,7 @@ exports.getDashboard = async (req, res) => {
                 growth: 0,
                 testGrowth: 0,
                 groupGrowth: 0,
-                status: 'stagnant', // improving, stagnant, risk
+                status: 'stagnant', 
                 history: []
             };
         });

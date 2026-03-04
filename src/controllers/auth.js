@@ -26,7 +26,6 @@ const createSendToken = async (user, statusCode, req, res, target = false) => {
         expiresIn: jwtExpire + 'd'
     });
 
-    // Set cookie options for JWT token
     const isHttps = req.secure || req.headers['x-forwarded-proto'] === 'https';
     const cookieOptions = {
         expires: new Date(Date.now() + jwtExpire * 24 * 60 * 60 * 1000),
@@ -36,19 +35,15 @@ const createSendToken = async (user, statusCode, req, res, target = false) => {
         secure: process.env.NODE_ENV === 'production' ? Boolean(isHttps) : false
     }
 
-    // Attach JWT token to response as cookie
     res.cookie('jwt', token, cookieOptions);
 
-    // Attach JWT token to response local variable
     res.locals.token = token;
 
-    // Conditionally handle API response or redirect
     if (!target) {
-        // Remove sensitive data from user object
         user.password = undefined;
         user.deleted = undefined;
 
-        // Send response as JSON containing status, response time, JWT token and user data
+        // Send response 
         res.status(statusCode).json({
             status: 'success',
             time: (Date.now() - req.time) + ' ms',
@@ -69,9 +64,8 @@ const logOutUser = (res) => {
 };
 
 module.exports = {
-    // SignUp method, wrapped in catchAsync to handle exceptions
     signUp: catchAsync(async (req, res, next) => {
-        // 1. Validation Layer (DTO)
+        // 1. Validation
         const validator = new Validator(req.body);
         validator
             .required('email', 'Email')
@@ -82,11 +76,6 @@ module.exports = {
             .phone('phone')
             .required('name', 'Name')
             .validate();
-
-        // 2. Optimistic Concurrency Control (No pre-checks)
-        // We rely on DB unique constraints to catch duplicates.
-        // This saves 2 round-trip queries per request.
-        
         try {
             const user = await User.create({
                 name: req.body.name,
@@ -110,7 +99,6 @@ module.exports = {
             });
 
         } catch (err) {
-            // Handle unique constraint violation
             if (err.name === 'SequelizeUniqueConstraintError') {
                 const field = err.errors?.[0]?.path;
                 const msg = field === 'phone' 
@@ -120,7 +108,7 @@ module.exports = {
                 return next(new AppError(msg, 409, code));
             }
 
-            // Handle validation errors from Sequelize
+            // Handle validation
             if (err.name === 'SequelizeValidationError') {
                  const messages = err.errors.map(e => e.message);
                  return next(new AppError(`Validation Error: ${messages.join('. ')}`, 400, 'VALIDATION_ERROR'));
@@ -190,18 +178,17 @@ module.exports = {
         }
     }),
     logOut: catchAsync(async (req, res, next) => {
-        // Set cookie expiry to 2 seconds from now
+        // Set cookie
         res.cookie('jwt', 'loggedout', {
             expires: new Date(Date.now() + 500),
             httpOnly: true
         });
 
-        // If request accepts HTML (browser form submit), redirect to home
+        // If request accepts 
         if (req.headers.accept && req.headers.accept.includes('text/html')) {
             return res.redirect('/');
         }
 
-        // Return success response for API clients
         res.status(200).json({
             status: 'success',
             message: 'Օգտատերը դուրս է եկել հաշվից',
@@ -218,7 +205,7 @@ module.exports = {
         // 2. Check if user exists && password is correct
         const user = await User.findOne({ where: { email } });
 
-        // Generic error message for security
+        // Generic error
         const authErr = new AppError('Սխալ էլ․ հասցե կամ գաղտնաբառ', 401);
 
         if (!user) return next(authErr);
@@ -239,10 +226,10 @@ module.exports = {
         });
     }),
     logout: async (req, res) => {
-        // Call helper function to clear cookies and log out user
+        // Call helper function 
         logOutUser(res);
 
-        // Return success message in JSON format with 200 OK status code
+        // Return success
         res.status(200).json({
             status: 'success',
             message: 'Your successfully logged out!'
@@ -307,7 +294,7 @@ module.exports = {
             }
         });
 
-        // 2) If token has not expired, and there is user, set the new password
+        // 2) If token has not expired
         if (!user) return next(new AppError('Token is invalid or has expired', 401));
 
         user.password = req.body.password;
@@ -315,9 +302,6 @@ module.exports = {
         user.passwordResetExpires = null;
         await user.save();
 
-        // // 3) Update changedPasswordAt property for the user (hook) // 4) Log the
-        // user in, send JWT createSendToken(user, 200, req, res);
-        // createSendToken(user, 200, req, res, true);
         res.status(200).json({
             status: 'success',
             message: 'Գաղտնաբառը հաջողությամբ վերականգնվեց'
@@ -329,10 +313,6 @@ module.exports = {
 
         if (req.cookies.jwt) {
             try {
-                // Logout user by X-RateLimit-Remaining
-                if (res.getHeader('x-ratelimit-remaining') == 0) {
-                    // logoutUser(res);
-                }
                 // 1) verify token
                 const decoded = jwt.verify(req.cookies.jwt, process.env.JWT_SECRET);
 
